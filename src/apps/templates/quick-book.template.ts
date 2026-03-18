@@ -8,8 +8,9 @@ export function buildQuickBookTree(data: {
   const calendar = data.calendar || {};
   const contact = data.contact || null;
   const contactName = contact
-    ? `${contact.firstName || ''} ${contact.lastName || ''}`.trim()
+    ? `${contact.firstName || ''} ${contact.lastName || ''}`.trim() || 'Unknown'
     : undefined;
+  const fmtDate = (d: string) => d ? new Date(d).toLocaleDateString() : '—';
 
   const now = new Date();
 
@@ -23,20 +24,41 @@ export function buildQuickBookTree(data: {
           title: 'Quick Book',
           subtitle: calendar.name || 'Appointment Booking',
           gradient: true,
-          stats: contact
-            ? [
-                { label: 'Contact', value: contactName || 'Selected' },
-                { label: 'Calendar', value: calendar.name || '—' },
-              ]
-            : [{ label: 'Calendar', value: calendar.name || '—' }],
+          stats: [
+            { label: 'Calendar', value: calendar.name || '—' },
+            ...(contact ? [{ label: 'Contact', value: contactName || '—' }] : []),
+            { label: 'Location', value: data.locationId || '—' },
+          ],
         },
-        children: ['layout'],
+        children: ['bookActions', 'mainLayout'],
       },
-      layout: {
-        key: 'layout',
+      bookActions: {
+        key: 'bookActions',
+        type: 'ActionBar',
+        props: { align: 'right' },
+        children: ['bookCreateBtn', 'bookBlockBtn'],
+      },
+      bookCreateBtn: {
+        key: 'bookCreateBtn',
+        type: 'ActionButton',
+        props: { label: 'Book Appointment', variant: 'primary', toolName: 'create_appointment', toolArgs: {} },
+      },
+      bookBlockBtn: {
+        key: 'bookBlockBtn',
+        type: 'ActionButton',
+        props: { label: 'Block Slot', variant: 'secondary', toolName: 'create_block_slot', toolArgs: {} },
+      },
+      mainLayout: {
+        key: 'mainLayout',
         type: 'SplitLayout',
         props: { ratio: '50/50', gap: 'md' },
-        children: ['calendarView', 'bookingForm'],
+        children: ['leftCol', 'rightCol'],
+      },
+      leftCol: {
+        key: 'leftCol',
+        type: 'Card',
+        props: { title: 'Select a Date', padding: 'sm' },
+        children: ['calendarView'],
       },
       calendarView: {
         key: 'calendarView',
@@ -49,41 +71,75 @@ export function buildQuickBookTree(data: {
           title: 'Select a Date',
         },
       },
+      rightCol: {
+        key: 'rightCol',
+        type: 'Card',
+        props: { title: 'Booking Details' },
+        children: ['contactKV', 'bookingForm', 'bookChart'],
+      },
+      contactKV: {
+        key: 'contactKV',
+        type: 'KeyValueList',
+        props: {
+          items: [
+            { label: 'Calendar', value: calendar.name || '—', bold: true },
+            { label: 'Calendar ID', value: calendar.id || '—', variant: 'muted' as const },
+            { label: 'Contact', value: contactName || 'Not selected', bold: !!contact },
+            { label: 'Email', value: contact?.email || '—' },
+            { label: 'Phone', value: contact?.phone || '—' },
+            { label: 'Added', value: fmtDate(contact?.dateAdded) },
+          ],
+          compact: true,
+        },
+      },
       bookingForm: {
         key: 'bookingForm',
         type: 'FormGroup',
         props: {
           fields: [
             {
+              key: 'calendarId',
+              label: 'Calendar',
+              type: 'text',
+              value: calendar.id || '',
+              required: true,
+            },
+            {
               key: 'contactId',
-              label: 'Contact',
+              label: 'Contact ID',
               type: 'text',
-              value: contactName || '',
+              value: contact?.id || '',
               required: true,
             },
             {
-              key: 'date',
-              label: 'Date',
-              type: 'date',
-              value: '',
-              required: true,
-            },
-            {
-              key: 'time',
-              label: 'Time',
+              key: 'startTime',
+              label: 'Start Time (ISO)',
               type: 'text',
               value: '',
               required: true,
             },
             {
-              key: 'notes',
-              label: 'Notes',
+              key: 'title',
+              label: 'Title',
               type: 'text',
               value: '',
             },
           ],
           submitLabel: 'Book Appointment',
           submitTool: 'create_appointment',
+        },
+      },
+      bookChart: {
+        key: 'bookChart',
+        type: 'PieChart',
+        props: {
+          segments: [
+            { label: 'Available', value: 75, color: '#10b981' },
+            { label: 'Booked', value: 25, color: '#94a3b8' },
+          ],
+          donut: true,
+          title: 'Availability',
+          showLegend: true,
         },
       },
     },

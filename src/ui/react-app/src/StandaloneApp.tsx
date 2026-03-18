@@ -11,6 +11,7 @@ import { UITreeRenderer } from "./renderer/UITreeRenderer.js";
 import type { UITree } from "./types.js";
 import "./styles/base.css";
 import "./styles/interactive.css";
+import "./styles/premium.css";
 
 function getPreInjectedTree(): UITree | null {
   try {

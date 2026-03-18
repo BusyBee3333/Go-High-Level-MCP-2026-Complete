@@ -1,0 +1,270 @@
+/**
+ * MCP UI Kit — Premium Visual Upgrades
+ * Layered on top of base.css for enhanced polish.
+ */
+
+/* ─── Enhanced Base ───────────────────────────────────── */
+body {
+  background: #fafbfc;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+
+#app, #root { padding: 8px; }
+
+/* ─── Premium Page Header ─────────────────────────────── */
+.page-header-gradient {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.25), 0 1px 3px rgba(0,0,0,0.1);
+}
+.page-header-title-light { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+.page-header-subtitle-light { font-size: 11px; opacity: 0.7; margin-top: 3px; }
+
+.page-header {
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+}
+.page-header-title { font-size: 16px; letter-spacing: -0.02em; }
+
+/* ─── Premium Cards ───────────────────────────────────── */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+  margin-bottom: 10px;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.03);
+}
+.card-header {
+  padding: 10px 14px;
+}
+.card-title { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+
+/* ─── Premium Metric Cards ────────────────────────────── */
+.metric-card {
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.metric-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.metric-card:hover::before { opacity: 1; }
+
+.metric-value { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; }
+.metric-label { font-size: 11px; color: #6b7280; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+.metric-trend { font-size: 12px; font-weight: 600; margin-top: 6px; }
+
+/* Color-specific metric accents */
+.metric-green { color: #059669; }
+.metric-card:has(.metric-green)::before { background: linear-gradient(90deg, #10b981, #059669); }
+.metric-blue { color: #2563eb; }
+.metric-card:has(.metric-blue)::before { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+.metric-purple { color: #7c3aed; }
+.metric-card:has(.metric-purple)::before { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
+.metric-yellow { color: #d97706; }
+.metric-card:has(.metric-yellow)::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+.metric-red { color: #dc2626; }
+.metric-card:has(.metric-red)::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
+
+/* ─── Premium Data Table ──────────────────────────────── */
+.data-table-wrap {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+  overflow: hidden;
+}
+.data-table { font-size: 13px; }
+.data-table th {
+  padding: 10px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  background: #f8f9fb;
+}
+.data-table td { padding: 10px 14px; }
+.data-table tr { transition: background 0.1s; }
+.data-table tr:hover { background: #f0f4ff !important; }
+
+.avatar {
+  width: 34px; height: 34px;
+  font-size: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.tag {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Premium Status Badges ───────────────────────────── */
+.status-badge {
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Premium Progress Bar ────────────────────────────── */
+.progress-track {
+  height: 10px;
+  border-radius: 5px;
+  background: #f0f1f3;
+}
+.progress-bar {
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* ─── Premium Kanban ──────────────────────────────────── */
+.kanban-col {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+}
+.kanban-card {
+  border-radius: 10px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.15s;
+}
+.kanban-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  border-color: #4f46e5;
+}
+.kanban-card-title { font-size: 13px; font-weight: 600; }
+
+/* ─── Premium Key-Value List ──────────────────────────── */
+.kv-list {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+}
+.kv-row { padding: 12px 16px; }
+.kv-label { font-size: 13px; }
+.kv-value { font-size: 13px; }
+.kv-total {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-radius: 0 0 12px 12px;
+}
+
+/* ─── Premium Buttons ─────────────────────────────────── */
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: all 0.15s ease;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4338ca, #3730a3);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ─── Premium Search Bar ──────────────────────────────── */
+.search-input {
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* ─── Premium Charts ──────────────────────────────────── */
+.chart-container {
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+}
+.chart-title { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+
+/* ─── Premium Card Grid ───────────────────────────────── */
+.card-grid-item {
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-grid-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+/* ─── Premium Timeline ────────────────────────────────── */
+.timeline-dot {
+  box-shadow: 0 0 0 3px white, 0 0 0 4px #e5e7eb;
+}
+.timeline-title { font-size: 14px; font-weight: 600; }
+
+/* ─── Premium Sections ────────────────────────────────── */
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #111827;
+}
+
+/* ─── Premium Empty State ─────────────────────────────── */
+.empty-state {
+  padding: 48px 20px;
+  background: linear-gradient(135deg, #f8f9fb, #f0f2f5);
+  border-radius: 12px;
+  border: 1px dashed #d1d5db;
+}
+.empty-icon { font-size: 40px; opacity: 0.6; }
+
+/* ─── Smooth Scrollbar ────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* ─── Selection Color ─────────────────────────────────── */
+::selection { background: rgba(79, 70, 229, 0.15); }
+
+/* ─── Premium Filter Chips ────────────────────────────── */
+.chip {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.chip-active {
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.2);
+}
+
+/* ─── Premium Tab Group ───────────────────────────────── */
+.tab {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: all 0.15s;
+}
+.tab-active {
+  color: #4f46e5;
+  border-bottom-color: #4f46e5;
+  border-bottom-width: 3px;
+}

@@ -5,16 +5,18 @@ export function buildOpportunityCardTree(data: any): UITree {
   const contact = opp.contact || {};
   const contactName = contact.name || `${contact.firstName || ''} ${contact.lastName || ''}`.trim() || 'Unknown';
   const monetaryValue = opp.monetaryValue || 0;
+  const fmt = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
+  const fmtDate = (d: string) => d ? new Date(d).toLocaleDateString() : '—';
 
   const kvItems = [
     { label: 'Contact', value: contactName },
     { label: 'Email', value: contact.email || '—' },
     { label: 'Phone', value: contact.phone || '—' },
-    { label: 'Value', value: `$${Number(monetaryValue).toLocaleString()}`, bold: true },
+    { label: 'Value', value: fmt(monetaryValue), bold: true },
     { label: 'Status', value: (opp.status || 'open').charAt(0).toUpperCase() + (opp.status || 'open').slice(1) },
     { label: 'Source', value: opp.source || '—' },
-    { label: 'Created', value: opp.createdAt ? new Date(opp.createdAt).toLocaleDateString() : '—' },
-    { label: 'Updated', value: opp.updatedAt ? new Date(opp.updatedAt).toLocaleDateString() : '—' },
+    { label: 'Created', value: fmtDate(opp.createdAt) },
+    { label: 'Updated', value: fmtDate(opp.updatedAt) },
   ];
 
   // Build timeline from available data
@@ -23,7 +25,7 @@ export function buildOpportunityCardTree(data: any): UITree {
     timelineEvents.push({
       id: 'created',
       title: 'Opportunity Created',
-      description: `Created with value $${Number(monetaryValue).toLocaleString()}`,
+      description: `Created with value ${fmt(monetaryValue)}`,
       timestamp: new Date(opp.createdAt).toLocaleString(),
       icon: 'system',
       variant: 'default',
@@ -50,6 +52,12 @@ export function buildOpportunityCardTree(data: any): UITree {
     });
   }
 
+  // Value comparison bar chart
+  const valueBars = [
+    { label: 'Deal Value', value: monetaryValue, color: '#3b82f6' },
+  ];
+  if (opp.expectedValue) valueBars.push({ label: 'Expected', value: opp.expectedValue, color: '#10b981' });
+
   const elements: UITree['elements'] = {
     page: {
       key: 'page',
@@ -57,22 +65,69 @@ export function buildOpportunityCardTree(data: any): UITree {
       props: {
         title: opp.name || 'Untitled Opportunity',
         subtitle: contactName,
-        entityId: opp.id,
+        entityId: opp.id || '—',
         status: opp.status || 'open',
         statusVariant: opp.status || 'open',
       },
-      children: ['layout'],
+      children: ['actions', 'layout'],
+    },
+    actions: {
+      key: 'actions',
+      type: 'ActionBar',
+      props: { align: 'right' },
+      children: ['editBtn', 'statusBtn'],
+    },
+    editBtn: {
+      key: 'editBtn',
+      type: 'ActionButton',
+      props: {
+        label: 'Edit',
+        variant: 'secondary',
+        size: 'sm',
+        toolName: 'update_opportunity',
+        toolArgs: { opportunityId: opp.id || '' },
+      },
+    },
+    statusBtn: {
+      key: 'statusBtn',
+      type: 'ActionButton',
+      props: {
+        label: opp.status === 'won' ? 'Reopen' : 'Mark Won',
+        variant: 'primary',
+        size: 'sm',
+        toolName: 'update_opportunity',
+        toolArgs: {
+          opportunityId: opp.id || '',
+          status: opp.status === 'won' ? 'open' : 'won',
+        },
+      },
     },
     layout: {
       key: 'layout',
       type: 'SplitLayout',
       props: { ratio: '50/50', gap: 'md' },
-      children: ['details', 'rightCol'],
+      children: ['leftCol', 'rightCol'],
+    },
+    leftCol: {
+      key: 'leftCol',
+      type: 'Card',
+      props: { title: 'Opportunity Details' },
+      children: ['details', 'valueChart'],
     },
     details: {
       key: 'details',
       type: 'KeyValueList',
       props: { items: kvItems, compact: true },
+    },
+    valueChart: {
+      key: 'valueChart',
+      type: 'BarChart',
+      props: {
+        bars: valueBars,
+        orientation: 'horizontal',
+        showValues: true,
+        title: 'Deal Value',
+      },
     },
     rightCol: {
       key: 'rightCol',
@@ -80,20 +135,11 @@ export function buildOpportunityCardTree(data: any): UITree {
       props: { title: 'Activity', padding: 'sm' },
       children: ['timeline'],
     },
-  };
-
-  if (timelineEvents.length > 0) {
-    elements.timeline = {
-      key: 'timeline',
-      type: 'Timeline',
-      props: { events: timelineEvents },
-    };
-  } else {
-    elements.timeline = {
+    timeline: {
       key: 'timeline',
       type: 'Timeline',
       props: {
-        events: [
+        events: timelineEvents.length > 0 ? timelineEvents : [
           {
             id: 'placeholder',
             title: 'No activity recorded',
@@ -103,33 +149,8 @@ export function buildOpportunityCardTree(data: any): UITree {
           },
         ],
       },
-    };
-  }
-
-  // Add action bar
-  elements.actions = {
-    key: 'actions',
-    type: 'ActionBar',
-    props: { align: 'right' },
-    children: ['editBtn', 'statusBtn'],
-  };
-  elements.editBtn = {
-    key: 'editBtn',
-    type: 'ActionButton',
-    props: { label: 'Edit', variant: 'secondary', size: 'sm' },
-  };
-  elements.statusBtn = {
-    key: 'statusBtn',
-    type: 'ActionButton',
-    props: {
-      label: opp.status === 'won' ? 'Reopen' : 'Mark Won',
-      variant: 'primary',
-      size: 'sm',
     },
   };
-
-  // Add actions to page children
-  elements.page.children!.push('actions');
 
   return { root: 'page', elements };
 }

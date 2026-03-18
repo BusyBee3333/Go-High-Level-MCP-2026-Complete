@@ -21,6 +21,7 @@ import { mergeUITrees } from "./utils/mergeUITrees.js";
 import type { UITree } from "./types.js";
 import "./styles/base.css";
 import "./styles/interactive.css";
+import "./styles/premium.css";
 
 // ─── Parse UI Tree from tool result ─────────────────────────
 

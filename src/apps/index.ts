@@ -24,6 +24,29 @@ import {
   buildContactTimelineTree,
   buildWorkflowStatusTree,
   buildDashboardTree,
+  buildConversationInboxTree,
+  buildPhoneLogTree,
+  buildCourseManagerTree,
+  buildStoreFrontTree,
+  buildPaymentDashboardTree,
+  buildSocialMediaHubTree,
+  buildReputationMonitorTree,
+  buildFunnelBuilderTree,
+  buildFormManagerTree,
+  buildEmailCenterTree,
+  buildBlogManagerTree,
+  buildAffiliateDashboardTree,
+  buildWorkflowBuilderTree,
+  buildReportingHubTree,
+  buildSmartListManagerTree,
+  buildCustomFieldsManagerTree,
+  buildMediaLibraryTree,
+  buildLocationSettingsTree,
+  buildUserManagerTree,
+  buildVoiceAIConsoleTree,
+  buildProposalBuilderTree,
+  buildSaasAdminTree,
+  buildLinkTriggerManagerTree,
 } from './templates/index.js';
 
 // ─── Catalog System Prompt (source of truth for components) ──
@@ -281,10 +304,16 @@ Props: value (number, required), currency (string?)
 - Show exactly the records provided. If there are 2 opportunities, show 2. Don't add fake ones.
 - If no data is provided, THEN you may use sample data, but keep it minimal (3-5 records max).
 - When generating interactive views, use correct tool names for GHL:
+  - SearchBar: searchTool="search_contacts" (for contact views) or omit for display-only
   - ContactPicker: searchTool="search_contacts"
   - InvoiceBuilder: createTool="create_invoice", contactSearchTool="search_contacts"
   - OpportunityEditor: saveTool="update_opportunity"
-  - KanbanBoard: moveTool="update_opportunity"`;
+  - KanbanBoard: moveTool="update_opportunity"
+  - FormGroup: submitTool="create_appointment" (for booking), "create_contact" (for contacts), etc.
+  - ActionButton: toolName="update_opportunity", toolArgs={opportunityId: "...", status: "won"}
+  - EditableField: saveTool="update_contact" (for contacts), "update_opportunity" (for deals)
+  - AppointmentBooker: bookTool="create_appointment", contactSearchTool="search_contacts"
+  - FilterChips: filterTool is optional — omit for client-side-only filtering`;
 
 // ─── Types ──────────────────────────────────────────────────
 
@@ -556,6 +585,144 @@ const d=window.__MCP_APP_DATA__;if(d){document.querySelector('.fallback').innerH
         _meta: { ui: { resourceUri: appUri } },
       },
       {
+        name: 'view_conversation_inbox',
+        description: 'Display the conversation inbox with threaded messages and channel filters. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_phone_log',
+        description: 'Display phone call history with recordings, duration, and direction stats. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_course_manager',
+        description: 'Display courses with enrollment stats, lesson counts, and publish status. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_store_front',
+        description: 'Display the store with product catalog, inventory, and recent orders. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_payment_dashboard',
+        description: 'Display payment transactions, subscriptions, and revenue metrics. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_social_media_hub',
+        description: 'Display social media posts, scheduling, and engagement analytics. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_reputation_monitor',
+        description: 'Display reputation reviews, ratings, and response tracking. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_funnel_builder',
+        description: 'Display funnels with page counts, conversion rates, and funnel flow. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_form_manager',
+        description: 'Display forms and surveys with submission counts and field details. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_email_center',
+        description: 'Display email history, templates, and delivery statistics. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_blog_manager',
+        description: 'Display blog posts with categories, authors, and publish status. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_affiliate_dashboard',
+        description: 'Display affiliates, referral stats, commissions, and campaigns. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_workflow_builder',
+        description: 'Display workflows with trigger/action flow diagrams and execution stats. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_reporting_hub',
+        description: 'Display reports, widgets, and analytics charts. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_smart_list_manager',
+        description: 'Display smart lists with contact counts and filter conditions. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_custom_fields_manager',
+        description: 'Display custom fields with types, keys, and field hierarchy. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_media_library',
+        description: 'Display media files and folders with gallery view and file browser. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_location_settings',
+        description: 'Display location details, business hours, tags, and custom values. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_user_manager',
+        description: 'Display users with roles, permissions, and team overview. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_voice_ai_console',
+        description: 'Display Voice AI agents, call transcripts, and performance stats. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_proposal_builder',
+        description: 'Display proposals with status tracking, values, and conversion pipeline. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_saas_admin',
+        description: 'Display SaaS admin with sub-accounts, plans, snapshots, and MRR. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
+        name: 'view_link_trigger_manager',
+        description: 'Display trigger links, click stats, and trigger configurations. Returns a visual UI component.',
+        inputSchema: { type: 'object', properties: {} },
+        _meta: { ui: { resourceUri: appUri } },
+      },
+      {
         name: 'generate_ghl_view',
         description: 'Generate a rich, AI-powered UI view on the fly from a natural language prompt. Optionally fetches real GHL data to populate the view. Requires ANTHROPIC_API_KEY. Returns a visual UI component rendered in the MCP App.',
         inputSchema: {
@@ -600,8 +767,16 @@ const d=window.__MCP_APP_DATA__;if(d){document.querySelector('.fallback').innerH
       'view_contact_grid', 'view_pipeline_board', 'view_quick_book',
       'view_opportunity_card', 'view_calendar', 'view_invoice',
       'view_campaign_stats', 'view_agent_stats', 'view_contact_timeline',
-      'view_workflow_status', 'view_dashboard', 'generate_ghl_view',
-      'update_opportunity',
+      'view_workflow_status', 'view_dashboard',
+      'view_conversation_inbox', 'view_phone_log', 'view_course_manager',
+      'view_store_front', 'view_payment_dashboard', 'view_social_media_hub',
+      'view_reputation_monitor', 'view_funnel_builder', 'view_form_manager',
+      'view_email_center', 'view_blog_manager', 'view_affiliate_dashboard',
+      'view_workflow_builder', 'view_reporting_hub', 'view_smart_list_manager',
+      'view_custom_fields_manager', 'view_media_library', 'view_location_settings',
+      'view_user_manager', 'view_voice_ai_console', 'view_proposal_builder',
+      'view_saas_admin', 'view_link_trigger_manager',
+      'generate_ghl_view', 'update_opportunity',
     ];
   }
 
@@ -635,6 +810,52 @@ const d=window.__MCP_APP_DATA__;if(d){document.querySelector('.fallback').innerH
         return this.viewWorkflowStatus(args);
       case 'view_dashboard':
         return this.viewDashboard();
+      case 'view_conversation_inbox':
+        return this.viewConversationInbox();
+      case 'view_phone_log':
+        return this.viewPhoneLog();
+      case 'view_course_manager':
+        return this.viewCourseManager();
+      case 'view_store_front':
+        return this.viewStoreFront();
+      case 'view_payment_dashboard':
+        return this.viewPaymentDashboard();
+      case 'view_social_media_hub':
+        return this.viewSocialMediaHub();
+      case 'view_reputation_monitor':
+        return this.viewReputationMonitor();
+      case 'view_funnel_builder':
+        return this.viewFunnelBuilder();
+      case 'view_form_manager':
+        return this.viewFormManager();
+      case 'view_email_center':
+        return this.viewEmailCenter();
+      case 'view_blog_manager':
+        return this.viewBlogManager();
+      case 'view_affiliate_dashboard':
+        return this.viewAffiliateDashboard();
+      case 'view_workflow_builder':
+        return this.viewWorkflowBuilder();
+      case 'view_reporting_hub':
+        return this.viewReportingHub();
+      case 'view_smart_list_manager':
+        return this.viewSmartListManager();
+      case 'view_custom_fields_manager':
+        return this.viewCustomFieldsManager();
+      case 'view_media_library':
+        return this.viewMediaLibrary();
+      case 'view_location_settings':
+        return this.viewLocationSettings();
+      case 'view_user_manager':
+        return this.viewUserManager();
+      case 'view_voice_ai_console':
+        return this.viewVoiceAIConsole();
+      case 'view_proposal_builder':
+        return this.viewProposalBuilder();
+      case 'view_saas_admin':
+        return this.viewSaasAdmin();
+      case 'view_link_trigger_manager':
+        return this.viewLinkTriggerManager();
       case 'generate_ghl_view':
         return this.generateDynamicView(args.prompt, args.dataSource);
       case 'update_opportunity':
@@ -1077,6 +1298,357 @@ const d=window.__MCP_APP_DATA__;if(d){document.querySelector('.fallback').innerH
       return this.renderUITree(uiTree, 'GHL Dashboard Overview');
     } catch (error: any) {
       return this.errorResult(`Failed to load dashboard: ${error.message}`);
+    }
+  }
+
+  // ─── New View Handlers (23 views) ───────────────────────
+
+  private async viewConversationInbox(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.searchConversations({ locationId: this.ghlClient.getConfig().locationId, limit: 20 });
+      const conversations = resp.data?.conversations || [];
+      let messages: any[] = [];
+      if (conversations[0]?.id) {
+        const msgResp = await this.ghlClient.getConversationMessages(conversations[0].id, { limit: 15 }).catch(() => ({ data: { messages: [] } }));
+        messages = (msgResp as any).data?.messages || [];
+      }
+      const uiTree = buildConversationInboxTree({ conversations, messages });
+      return this.renderUITree(uiTree, `Conversation Inbox (${conversations.length} conversations)`);
+    } catch (error: any) {
+      const uiTree = buildConversationInboxTree({ conversations: [], messages: [] });
+      return this.renderUITree(uiTree, 'Conversation Inbox — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewPhoneLog(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const callsResp = await this.ghlClient.makeRequest('GET', `/phone/calls?locationId=${locationId}&limit=50`).catch(() => ({ data: null }));
+      const numbersResp = await this.ghlClient.makeRequest('GET', `/phone/numbers?locationId=${locationId}`).catch(() => ({ data: null }));
+      const uiTree = buildPhoneLogTree({ calls: callsResp?.data?.calls || [], phoneNumbers: numbersResp?.data?.phoneNumbers || [] });
+      return this.renderUITree(uiTree, 'Phone Log');
+    } catch (error: any) {
+      const uiTree = buildPhoneLogTree({ calls: [], phoneNumbers: [] });
+      return this.renderUITree(uiTree, 'Phone Log — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewCourseManager(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.makeRequest('GET', `/courses/?locationId=${this.ghlClient.getConfig().locationId}`);
+      const uiTree = buildCourseManagerTree({ courses: resp?.data?.courses || [] });
+      return this.renderUITree(uiTree, 'Course Manager');
+    } catch (error: any) {
+      const uiTree = buildCourseManagerTree({ courses: [] });
+      return this.renderUITree(uiTree, 'Course Manager — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewStoreFront(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [productsResp, ordersResp] = await Promise.all([
+        this.ghlClient.listProducts({ locationId, limit: 20, offset: 0 }).catch(() => ({ data: null })),
+        this.ghlClient.listOrders({ altId: locationId, altType: 'location', limit: 20 }).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildStoreFrontTree({
+        products: (productsResp as any)?.data?.products || [],
+        orders: (ordersResp as any)?.data?.orders || (ordersResp as any)?.data?.data || [],
+      });
+      return this.renderUITree(uiTree, 'Store Front');
+    } catch (error: any) {
+      const uiTree = buildStoreFrontTree({ products: [], orders: [] });
+      return this.renderUITree(uiTree, 'Store Front — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewPaymentDashboard(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [txResp, subResp] = await Promise.all([
+        this.ghlClient.listTransactions({ altId: locationId, altType: 'location', limit: 20 }).catch(() => ({ data: null })),
+        this.ghlClient.listSubscriptions({ altId: locationId, altType: 'location', limit: 20 }).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildPaymentDashboardTree({
+        transactions: (txResp as any)?.data?.data || (txResp as any)?.data?.transactions || [],
+        subscriptions: (subResp as any)?.data?.data || (subResp as any)?.data?.subscriptions || [],
+      });
+      return this.renderUITree(uiTree, 'Payment Dashboard');
+    } catch (error: any) {
+      const uiTree = buildPaymentDashboardTree({ transactions: [], subscriptions: [] });
+      return this.renderUITree(uiTree, 'Payment Dashboard — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewSocialMediaHub(): Promise<AppToolResult> {
+    try {
+      const [postsResp, accountsResp] = await Promise.all([
+        this.ghlClient.searchSocialPosts({ fromDate: new Date(Date.now() - 30 * 86400000).toISOString(), toDate: new Date().toISOString(), includeUsers: 'false', limit: '20' }).catch(() => ({ data: null })),
+        this.ghlClient.getSocialAccounts().catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildSocialMediaHubTree({
+        posts: (postsResp as any)?.data?.posts || [],
+        accounts: (accountsResp as any)?.data?.accounts || [],
+      });
+      return this.renderUITree(uiTree, 'Social Media Hub');
+    } catch (error: any) {
+      const uiTree = buildSocialMediaHubTree({ posts: [], accounts: [] });
+      return this.renderUITree(uiTree, 'Social Media Hub — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewReputationMonitor(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.listProductReviews({ altId: this.ghlClient.getConfig().locationId, altType: 'location', limit: 30, offset: 0 }).catch(() => ({ data: null }));
+      const reviews = (resp as any)?.data?.reviews || [];
+      const avgRating = reviews.length > 0
+        ? reviews.reduce((s: number, r: any) => s + (r.rating || 0), 0) / reviews.length
+        : 0;
+      const uiTree = buildReputationMonitorTree({ reviews, averageRating: avgRating });
+      return this.renderUITree(uiTree, 'Reputation Monitor');
+    } catch (error: any) {
+      const uiTree = buildReputationMonitorTree({ reviews: [], averageRating: 0 });
+      return this.renderUITree(uiTree, 'Reputation Monitor — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewFunnelBuilder(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.makeRequest('GET', `/funnels/?locationId=${this.ghlClient.getConfig().locationId}`);
+      const uiTree = buildFunnelBuilderTree({ funnels: resp?.data?.funnels || [] });
+      return this.renderUITree(uiTree, 'Funnel Builder');
+    } catch (error: any) {
+      const uiTree = buildFunnelBuilderTree({ funnels: [] });
+      return this.renderUITree(uiTree, 'Funnel Builder — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewFormManager(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [formsResp, surveysResp] = await Promise.all([
+        this.ghlClient.makeRequest('GET', `/forms/?locationId=${locationId}`).catch(() => ({ data: null })),
+        this.ghlClient.getSurveys({ locationId }).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildFormManagerTree({
+        forms: formsResp?.data?.forms || [],
+        surveys: (surveysResp as any)?.data?.surveys || [],
+      });
+      return this.renderUITree(uiTree, 'Form Manager');
+    } catch (error: any) {
+      const uiTree = buildFormManagerTree({ forms: [], surveys: [] });
+      return this.renderUITree(uiTree, 'Form Manager — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewEmailCenter(): Promise<AppToolResult> {
+    try {
+      const [campaignsResp, templatesResp] = await Promise.all([
+        this.ghlClient.getEmailCampaigns({}).catch(() => ({ data: { schedules: [] } })),
+        this.ghlClient.getEmailTemplates({ limit: 20 }).catch(() => ({ data: [] })),
+      ]);
+      const uiTree = buildEmailCenterTree({
+        emails: (campaignsResp as any)?.data?.schedules || [],
+        templates: (templatesResp as any)?.data || [],
+      });
+      return this.renderUITree(uiTree, 'Email Center');
+    } catch (error: any) {
+      const uiTree = buildEmailCenterTree({ emails: [], templates: [] });
+      return this.renderUITree(uiTree, 'Email Center — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewBlogManager(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [postsResp, catsResp, authorsResp] = await Promise.all([
+        this.ghlClient.makeRequest('GET', `/blogs/posts?locationId=${locationId}&limit=20&offset=0`).catch(() => ({ data: null })),
+        this.ghlClient.makeRequest('GET', `/blogs/categories?locationId=${locationId}&limit=20&offset=0`).catch(() => ({ data: null })),
+        this.ghlClient.makeRequest('GET', `/blogs/authors?locationId=${locationId}&limit=20&offset=0`).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildBlogManagerTree({
+        posts: (postsResp as any)?.data?.posts || (postsResp as any)?.data?.data || [],
+        categories: (catsResp as any)?.data?.categories || (catsResp as any)?.data?.data || [],
+        authors: (authorsResp as any)?.data?.authors || (authorsResp as any)?.data?.data || [],
+      });
+      return this.renderUITree(uiTree, 'Blog Manager');
+    } catch (error: any) {
+      const uiTree = buildBlogManagerTree({ posts: [], categories: [], authors: [] });
+      return this.renderUITree(uiTree, 'Blog Manager — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewAffiliateDashboard(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [affiliatesResp, campaignsResp] = await Promise.all([
+        this.ghlClient.makeRequest('GET', `/affiliates/?locationId=${locationId}&limit=20`).catch(() => ({ data: null })),
+        this.ghlClient.makeRequest('GET', `/affiliates/campaigns?locationId=${locationId}`).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildAffiliateDashboardTree({
+        affiliates: affiliatesResp?.data?.affiliates || [],
+        campaigns: campaignsResp?.data?.campaigns || [],
+      });
+      return this.renderUITree(uiTree, 'Affiliate Dashboard');
+    } catch (error: any) {
+      const uiTree = buildAffiliateDashboardTree({ affiliates: [], campaigns: [] });
+      return this.renderUITree(uiTree, 'Affiliate Dashboard — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewWorkflowBuilder(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.getWorkflows({ locationId: this.ghlClient.getConfig().locationId });
+      const uiTree = buildWorkflowBuilderTree({ workflows: resp.data?.workflows || [] });
+      return this.renderUITree(uiTree, 'Workflow Builder');
+    } catch (error: any) {
+      const uiTree = buildWorkflowBuilderTree({ workflows: [] });
+      return this.renderUITree(uiTree, 'Workflow Builder — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewReportingHub(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.makeRequest('GET', `/reporting/?locationId=${this.ghlClient.getConfig().locationId}`);
+      const uiTree = buildReportingHubTree({ reports: resp?.data?.reports || [], widgets: resp?.data?.widgets || [] });
+      return this.renderUITree(uiTree, 'Reporting Hub');
+    } catch (error: any) {
+      const uiTree = buildReportingHubTree({ reports: [], widgets: [] });
+      return this.renderUITree(uiTree, 'Reporting Hub — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewSmartListManager(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.makeRequest('GET', `/contacts/smartlists?locationId=${this.ghlClient.getConfig().locationId}`);
+      const uiTree = buildSmartListManagerTree({ smartlists: resp?.data?.smartlists || resp?.data?.data || [] });
+      return this.renderUITree(uiTree, 'Smart List Manager');
+    } catch (error: any) {
+      const uiTree = buildSmartListManagerTree({ smartlists: [] });
+      return this.renderUITree(uiTree, 'Smart List Manager — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewCustomFieldsManager(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.getLocationCustomFields(this.ghlClient.getConfig().locationId);
+      const uiTree = buildCustomFieldsManagerTree({ customFields: resp?.data?.customFields || [] });
+      return this.renderUITree(uiTree, 'Custom Fields Manager');
+    } catch (error: any) {
+      const uiTree = buildCustomFieldsManagerTree({ customFields: [] });
+      return this.renderUITree(uiTree, 'Custom Fields Manager — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewMediaLibrary(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const resp = await this.ghlClient.getMediaFiles({ altId: locationId, altType: 'location', limit: 30, offset: 0, sortBy: 'createdAt', sortOrder: 'desc' }).catch(() => ({ data: null }));
+      const uiTree = buildMediaLibraryTree({
+        files: (resp as any)?.data?.files || [],
+        folders: [],
+      });
+      return this.renderUITree(uiTree, 'Media Library');
+    } catch (error: any) {
+      const uiTree = buildMediaLibraryTree({ files: [], folders: [] });
+      return this.renderUITree(uiTree, 'Media Library — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewLocationSettings(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [locResp, tagsResp, cvResp] = await Promise.all([
+        this.ghlClient.getLocationById(locationId),
+        this.ghlClient.getLocationTags(locationId).catch(() => ({ data: null })),
+        this.ghlClient.getLocationCustomValues(locationId).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildLocationSettingsTree({
+        location: locResp.data || {},
+        tags: (tagsResp as any)?.data?.tags || [],
+        customValues: (cvResp as any)?.data?.customValues || [],
+      });
+      return this.renderUITree(uiTree, 'Location Settings');
+    } catch (error: any) {
+      const uiTree = buildLocationSettingsTree({ location: {}, tags: [], customValues: [] });
+      return this.renderUITree(uiTree, 'Location Settings — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewUserManager(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.makeRequest('GET', `/users/?locationId=${this.ghlClient.getConfig().locationId}`);
+      const uiTree = buildUserManagerTree({ users: resp?.data?.users || resp?.data?.data || [] });
+      return this.renderUITree(uiTree, 'User Manager');
+    } catch (error: any) {
+      const uiTree = buildUserManagerTree({ users: [] });
+      return this.renderUITree(uiTree, 'User Manager — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewVoiceAIConsole(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [agentsResp, callsResp] = await Promise.all([
+        this.ghlClient.makeRequest('GET', `/voice-ai/agents?locationId=${locationId}`).catch(() => ({ data: null })),
+        this.ghlClient.makeRequest('GET', `/voice-ai/calls?locationId=${locationId}&limit=20`).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildVoiceAIConsoleTree({
+        agents: agentsResp?.data?.agents || [],
+        calls: callsResp?.data?.calls || [],
+      });
+      return this.renderUITree(uiTree, 'Voice AI Console');
+    } catch (error: any) {
+      const uiTree = buildVoiceAIConsoleTree({ agents: [], calls: [] });
+      return this.renderUITree(uiTree, 'Voice AI Console — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewProposalBuilder(): Promise<AppToolResult> {
+    try {
+      const resp = await this.ghlClient.makeRequest('GET', `/proposals/?locationId=${this.ghlClient.getConfig().locationId}&limit=20`);
+      const uiTree = buildProposalBuilderTree({ proposals: resp?.data?.proposals || resp?.data?.data || [] });
+      return this.renderUITree(uiTree, 'Proposal Builder');
+    } catch (error: any) {
+      const uiTree = buildProposalBuilderTree({ proposals: [] });
+      return this.renderUITree(uiTree, 'Proposal Builder — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewSaasAdmin(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [accountsResp, snapshotsResp] = await Promise.all([
+        this.ghlClient.makeRequest('GET', `/saas-api/public-api/locations?companyId=${locationId}`).catch(() => ({ data: null })),
+        this.ghlClient.makeRequest('GET', `/snapshots/?companyId=${locationId}`).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildSaasAdminTree({
+        subAccounts: accountsResp?.data?.locations || accountsResp?.data?.data || [],
+        plans: [],
+        snapshots: snapshotsResp?.data?.snapshots || snapshotsResp?.data?.data || [],
+      });
+      return this.renderUITree(uiTree, 'SaaS Admin');
+    } catch (error: any) {
+      const uiTree = buildSaasAdminTree({ subAccounts: [], plans: [], snapshots: [] });
+      return this.renderUITree(uiTree, 'SaaS Admin — Sample data (connect GHL credentials to see live data)');
+    }
+  }
+
+  private async viewLinkTriggerManager(): Promise<AppToolResult> {
+    try {
+      const locationId = this.ghlClient.getConfig().locationId;
+      const [linksResp, triggersResp] = await Promise.all([
+        this.ghlClient.makeRequest('GET', `/links/?locationId=${locationId}`).catch(() => ({ data: null })),
+        this.ghlClient.makeRequest('GET', `/triggers/?locationId=${locationId}`).catch(() => ({ data: null })),
+      ]);
+      const uiTree = buildLinkTriggerManagerTree({
+        links: linksResp?.data?.links || linksResp?.data?.data || [],
+        triggers: triggersResp?.data?.triggers || triggersResp?.data?.data || [],
+      });
+      return this.renderUITree(uiTree, 'Link & Trigger Manager');
+    } catch (error: any) {
+      const uiTree = buildLinkTriggerManagerTree({ links: [], triggers: [] });
+      return this.renderUITree(uiTree, 'Link & Trigger Manager — Sample data (connect GHL credentials to see live data)');
     }
   }
 
