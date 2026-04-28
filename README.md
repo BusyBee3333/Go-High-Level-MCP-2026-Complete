@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/busybee3333-go-high-level-mcp-2026-complete-badge.png)](https://mseep.ai/app/busybee3333-go-high-level-mcp-2026-complete)
+
 > **🚀 Don't want to self-host?** [Join the waitlist for our fully managed solution →](https://mcp.localbosses.org)
 > 
 > Zero setup. Zero maintenance. Just connect and automate.
