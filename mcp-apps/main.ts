@@ -6,7 +6,13 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import cors from 'cors';
 import type { Request, Response } from 'express';
-import { createServer } from './server.js';
+import { readFile } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { buildPreviewPayload, createServer } from './server.js';
+
+const appDir = dirname(fileURLToPath(import.meta.url));
+const packageRoot = appDir.endsWith(`${process.platform === 'win32' ? '\\' : '/'}dist`) ? resolve(appDir, '..') : appDir;
 
 async function startStdioServer(factory: () => McpServer): Promise<void> {
   await factory().connect(new StdioServerTransport());
@@ -16,6 +22,27 @@ async function startHttpServer(factory: () => McpServer): Promise<void> {
   const port = parseInt(process.env.GHL_MCP_APPS_PORT || process.env.PORT || '3001', 10);
   const app = createMcpExpressApp({ host: '0.0.0.0' });
   app.use(cors());
+
+  app.get('/', (_req, res) => {
+    res.redirect('/preview');
+  });
+
+  app.get('/preview', async (_req, res) => {
+    res.type('html').send(await readFile(join(packageRoot, 'dist', 'mcp-app.html'), 'utf8'));
+  });
+
+  app.get('/preview-data', async (req, res) => {
+    try {
+      const appId = typeof req.query.app === 'string' ? req.query.app : 'tool-explorer';
+      const args = Object.fromEntries(
+        Object.entries(req.query).filter(([key]) => key !== 'app').map(([key, value]) => [key, Array.isArray(value) ? value[0] : value]),
+      );
+      res.json({ payload: await buildPreviewPayload(appId, args) });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      res.status(500).json({ error: message });
+    }
+  });
 
   app.all('/mcp', async (req: Request, res: Response) => {
     const server = factory();
@@ -47,11 +74,13 @@ async function startHttpServer(factory: () => McpServer): Promise<void> {
       server: 'ghl-mcp-apps',
       transport: 'streamable-http',
       endpoint: '/mcp',
+      preview: '/preview',
     });
   });
 
   const httpServer = app.listen(port, '0.0.0.0', () => {
     console.log(`GoHighLevel MCP Apps listening at http://localhost:${port}/mcp`);
+    console.log(`Browser preview: http://localhost:${port}/preview`);
   });
 
   const shutdown = () => {

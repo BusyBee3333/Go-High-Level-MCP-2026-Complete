@@ -29,21 +29,34 @@ const summaryEl = document.getElementById('summary')!;
 const metricsEl = document.getElementById('metrics')!;
 const contentEl = document.getElementById('content')!;
 const actionsEl = document.getElementById('actions')!;
+const previewMode = new URLSearchParams(window.location.search).has('preview') || window.location.pathname === '/preview';
 
 const app = new App({ name: 'GoHighLevel MCP Apps', version: '0.1.0' });
 
-app.onhostcontextchanged = applyHostContext;
-app.ontoolinput = () => renderLoading();
-app.ontoolresult = (result) => {
-  payload = extractPayload(result);
-  render();
-};
-app.onteardown = async () => ({});
+if (previewMode) {
+  loadPreview().catch((error) => {
+    payload = {
+      appId: 'preview-error',
+      title: 'Preview Error',
+      summary: error instanceof Error ? error.message : String(error),
+      status: 'error',
+    };
+    render();
+  });
+} else {
+  app.onhostcontextchanged = applyHostContext;
+  app.ontoolinput = () => renderLoading();
+  app.ontoolresult = (result) => {
+    payload = extractPayload(result);
+    render();
+  };
+  app.onteardown = async () => ({});
 
-app.connect().then(() => {
-  const ctx = app.getHostContext();
-  if (ctx) applyHostContext(ctx);
-});
+  app.connect().then(() => {
+    const ctx = app.getHostContext();
+    if (ctx) applyHostContext(ctx);
+  });
+}
 
 function applyHostContext(ctx: HostContext): void {
   if (ctx.theme) applyDocumentTheme(ctx.theme);
@@ -75,6 +88,19 @@ function renderLoading(): void {
   metricsEl.innerHTML = '';
   contentEl.innerHTML = '';
   actionsEl.innerHTML = '';
+}
+
+async function loadPreview(): Promise<void> {
+  renderLoading();
+  const params = new URLSearchParams(window.location.search);
+  params.set('preview', '1');
+  const appId = params.get('app') || 'tool-explorer';
+  params.set('app', appId);
+  const response = await fetch(`/preview-data?${params.toString()}`);
+  if (!response.ok) throw new Error(`Preview failed: HTTP ${response.status}`);
+  const data = await response.json() as { payload: AppPayload };
+  payload = data.payload;
+  render();
 }
 
 function render(): void {
@@ -195,6 +221,10 @@ function renderActions(value: AppPayload): void {
       const action = value.suggestedToolCalls?.[index];
       if (!action) return;
       const message = `${action.requiresConfirmation ? 'Please confirm and run' : 'Please run'} the GoHighLevel MCP tool \`${action.tool}\` with these arguments:\n\n${JSON.stringify(action.arguments || {}, null, 2)}`;
+      if (previewMode) {
+        window.alert(message);
+        return;
+      }
       await app.sendMessage({ role: 'user', content: [{ type: 'text', text: message }] });
     });
   });

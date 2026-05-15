@@ -117,6 +117,14 @@ export function createServer(): McpServer {
   return server;
 }
 
+export async function buildPreviewPayload(appId: string, args: Record<string, unknown> = {}): Promise<AppPayload> {
+  if (appId === 'contact-360') return buildContactPayload(args);
+  if (appId === 'pipeline-command') return buildPipelinePayload(args);
+  if (appId === 'ads-reporting') return buildAdsPayload(args);
+  if (appId === 'agency-health') return buildAgencyHealthPayload(args);
+  return buildToolExplorerPayload();
+}
+
 function registerGhlAppTool(
   server: McpServer,
   name: string,

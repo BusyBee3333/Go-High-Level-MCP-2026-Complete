@@ -55,6 +55,18 @@ HTTP endpoint:
 http://localhost:3001/mcp
 ```
 
+Browser preview:
+
+```text
+http://localhost:3001/preview
+http://localhost:3001/preview?app=contact-360
+http://localhost:3001/preview?app=pipeline-command
+http://localhost:3001/preview?app=ads-reporting
+http://localhost:3001/preview?app=agency-health
+```
+
+The preview route is for local visual testing in a normal browser. Real MCP hosts still open the app through the MCP tool/resource flow.
+
 ## Client Config
 
 Example stdio entry:

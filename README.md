@@ -76,6 +76,14 @@ Included app tools:
 
 See `mcp-apps/README.md` for host config and HTTP mode.
 
+For a normal browser preview:
+
+```bash
+npm run apps:start:http
+```
+
+Open `http://localhost:3001/preview`.
+
 ## Transports
 
 - `npm run start:stdio` — stdio MCP server for desktop MCP clients.
