@@ -1,8 +1,8 @@
 {
   "official": {
     "repo": "https://github.com/GoHighLevel/highlevel-api-docs.git",
-    "commit": "192cd68b065a7423c543d82721eb8644cdc883c7",
-    "tag": "192cd68",
+    "commit": "ae4d260aada8e4340e1603a5573f977778e13ffd",
+    "tag": "ae4d260",
     "endpoints": [
       {
         "key": "GET /ad-publishing/facebook/reporting",
@@ -15553,7 +15553,7 @@
         "caller": "official-spec-generated"
       }
     ],
-    "filesScanned": 58
+    "filesScanned": 59
   },
   "comparison": {
     "coveredCount": 576,

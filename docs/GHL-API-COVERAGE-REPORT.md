@@ -1,16 +1,16 @@
 # GHL API Coverage Report
 
-Generated from official GHL docs commit: 192cd68
+Generated from official GHL docs commit: ae4d260
 
 ## Source Snapshot
 
 - Official docs repo: https://github.com/GoHighLevel/highlevel-api-docs.git
 - Docs checkout: `tmp/highlevel-api-docs`
-- Docs commit: `192cd68b065a7423c543d82721eb8644cdc883c7`
-- Docs tag/description: `192cd68`
+- Docs commit: `ae4d260aada8e4340e1603a5573f977778e13ffd`
+- Docs tag/description: `ae4d260`
 - Official endpoint references parsed: 576
 - Local endpoint references parsed: 833
-- Local TypeScript files scanned: 58
+- Local TypeScript files scanned: 59
 
 ## Coverage Summary
 
