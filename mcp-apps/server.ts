@@ -320,9 +320,9 @@ const APP_DEFINITIONS: AppDefinition[] = [
       { name: 'channel', label: 'Channel', type: 'select', options: ['All', 'Facebook', 'Google', 'LinkedIn'] },
       { name: 'clientSummary', label: 'Client Summary Notes', type: 'textarea' },
     ],
-    readTools: ['get_ad_reports', 'get_attribution_report', 'get_funnel_reports', 'get_conversion_reports', 'get_revenue_reports', 'audit_location_ads_setup', 'official_ad_manager_fb_get_reporting', 'official_ad_manager_google_get_reporting', 'official_ad_manager_li_get_ad_analytics'],
-    writeTools: ['official_ad_manager_fb_pause_campaign', 'official_ad_manager_fb_resume_campaign', 'official_ad_manager_google_upsert_campaign', 'official_ad_manager_li_update_ad_status'],
-    destructiveTools: ['official_ad_manager_fb_delete_campaign', 'official_ad_manager_google_delete_ad_account'],
+    readTools: ['get_ad_reports', 'get_attribution_report', 'get_funnel_reports', 'get_conversion_reports', 'get_revenue_reports', 'audit_location_ads_setup', 'o_ad_manager_fb_get_reporting', 'o_ad_manager_google_get_reporting', 'o_ad_manager_li_get_ad_analytics'],
+    writeTools: ['o_ad_manager_fb_pause_campaign', 'o_ad_manager_fb_resume_campaign', 'o_ad_manager_google_upsert_campaign', 'o_ad_manager_li_update_ad_status'],
+    destructiveTools: ['o_ad_manager_fb_delete_campaign', 'o_ad_manager_google_delete_ad_account'],
     sections: [
       { id: 'filters', title: 'Report Controls', kind: 'form', description: 'Set date range and channel filters.' },
       { id: 'performance', title: 'Performance Report', kind: 'report', sampleRecords: sampleAdReports() },

@@ -244,7 +244,7 @@ console.log(`Wrote ${dataPath}`);
 
 function makeToolName(endpoint) {
   const base = endpoint.operationId || `${endpoint.method}-${endpoint.path}`;
-  return `official_${endpoint.app}_${base}`
+  return `o_${endpoint.app}_${base}`
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '')

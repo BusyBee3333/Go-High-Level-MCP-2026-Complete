@@ -1,7 +1,7 @@
 {
   "generatedFrom": {
-    "officialDocsCommit": "192cd68b065a7423c543d82721eb8644cdc883c7",
-    "officialDocsTag": "192cd68",
+    "officialDocsCommit": "ae4d260aada8e4340e1603a5573f977778e13ffd",
+    "officialDocsTag": "ae4d260",
     "coveragePercent": 100
   },
   "tools": [
@@ -8411,7 +8411,7 @@
       "source": "local-tool-module"
     },
     {
-      "name": "official_ad_manager_fb_get_reporting",
+      "name": "o_ad_manager_fb_get_reporting",
       "module": "officialSpec",
       "description": "Get reporting data Official GHL API endpoint: GET /ad-publishing/facebook/reporting. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8435,7 +8435,7 @@
       "operationId": "fb-get-reporting"
     },
     {
-      "name": "official_ad_manager_fb_get_campaign_reporting",
+      "name": "o_ad_manager_fb_get_campaign_reporting",
       "module": "officialSpec",
       "description": "Get campaign reporting Official GHL API endpoint: GET /ad-publishing/facebook/reporting/campaign/{campaignId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8457,7 +8457,7 @@
       "operationId": "fb-get-campaign-reporting"
     },
     {
-      "name": "official_ad_manager_fb_get_reporting_list",
+      "name": "o_ad_manager_fb_get_reporting_list",
       "module": "officialSpec",
       "description": "Get reporting list Official GHL API endpoint: GET /ad-publishing/facebook/reporting/list. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8481,7 +8481,7 @@
       "operationId": "fb-get-reporting-list"
     },
     {
-      "name": "official_ad_manager_fb_get_current_user",
+      "name": "o_ad_manager_fb_get_current_user",
       "module": "officialSpec",
       "description": "Get current Facebook user Official GHL API endpoint: GET /ad-publishing/facebook/me. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8499,7 +8499,7 @@
       "operationId": "fb-get-current-user"
     },
     {
-      "name": "official_ad_manager_fb_get_pages",
+      "name": "o_ad_manager_fb_get_pages",
       "module": "officialSpec",
       "description": "Get Facebook pages Official GHL API endpoint: GET /ad-publishing/facebook/pages. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8517,7 +8517,7 @@
       "operationId": "fb-get-pages"
     },
     {
-      "name": "official_ad_manager_fb_get_instagram_accounts",
+      "name": "o_ad_manager_fb_get_instagram_accounts",
       "module": "officialSpec",
       "description": "Get Instagram accounts for page Official GHL API endpoint: GET /ad-publishing/facebook/page/{pageId}/instagram. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8537,7 +8537,7 @@
       "operationId": "fb-get-instagram-accounts"
     },
     {
-      "name": "official_ad_manager_fb_get_page_lead_forms",
+      "name": "o_ad_manager_fb_get_page_lead_forms",
       "module": "officialSpec",
       "description": "Get page lead forms Official GHL API endpoint: GET /ad-publishing/facebook/page/{pageId}/forms. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8557,7 +8557,7 @@
       "operationId": "fb-get-page-lead-forms"
     },
     {
-      "name": "official_ad_manager_fb_create_page_lead_form",
+      "name": "o_ad_manager_fb_create_page_lead_form",
       "module": "officialSpec",
       "description": "Create page lead form Official GHL API endpoint: POST /ad-publishing/facebook/page/{pageId}/forms. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8577,7 +8577,7 @@
       "operationId": "fb-create-page-lead-form"
     },
     {
-      "name": "official_ad_manager_fb_get_ad_accounts",
+      "name": "o_ad_manager_fb_get_ad_accounts",
       "module": "officialSpec",
       "description": "Get ad accounts Official GHL API endpoint: GET /ad-publishing/facebook/ad-accounts. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8595,7 +8595,7 @@
       "operationId": "fb-get-ad-accounts"
     },
     {
-      "name": "official_ad_manager_fb_get_ad_account",
+      "name": "o_ad_manager_fb_get_ad_account",
       "module": "officialSpec",
       "description": "Get ad account details Official GHL API endpoint: GET /ad-publishing/facebook/ad-accounts/{adAccountId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8615,7 +8615,7 @@
       "operationId": "fb-get-ad-account"
     },
     {
-      "name": "official_ad_manager_fb_delete_ad_account",
+      "name": "o_ad_manager_fb_delete_ad_account",
       "module": "officialSpec",
       "description": "Delete ad account Official GHL API endpoint: DELETE /ad-publishing/facebook/ad-accounts/{adAccountId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8635,7 +8635,7 @@
       "operationId": "fb-delete-ad-account"
     },
     {
-      "name": "official_ad_manager_fb_get_conversation_forms",
+      "name": "o_ad_manager_fb_get_conversation_forms",
       "module": "officialSpec",
       "description": "Get conversation forms Official GHL API endpoint: GET /ad-publishing/facebook/conversation-forms. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8653,7 +8653,7 @@
       "operationId": "fb-get-conversation-forms"
     },
     {
-      "name": "official_ad_manager_fb_create_conversation_form",
+      "name": "o_ad_manager_fb_create_conversation_form",
       "module": "officialSpec",
       "description": "Create conversation form Official GHL API endpoint: POST /ad-publishing/facebook/conversation-forms. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8671,7 +8671,7 @@
       "operationId": "fb-create-conversation-form"
     },
     {
-      "name": "official_ad_manager_fb_create_integration",
+      "name": "o_ad_manager_fb_create_integration",
       "module": "officialSpec",
       "description": "Create Facebook integration Official GHL API endpoint: POST /ad-publishing/facebook/integration. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8689,7 +8689,7 @@
       "operationId": "fb-create-integration"
     },
     {
-      "name": "official_ad_manager_fb_get_integration",
+      "name": "o_ad_manager_fb_get_integration",
       "module": "officialSpec",
       "description": "Get Facebook integration Official GHL API endpoint: GET /ad-publishing/facebook/integration. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8707,7 +8707,7 @@
       "operationId": "fb-get-integration"
     },
     {
-      "name": "official_ad_manager_fb_delete_integration",
+      "name": "o_ad_manager_fb_delete_integration",
       "module": "officialSpec",
       "description": "Delete Facebook integration Official GHL API endpoint: DELETE /ad-publishing/facebook/integration. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8725,7 +8725,7 @@
       "operationId": "fb-delete-integration"
     },
     {
-      "name": "official_ad_manager_fb_search_targeting",
+      "name": "o_ad_manager_fb_search_targeting",
       "module": "officialSpec",
       "description": "Search targeting options Official GHL API endpoint: GET /ad-publishing/facebook/targeting/search.",
       "category": "official-ad-manager",
@@ -8744,7 +8744,7 @@
       "operationId": "fb-search-targeting"
     },
     {
-      "name": "official_ad_manager_fb_publish_campaign",
+      "name": "o_ad_manager_fb_publish_campaign",
       "module": "officialSpec",
       "description": "Publish campaign Official GHL API endpoint: POST /ad-publishing/facebook/campaigns/{campaignId}/publish. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8764,7 +8764,7 @@
       "operationId": "fb-publish-campaign"
     },
     {
-      "name": "official_ad_manager_fb_delete_page",
+      "name": "o_ad_manager_fb_delete_page",
       "module": "officialSpec",
       "description": "Delete page connection Official GHL API endpoint: DELETE /ad-publishing/facebook/page. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8784,7 +8784,7 @@
       "operationId": "fb-delete-page"
     },
     {
-      "name": "official_ad_manager_fb_get_pixels",
+      "name": "o_ad_manager_fb_get_pixels",
       "module": "officialSpec",
       "description": "Get conversion pixels Official GHL API endpoint: GET /ad-publishing/facebook/pixels. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8802,7 +8802,7 @@
       "operationId": "fb-get-pixels"
     },
     {
-      "name": "official_ad_manager_fb_upsert_pixel",
+      "name": "o_ad_manager_fb_upsert_pixel",
       "module": "officialSpec",
       "description": "Upsert conversion pixel Official GHL API endpoint: PUT /ad-publishing/facebook/pixels. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8820,7 +8820,7 @@
       "operationId": "fb-upsert-pixel"
     },
     {
-      "name": "official_ad_manager_fb_get_custom_audiences",
+      "name": "o_ad_manager_fb_get_custom_audiences",
       "module": "officialSpec",
       "description": "Get custom audiences Official GHL API endpoint: GET /ad-publishing/facebook/custom-audience. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8841,7 +8841,7 @@
       "operationId": "fb-get-custom-audiences"
     },
     {
-      "name": "official_ad_manager_fb_delete_custom_audience",
+      "name": "o_ad_manager_fb_delete_custom_audience",
       "module": "officialSpec",
       "description": "Delete custom audience Official GHL API endpoint: DELETE /ad-publishing/facebook/custom-audience/{audienceId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8861,7 +8861,7 @@
       "operationId": "fb-delete-custom-audience"
     },
     {
-      "name": "official_ad_manager_fb_update_custom_audience",
+      "name": "o_ad_manager_fb_update_custom_audience",
       "module": "officialSpec",
       "description": "Update custom audience Official GHL API endpoint: PUT /ad-publishing/facebook/custom-audience/{audienceId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8881,7 +8881,7 @@
       "operationId": "fb-update-custom-audience"
     },
     {
-      "name": "official_ad_manager_fb_get_custom_audience_by_id",
+      "name": "o_ad_manager_fb_get_custom_audience_by_id",
       "module": "officialSpec",
       "description": "Get custom audience by ID Official GHL API endpoint: GET /ad-publishing/facebook/custom-audience/{audienceId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8901,7 +8901,7 @@
       "operationId": "fb-get-custom-audience-by-id"
     },
     {
-      "name": "official_ad_manager_fb_add_custom_audience_member",
+      "name": "o_ad_manager_fb_add_custom_audience_member",
       "module": "officialSpec",
       "description": "Add custom audience member Official GHL API endpoint: PUT /ad-publishing/facebook/custom-audience/{audienceId}/member. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8921,7 +8921,7 @@
       "operationId": "fb-add-custom-audience-member"
     },
     {
-      "name": "official_ad_manager_fb_remove_custom_audience_member",
+      "name": "o_ad_manager_fb_remove_custom_audience_member",
       "module": "officialSpec",
       "description": "Remove custom audience member Official GHL API endpoint: DELETE /ad-publishing/facebook/custom-audience/{audienceId}/member. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8941,7 +8941,7 @@
       "operationId": "fb-remove-custom-audience-member"
     },
     {
-      "name": "official_ad_manager_fb_batch_update_audience_members",
+      "name": "o_ad_manager_fb_batch_update_audience_members",
       "module": "officialSpec",
       "description": "Batch update audience members Official GHL API endpoint: PUT /ad-publishing/facebook/custom-audience/{audienceId}/member/batch. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8961,7 +8961,7 @@
       "operationId": "fb-batch-update-audience-members"
     },
     {
-      "name": "official_ad_manager_fb_set_default_page",
+      "name": "o_ad_manager_fb_set_default_page",
       "module": "officialSpec",
       "description": "Set default page Official GHL API endpoint: PUT /ad-publishing/facebook/page/default. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -8979,7 +8979,7 @@
       "operationId": "fb-set-default-page"
     },
     {
-      "name": "official_ad_manager_fb_get_lead_form",
+      "name": "o_ad_manager_fb_get_lead_form",
       "module": "officialSpec",
       "description": "Get lead form by ID Official GHL API endpoint: GET /ad-publishing/facebook/lead-form/{leadFormId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -8999,7 +8999,7 @@
       "operationId": "fb-get-lead-form"
     },
     {
-      "name": "official_ad_manager_fb_get_campaign",
+      "name": "o_ad_manager_fb_get_campaign",
       "module": "officialSpec",
       "description": "Get campaign with linked entities Official GHL API endpoint: GET /ad-publishing/facebook/campaign/{campaignId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9019,7 +9019,7 @@
       "operationId": "fb-get-campaign"
     },
     {
-      "name": "official_ad_manager_fb_get_entity",
+      "name": "o_ad_manager_fb_get_entity",
       "module": "officialSpec",
       "description": "Get entities Official GHL API endpoint: GET /ad-publishing/facebook/entity. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9040,7 +9040,7 @@
       "operationId": "fb-get-entity"
     },
     {
-      "name": "official_ad_manager_fb_upsert_campaign",
+      "name": "o_ad_manager_fb_upsert_campaign",
       "module": "officialSpec",
       "description": "Upsert campaign Official GHL API endpoint: PUT /ad-publishing/facebook/campaigns. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9058,7 +9058,7 @@
       "operationId": "fb-upsert-campaign"
     },
     {
-      "name": "official_ad_manager_fb_upsert_adset",
+      "name": "o_ad_manager_fb_upsert_adset",
       "module": "officialSpec",
       "description": "Upsert adset Official GHL API endpoint: PUT /ad-publishing/facebook/adsets. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9076,7 +9076,7 @@
       "operationId": "fb-upsert-adset"
     },
     {
-      "name": "official_ad_manager_fb_upsert_ad",
+      "name": "o_ad_manager_fb_upsert_ad",
       "module": "officialSpec",
       "description": "Upsert ad Official GHL API endpoint: PUT /ad-publishing/facebook/ads-v2. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9094,7 +9094,7 @@
       "operationId": "fb-upsert-ad"
     },
     {
-      "name": "official_ad_manager_fb_pause_campaign",
+      "name": "o_ad_manager_fb_pause_campaign",
       "module": "officialSpec",
       "description": "Pause campaign Official GHL API endpoint: POST /ad-publishing/facebook/campaigns/{campaignId}/pause. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9114,7 +9114,7 @@
       "operationId": "fb-pause-campaign"
     },
     {
-      "name": "official_ad_manager_fb_resume_campaign",
+      "name": "o_ad_manager_fb_resume_campaign",
       "module": "officialSpec",
       "description": "Resume campaign Official GHL API endpoint: POST /ad-publishing/facebook/campaigns/{campaignId}/resume. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9134,7 +9134,7 @@
       "operationId": "fb-resume-campaign"
     },
     {
-      "name": "official_ad_manager_fb_duplicate_campaign",
+      "name": "o_ad_manager_fb_duplicate_campaign",
       "module": "officialSpec",
       "description": "Duplicate campaign Official GHL API endpoint: POST /ad-publishing/facebook/campaigns/{campaignId}/duplicate. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9154,7 +9154,7 @@
       "operationId": "fb-duplicate-campaign"
     },
     {
-      "name": "official_ad_manager_fb_delete_campaign",
+      "name": "o_ad_manager_fb_delete_campaign",
       "module": "officialSpec",
       "description": "Delete campaign Official GHL API endpoint: DELETE /ad-publishing/facebook/campaigns/{campaignId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9174,7 +9174,7 @@
       "operationId": "fb-delete-campaign"
     },
     {
-      "name": "official_ad_manager_fb_pause_adset",
+      "name": "o_ad_manager_fb_pause_adset",
       "module": "officialSpec",
       "description": "Pause ad set Official GHL API endpoint: POST /ad-publishing/facebook/adsets/{adsetId}/pause. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9194,7 +9194,7 @@
       "operationId": "fb-pause-adset"
     },
     {
-      "name": "official_ad_manager_fb_resume_adset",
+      "name": "o_ad_manager_fb_resume_adset",
       "module": "officialSpec",
       "description": "Resume ad set Official GHL API endpoint: POST /ad-publishing/facebook/adsets/{adsetId}/resume. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9214,7 +9214,7 @@
       "operationId": "fb-resume-adset"
     },
     {
-      "name": "official_ad_manager_fb_duplicate_adset",
+      "name": "o_ad_manager_fb_duplicate_adset",
       "module": "officialSpec",
       "description": "Duplicate ad set Official GHL API endpoint: POST /ad-publishing/facebook/adsets/{adsetId}/duplicate. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9234,7 +9234,7 @@
       "operationId": "fb-duplicate-adset"
     },
     {
-      "name": "official_ad_manager_fb_delete_adset",
+      "name": "o_ad_manager_fb_delete_adset",
       "module": "officialSpec",
       "description": "Delete ad set Official GHL API endpoint: DELETE /ad-publishing/facebook/adsets/{adsetId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9254,7 +9254,7 @@
       "operationId": "fb-delete-adset"
     },
     {
-      "name": "official_ad_manager_fb_pause_ad",
+      "name": "o_ad_manager_fb_pause_ad",
       "module": "officialSpec",
       "description": "Pause ad Official GHL API endpoint: POST /ad-publishing/facebook/ads/{adId}/pause. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9274,7 +9274,7 @@
       "operationId": "fb-pause-ad"
     },
     {
-      "name": "official_ad_manager_fb_resume_ad",
+      "name": "o_ad_manager_fb_resume_ad",
       "module": "officialSpec",
       "description": "Resume ad Official GHL API endpoint: POST /ad-publishing/facebook/ads/{adId}/resume. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9294,7 +9294,7 @@
       "operationId": "fb-resume-ad"
     },
     {
-      "name": "official_ad_manager_fb_duplicate_ad",
+      "name": "o_ad_manager_fb_duplicate_ad",
       "module": "officialSpec",
       "description": "Duplicate ad Official GHL API endpoint: POST /ad-publishing/facebook/ads/{adId}/duplicate. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9314,7 +9314,7 @@
       "operationId": "fb-duplicate-ad"
     },
     {
-      "name": "official_ad_manager_fb_delete_ad",
+      "name": "o_ad_manager_fb_delete_ad",
       "module": "officialSpec",
       "description": "Delete ad Official GHL API endpoint: DELETE /ad-publishing/facebook/ads/{adId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9334,7 +9334,7 @@
       "operationId": "fb-delete-ad"
     },
     {
-      "name": "official_ad_manager_google_get_reporting",
+      "name": "o_ad_manager_google_get_reporting",
       "module": "officialSpec",
       "description": "Get reporting data Official GHL API endpoint: GET /ad-publishing/google/reporting. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9357,7 +9357,7 @@
       "operationId": "google-get-reporting"
     },
     {
-      "name": "official_ad_manager_google_get_reporting_list",
+      "name": "o_ad_manager_google_get_reporting_list",
       "module": "officialSpec",
       "description": "Get reporting list Official GHL API endpoint: GET /ad-publishing/google/reporting/list. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9380,7 +9380,7 @@
       "operationId": "google-get-reporting-list"
     },
     {
-      "name": "official_ad_manager_google_get_campaign_reporting",
+      "name": "o_ad_manager_google_get_campaign_reporting",
       "module": "officialSpec",
       "description": "Get campaign reporting Official GHL API endpoint: GET /ad-publishing/google/reporting/campaign/{campaignId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9402,7 +9402,7 @@
       "operationId": "google-get-campaign-reporting"
     },
     {
-      "name": "official_ad_manager_google_get_conversions",
+      "name": "o_ad_manager_google_get_conversions",
       "module": "officialSpec",
       "description": "Get conversions Official GHL API endpoint: GET /ad-publishing/google/conversions. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9420,7 +9420,7 @@
       "operationId": "google-get-conversions"
     },
     {
-      "name": "official_ad_manager_google_upsert_conversion",
+      "name": "o_ad_manager_google_upsert_conversion",
       "module": "officialSpec",
       "description": "Upsert conversion Official GHL API endpoint: PUT /ad-publishing/google/conversions. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9438,7 +9438,7 @@
       "operationId": "google-upsert-conversion"
     },
     {
-      "name": "official_ad_manager_google_get_conversion_by_id",
+      "name": "o_ad_manager_google_get_conversion_by_id",
       "module": "officialSpec",
       "description": "Get conversion by ID Official GHL API endpoint: GET /ad-publishing/google/conversions/{conversionId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9458,7 +9458,7 @@
       "operationId": "google-get-conversion-by-id"
     },
     {
-      "name": "official_ad_manager_google_delete_conversion",
+      "name": "o_ad_manager_google_delete_conversion",
       "module": "officialSpec",
       "description": "Delete conversion Official GHL API endpoint: DELETE /ad-publishing/google/conversions/{conversionId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9478,7 +9478,7 @@
       "operationId": "google-delete-conversion"
     },
     {
-      "name": "official_ad_manager_google_get_integration",
+      "name": "o_ad_manager_google_get_integration",
       "module": "officialSpec",
       "description": "Get Google integration Official GHL API endpoint: GET /ad-publishing/google/integration. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9496,7 +9496,7 @@
       "operationId": "google-get-integration"
     },
     {
-      "name": "official_ad_manager_google_create_integration",
+      "name": "o_ad_manager_google_create_integration",
       "module": "officialSpec",
       "description": "Create Google integration Official GHL API endpoint: POST /ad-publishing/google/integration. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9514,7 +9514,7 @@
       "operationId": "google-create-integration"
     },
     {
-      "name": "official_ad_manager_google_get_current_user",
+      "name": "o_ad_manager_google_get_current_user",
       "module": "officialSpec",
       "description": "Get current Google user Official GHL API endpoint: GET /ad-publishing/google/me. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9532,7 +9532,7 @@
       "operationId": "google-get-current-user"
     },
     {
-      "name": "official_ad_manager_google_get_ad_accounts",
+      "name": "o_ad_manager_google_get_ad_accounts",
       "module": "officialSpec",
       "description": "Get Google ad accounts Official GHL API endpoint: GET /ad-publishing/google/ad-accounts. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9550,7 +9550,7 @@
       "operationId": "google-get-ad-accounts"
     },
     {
-      "name": "official_ad_manager_google_get_ad_account_details",
+      "name": "o_ad_manager_google_get_ad_account_details",
       "module": "officialSpec",
       "description": "Get ad account details Official GHL API endpoint: GET /ad-publishing/google/ad-accounts/{adAccountId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9570,7 +9570,7 @@
       "operationId": "google-get-ad-account-details"
     },
     {
-      "name": "official_ad_manager_google_delete_ad_account",
+      "name": "o_ad_manager_google_delete_ad_account",
       "module": "officialSpec",
       "description": "Delete ad account Official GHL API endpoint: DELETE /ad-publishing/google/ad-accounts/{adAccountId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9590,7 +9590,7 @@
       "operationId": "google-delete-ad-account"
     },
     {
-      "name": "official_ad_manager_google_publish_ad",
+      "name": "o_ad_manager_google_publish_ad",
       "module": "officialSpec",
       "description": "Publish ad Official GHL API endpoint: POST /ad-publishing/google/ads/{adId}/publish. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9610,7 +9610,7 @@
       "operationId": "google-publish-ad"
     },
     {
-      "name": "official_ad_manager_google_search_targeting",
+      "name": "o_ad_manager_google_search_targeting",
       "module": "officialSpec",
       "description": "Search targeting options Official GHL API endpoint: GET /ad-publishing/google/targeting/search. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9630,7 +9630,7 @@
       "operationId": "google-search-targeting"
     },
     {
-      "name": "official_ad_manager_google_get_keyword_ideas",
+      "name": "o_ad_manager_google_get_keyword_ideas",
       "module": "officialSpec",
       "description": "Get keyword ideas Official GHL API endpoint: POST /ad-publishing/google/keyword-ideas. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9648,7 +9648,7 @@
       "operationId": "google-get-keyword-ideas"
     },
     {
-      "name": "official_ad_manager_google_get_assets",
+      "name": "o_ad_manager_google_get_assets",
       "module": "officialSpec",
       "description": "Get assets Official GHL API endpoint: GET /ad-publishing/google/assets. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9668,7 +9668,7 @@
       "operationId": "google-get-assets"
     },
     {
-      "name": "official_ad_manager_google_upsert_assets",
+      "name": "o_ad_manager_google_upsert_assets",
       "module": "officialSpec",
       "description": "Upsert assets Official GHL API endpoint: POST /ad-publishing/google/assets. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9686,7 +9686,7 @@
       "operationId": "google-upsert-assets"
     },
     {
-      "name": "official_ad_manager_google_get_entity",
+      "name": "o_ad_manager_google_get_entity",
       "module": "officialSpec",
       "description": "Get entities Official GHL API endpoint: GET /ad-publishing/google/entity. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9707,7 +9707,7 @@
       "operationId": "google-get-entity"
     },
     {
-      "name": "official_ad_manager_google_get_target_interests",
+      "name": "o_ad_manager_google_get_target_interests",
       "module": "officialSpec",
       "description": "Get target interests Official GHL API endpoint: GET /ad-publishing/google/target-interests. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9728,7 +9728,7 @@
       "operationId": "google-get-target-interests"
     },
     {
-      "name": "official_ad_manager_google_get_segments",
+      "name": "o_ad_manager_google_get_segments",
       "module": "officialSpec",
       "description": "Get segments Official GHL API endpoint: GET /ad-publishing/google/segments. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9746,7 +9746,7 @@
       "operationId": "google-get-segments"
     },
     {
-      "name": "official_ad_manager_google_upsert_segment",
+      "name": "o_ad_manager_google_upsert_segment",
       "module": "officialSpec",
       "description": "Upsert segment Official GHL API endpoint: PUT /ad-publishing/google/segments. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9766,7 +9766,7 @@
       "operationId": "google-upsert-segment"
     },
     {
-      "name": "official_ad_manager_google_delete_segment",
+      "name": "o_ad_manager_google_delete_segment",
       "module": "officialSpec",
       "description": "Delete segment Official GHL API endpoint: DELETE /ad-publishing/google/segments/{segmentId}. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9787,7 +9787,7 @@
       "operationId": "google-delete-segment"
     },
     {
-      "name": "official_ad_manager_google_get_segment_by_id",
+      "name": "o_ad_manager_google_get_segment_by_id",
       "module": "officialSpec",
       "description": "Get segment by ID Official GHL API endpoint: GET /ad-publishing/google/segments/{segmentId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9808,7 +9808,7 @@
       "operationId": "google-get-segment-by-id"
     },
     {
-      "name": "official_ad_manager_google_create_offline_user_list_job",
+      "name": "o_ad_manager_google_create_offline_user_list_job",
       "module": "officialSpec",
       "description": "Create offline user list job Official GHL API endpoint: POST /ad-publishing/google/segments/offline-user-list-job. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9826,7 +9826,7 @@
       "operationId": "google-create-offline-user-list-job"
     },
     {
-      "name": "official_ad_manager_google_upsert_audience",
+      "name": "o_ad_manager_google_upsert_audience",
       "module": "officialSpec",
       "description": "Upsert audience Official GHL API endpoint: PUT /ad-publishing/google/audiences. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9844,7 +9844,7 @@
       "operationId": "google-upsert-audience"
     },
     {
-      "name": "official_ad_manager_google_get_audiences",
+      "name": "o_ad_manager_google_get_audiences",
       "module": "officialSpec",
       "description": "Get audiences Official GHL API endpoint: GET /ad-publishing/google/audiences. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9862,7 +9862,7 @@
       "operationId": "google-get-audiences"
     },
     {
-      "name": "official_ad_manager_google_get_audience_by_id",
+      "name": "o_ad_manager_google_get_audience_by_id",
       "module": "officialSpec",
       "description": "Get audience by ID Official GHL API endpoint: GET /ad-publishing/google/audiences/{audienceId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9882,7 +9882,7 @@
       "operationId": "google-get-audience-by-id"
     },
     {
-      "name": "official_ad_manager_google_upsert_campaign",
+      "name": "o_ad_manager_google_upsert_campaign",
       "module": "officialSpec",
       "description": "Upsert Google campaign Official GHL API endpoint: PUT /ad-publishing/google/ads. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9900,7 +9900,7 @@
       "operationId": "google-upsert-campaign"
     },
     {
-      "name": "official_ad_manager_google_get_campaign_by_id",
+      "name": "o_ad_manager_google_get_campaign_by_id",
       "module": "officialSpec",
       "description": "Get Google campaign by ID Official GHL API endpoint: GET /ad-publishing/google/ads/{adId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9920,7 +9920,7 @@
       "operationId": "google-get-campaign-by-id"
     },
     {
-      "name": "official_ad_manager_google_get_conversion_goals",
+      "name": "o_ad_manager_google_get_conversion_goals",
       "module": "officialSpec",
       "description": "Get conversion goals Official GHL API endpoint: GET /ad-publishing/google/conversion-goals. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9938,7 +9938,7 @@
       "operationId": "google-get-conversion-goals"
     },
     {
-      "name": "official_ad_manager_li_get_integration",
+      "name": "o_ad_manager_li_get_integration",
       "module": "officialSpec",
       "description": "Get LinkedIn integration Official GHL API endpoint: GET /ad-publishing/linkedin/integration. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9956,7 +9956,7 @@
       "operationId": "li-get-integration"
     },
     {
-      "name": "official_ad_manager_li_create_integration",
+      "name": "o_ad_manager_li_create_integration",
       "module": "officialSpec",
       "description": "Create LinkedIn integration Official GHL API endpoint: POST /ad-publishing/linkedin/integration. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -9974,7 +9974,7 @@
       "operationId": "li-create-integration"
     },
     {
-      "name": "official_ad_manager_li_get_ad_accounts",
+      "name": "o_ad_manager_li_get_ad_accounts",
       "module": "officialSpec",
       "description": "Get LinkedIn ad accounts Official GHL API endpoint: GET /ad-publishing/linkedin/ad-accounts. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -9992,7 +9992,7 @@
       "operationId": "li-get-ad-accounts"
     },
     {
-      "name": "official_ad_manager_li_get_ad_account_details",
+      "name": "o_ad_manager_li_get_ad_account_details",
       "module": "officialSpec",
       "description": "Get ad account details Official GHL API endpoint: GET /ad-publishing/linkedin/ad-account. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -10012,7 +10012,7 @@
       "operationId": "li-get-ad-account-details"
     },
     {
-      "name": "official_ad_manager_li_delete_ad_account",
+      "name": "o_ad_manager_li_delete_ad_account",
       "module": "officialSpec",
       "description": "Delete ad account Official GHL API endpoint: DELETE /ad-publishing/linkedin/ad-account. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -10032,7 +10032,7 @@
       "operationId": "li-delete-ad-account"
     },
     {
-      "name": "official_ad_manager_li_get_current_user",
+      "name": "o_ad_manager_li_get_current_user",
       "module": "officialSpec",
       "description": "Get current LinkedIn user Official GHL API endpoint: GET /ad-publishing/linkedin/me. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -10050,7 +10050,7 @@
       "operationId": "li-get-current-user"
     },
     {
-      "name": "official_ad_manager_li_get_campaign_group",
+      "name": "o_ad_manager_li_get_campaign_group",
       "module": "officialSpec",
       "description": "Get ad campaign group Official GHL API endpoint: GET /ad-publishing/linkedin/ads/{adId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -10070,7 +10070,7 @@
       "operationId": "li-get-campaign-group"
     },
     {
-      "name": "official_ad_manager_li_publish_campaign_group",
+      "name": "o_ad_manager_li_publish_campaign_group",
       "module": "officialSpec",
       "description": "Publish ad campaign group Official GHL API endpoint: POST /ad-publishing/linkedin/ads/{adId}/publish. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -10090,7 +10090,7 @@
       "operationId": "li-publish-campaign-group"
     },
     {
-      "name": "official_ad_manager_li_upsert_campaign_group",
+      "name": "o_ad_manager_li_upsert_campaign_group",
       "module": "officialSpec",
       "description": "Upsert ad campaign group Official GHL API endpoint: PUT /ad-publishing/linkedin/ads. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -10108,7 +10108,7 @@
       "operationId": "li-upsert-campaign-group"
     },
     {
-      "name": "official_ad_manager_li_search_targeting",
+      "name": "o_ad_manager_li_search_targeting",
       "module": "officialSpec",
       "description": "Search targeting options Official GHL API endpoint: GET /ad-publishing/linkedin/targeting/search. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -10128,7 +10128,7 @@
       "operationId": "li-search-targeting"
     },
     {
-      "name": "official_ad_manager_li_get_lead_forms",
+      "name": "o_ad_manager_li_get_lead_forms",
       "module": "officialSpec",
       "description": "Get lead forms Official GHL API endpoint: GET /ad-publishing/linkedin/{accountId}/forms. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -10148,7 +10148,7 @@
       "operationId": "li-get-lead-forms"
     },
     {
-      "name": "official_ad_manager_li_create_lead_form",
+      "name": "o_ad_manager_li_create_lead_form",
       "module": "officialSpec",
       "description": "Create lead form Official GHL API endpoint: POST /ad-publishing/linkedin/{accountId}/form. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -10168,7 +10168,7 @@
       "operationId": "li-create-lead-form"
     },
     {
-      "name": "official_ad_manager_li_update_ad_status",
+      "name": "o_ad_manager_li_update_ad_status",
       "module": "officialSpec",
       "description": "Update ad status Official GHL API endpoint: PATCH /ad-publishing/linkedin/{adId}/status. Scopes: adPublishing.write.",
       "category": "official-ad-manager",
@@ -10188,7 +10188,7 @@
       "operationId": "li-update-ad-status"
     },
     {
-      "name": "official_ad_manager_li_get_ad_analytics",
+      "name": "o_ad_manager_li_get_ad_analytics",
       "module": "officialSpec",
       "description": "Get ad analytics Official GHL API endpoint: GET /ad-publishing/linkedin/reporting. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -10209,7 +10209,7 @@
       "operationId": "li-get-ad-analytics"
     },
     {
-      "name": "official_ad_manager_li_get_reporting_list",
+      "name": "o_ad_manager_li_get_reporting_list",
       "module": "officialSpec",
       "description": "Get reporting list Official GHL API endpoint: GET /ad-publishing/linkedin/reporting/list. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -10233,7 +10233,7 @@
       "operationId": "li-get-reporting-list"
     },
     {
-      "name": "official_ad_manager_li_get_campaign_group_reporting",
+      "name": "o_ad_manager_li_get_campaign_group_reporting",
       "module": "officialSpec",
       "description": "Get campaign group reporting Official GHL API endpoint: GET /ad-publishing/linkedin/reporting/campaign-group/{campaignGroupId}. Scopes: adPublishing.readonly.",
       "category": "official-ad-manager",
@@ -10255,7 +10255,7 @@
       "operationId": "li-get-campaign-group-reporting"
     },
     {
-      "name": "official_affiliate_manager_list_affiliates",
+      "name": "o_affiliate_manager_list_affiliates",
       "module": "officialSpec",
       "description": "List Affiliates Official GHL API endpoint: GET /affiliate-manager/{locationId}/affiliates. Scopes: affiliate-manager.readonly.",
       "category": "official-affiliate-manager",
@@ -10275,7 +10275,7 @@
       "operationId": "list-affiliates"
     },
     {
-      "name": "official_affiliate_manager_get_affiliate",
+      "name": "o_affiliate_manager_get_affiliate",
       "module": "officialSpec",
       "description": "Get Affiliate Official GHL API endpoint: GET /affiliate-manager/{locationId}/affiliates/{affiliateId}. Scopes: affiliate-manager.readonly.",
       "category": "official-affiliate-manager",
@@ -10296,7 +10296,7 @@
       "operationId": "get-affiliate"
     },
     {
-      "name": "official_affiliate_manager_list_payouts",
+      "name": "o_affiliate_manager_list_payouts",
       "module": "officialSpec",
       "description": "List Payouts Official GHL API endpoint: GET /affiliate-manager/{locationId}/payouts. Scopes: affiliate-manager.readonly.",
       "category": "official-affiliate-manager",
@@ -10316,7 +10316,7 @@
       "operationId": "list-payouts"
     },
     {
-      "name": "official_affiliate_manager_list_commissions",
+      "name": "o_affiliate_manager_list_commissions",
       "module": "officialSpec",
       "description": "List Commissions Official GHL API endpoint: GET /affiliate-manager/{locationId}/commissions. Scopes: affiliate-manager.readonly.",
       "category": "official-affiliate-manager",
@@ -10336,7 +10336,7 @@
       "operationId": "list-commissions"
     },
     {
-      "name": "official_agent_studio_getagents",
+      "name": "o_agent_studio_getagents",
       "module": "officialSpec",
       "description": "List Agents Official GHL API endpoint: GET /agent-studio/agent. Scopes: agent-studio.readonly.",
       "category": "official-agent-studio",
@@ -10357,7 +10357,7 @@
       "operationId": "getAgents"
     },
     {
-      "name": "official_agent_studio_promoteandpublish",
+      "name": "o_agent_studio_promoteandpublish",
       "module": "officialSpec",
       "description": "Promote to Production Official GHL API endpoint: POST /agent-studio/agent/versions/{versionId}/publish. Scopes: agent-studio.write.",
       "category": "official-agent-studio",
@@ -10377,7 +10377,7 @@
       "operationId": "promoteAndPublish"
     },
     {
-      "name": "official_agent_studio_executeagent",
+      "name": "o_agent_studio_executeagent",
       "module": "officialSpec",
       "description": "Execute Agent Official GHL API endpoint: POST /agent-studio/agent/{agentId}/execute. Scopes: agent-studio.write.",
       "category": "official-agent-studio",
@@ -10397,7 +10397,7 @@
       "operationId": "executeAgent"
     },
     {
-      "name": "official_agent_studio_getagents_deprecated",
+      "name": "o_agent_studio_getagents_deprecated",
       "module": "officialSpec",
       "description": "List Agents (Deprecated) Official GHL API endpoint: GET /agent-studio/public-api/agents. Scopes: agent-studio.readonly.",
       "category": "official-agent-studio",
@@ -10418,7 +10418,7 @@
       "operationId": "getAgents-deprecated"
     },
     {
-      "name": "official_agent_studio_getagentbyid_deprecated",
+      "name": "o_agent_studio_getagentbyid_deprecated",
       "module": "officialSpec",
       "description": "Get Agent (Deprecated) Official GHL API endpoint: GET /agent-studio/public-api/agents/{agentId}. Scopes: agent-studio.readonly.",
       "category": "official-agent-studio",
@@ -10438,7 +10438,7 @@
       "operationId": "getAgentById-deprecated"
     },
     {
-      "name": "official_agent_studio_executeagent_deprecated",
+      "name": "o_agent_studio_executeagent_deprecated",
       "module": "officialSpec",
       "description": "Execute Agent (Deprecated) Official GHL API endpoint: POST /agent-studio/public-api/agents/{agentId}/execute. Scopes: agent-studio.write.",
       "category": "official-agent-studio",
@@ -10458,7 +10458,7 @@
       "operationId": "executeAgent-deprecated"
     },
     {
-      "name": "official_brand_boards_getbrandboardsbylocation",
+      "name": "o_brand_boards_getbrandboardsbylocation",
       "module": "officialSpec",
       "description": "Get Brand Boards Official GHL API endpoint: GET /brand-boards/{locationId}. Scopes: brand-boards/design-kit.readonly.",
       "category": "official-brand-boards",
@@ -10478,7 +10478,7 @@
       "operationId": "getBrandBoardsByLocation"
     },
     {
-      "name": "official_brand_boards_getbrandboardbyid",
+      "name": "o_brand_boards_getbrandboardbyid",
       "module": "officialSpec",
       "description": "Get Brand Board Official GHL API endpoint: GET /brand-boards/{locationId}/{id}. Scopes: brand-boards/design-kit.readonly.",
       "category": "official-brand-boards",
@@ -10499,7 +10499,7 @@
       "operationId": "getBrandBoardById"
     },
     {
-      "name": "official_brand_boards_updatebrandboard",
+      "name": "o_brand_boards_updatebrandboard",
       "module": "officialSpec",
       "description": "Update a Brand Board Official GHL API endpoint: PATCH /brand-boards/{locationId}/{id}. Scopes: brand-boards/design-kit.write.",
       "category": "official-brand-boards",
@@ -10520,7 +10520,7 @@
       "operationId": "updateBrandBoard"
     },
     {
-      "name": "official_brand_boards_deletebrandboard",
+      "name": "o_brand_boards_deletebrandboard",
       "module": "officialSpec",
       "description": "Delete a Brand Board Official GHL API endpoint: DELETE /brand-boards/{locationId}/{id}. Scopes: brand-boards/design-kit.write.",
       "category": "official-brand-boards",
@@ -10541,7 +10541,7 @@
       "operationId": "deleteBrandBoard"
     },
     {
-      "name": "official_brand_boards_createbrandboard",
+      "name": "o_brand_boards_createbrandboard",
       "module": "officialSpec",
       "description": "Create a new brand board Official GHL API endpoint: POST /brand-boards/. Scopes: brand-boards/design-kit.write.",
       "category": "official-brand-boards",
@@ -10559,7 +10559,7 @@
       "operationId": "createBrandBoard"
     },
     {
-      "name": "official_calendars_validate_groups_slug",
+      "name": "o_calendars_validate_groups_slug",
       "module": "officialSpec",
       "description": "Validate group slug Official GHL API endpoint: POST /calendars/groups/validate-slug. Scopes: calendars/groups.write.",
       "category": "official-calendars",
@@ -10577,7 +10577,7 @@
       "operationId": "validate-groups-slug"
     },
     {
-      "name": "official_calendars_disable_group",
+      "name": "o_calendars_disable_group",
       "module": "officialSpec",
       "description": "Disable Group Official GHL API endpoint: PUT /calendars/groups/{groupId}/status. Scopes: calendars/groups.write.",
       "category": "official-calendars",
@@ -10597,7 +10597,7 @@
       "operationId": "disable-group"
     },
     {
-      "name": "official_calendars_create_block_slot",
+      "name": "o_calendars_create_block_slot",
       "module": "officialSpec",
       "description": "Create Block Slot Official GHL API endpoint: POST /calendars/events/block-slots. Scopes: calendars/events.write.",
       "category": "official-calendars",
@@ -10615,7 +10615,7 @@
       "operationId": "create-block-slot"
     },
     {
-      "name": "official_calendars_delete_event",
+      "name": "o_calendars_delete_event",
       "module": "officialSpec",
       "description": "Delete Event Official GHL API endpoint: DELETE /calendars/events/{eventId}. Scopes: calendars/events.write.",
       "category": "official-calendars",
@@ -10635,7 +10635,7 @@
       "operationId": "delete-event"
     },
     {
-      "name": "official_calendars_get_appointment_notes",
+      "name": "o_calendars_get_appointment_notes",
       "module": "officialSpec",
       "description": "Get Notes Official GHL API endpoint: GET /calendars/appointments/{appointmentId}/notes. Scopes: calendars/events.readonly.",
       "category": "official-calendars",
@@ -10657,7 +10657,7 @@
       "operationId": "get-appointment-notes"
     },
     {
-      "name": "official_calendars_create_appointment_note",
+      "name": "o_calendars_create_appointment_note",
       "module": "officialSpec",
       "description": "Create Note Official GHL API endpoint: POST /calendars/appointments/{appointmentId}/notes. Scopes: calendars/events.write.",
       "category": "official-calendars",
@@ -10677,7 +10677,7 @@
       "operationId": "create-appointment-note"
     },
     {
-      "name": "official_calendars_update_appointment_note",
+      "name": "o_calendars_update_appointment_note",
       "module": "officialSpec",
       "description": "Update Note Official GHL API endpoint: PUT /calendars/appointments/{appointmentId}/notes/{noteId}. Scopes: calendars/events.write.",
       "category": "official-calendars",
@@ -10698,7 +10698,7 @@
       "operationId": "update-appointment-note"
     },
     {
-      "name": "official_calendars_delete_appointment_note",
+      "name": "o_calendars_delete_appointment_note",
       "module": "officialSpec",
       "description": "Delete Note Official GHL API endpoint: DELETE /calendars/appointments/{appointmentId}/notes/{noteId}. Scopes: calendars/events.write.",
       "category": "official-calendars",
@@ -10719,7 +10719,7 @@
       "operationId": "delete-appointment-note"
     },
     {
-      "name": "official_calendars_getallschedules",
+      "name": "o_calendars_getallschedules",
       "module": "officialSpec",
       "description": "List user availability schedule Official GHL API endpoint: GET /calendars/schedules/search. Scopes: calendars.readonly.",
       "category": "official-calendars",
@@ -10739,7 +10739,7 @@
       "operationId": "getAllSchedules"
     },
     {
-      "name": "official_calendars_getschedulebyid",
+      "name": "o_calendars_getschedulebyid",
       "module": "officialSpec",
       "description": "Get user availability schedule Official GHL API endpoint: GET /calendars/schedules/{id}. Scopes: calendars.readonly.",
       "category": "official-calendars",
@@ -10759,7 +10759,7 @@
       "operationId": "getScheduleById"
     },
     {
-      "name": "official_calendars_updateschedule",
+      "name": "o_calendars_updateschedule",
       "module": "officialSpec",
       "description": "Update user availability schedule Official GHL API endpoint: PUT /calendars/schedules/{id}. Scopes: calendars.write.",
       "category": "official-calendars",
@@ -10779,7 +10779,7 @@
       "operationId": "updateSchedule"
     },
     {
-      "name": "official_calendars_deleteschedule",
+      "name": "o_calendars_deleteschedule",
       "module": "officialSpec",
       "description": "Delete user availability schedule Official GHL API endpoint: DELETE /calendars/schedules/{id}. Scopes: calendars.write.",
       "category": "official-calendars",
@@ -10799,7 +10799,7 @@
       "operationId": "deleteSchedule"
     },
     {
-      "name": "official_calendars_createschedule",
+      "name": "o_calendars_createschedule",
       "module": "officialSpec",
       "description": "Create user availability schedule Official GHL API endpoint: POST /calendars/schedules. Scopes: calendars.write.",
       "category": "official-calendars",
@@ -10817,7 +10817,7 @@
       "operationId": "createSchedule"
     },
     {
-      "name": "official_calendars_add_calendar_to_schedule",
+      "name": "o_calendars_add_calendar_to_schedule",
       "module": "officialSpec",
       "description": "Apply user availability schedule to a calendar Official GHL API endpoint: PUT /calendars/schedules/{id}/associations/{calendarId}. Scopes: calendars.write.",
       "category": "official-calendars",
@@ -10838,7 +10838,7 @@
       "operationId": "add-calendar-to-schedule"
     },
     {
-      "name": "official_calendars_remove_calendar_from_schedule",
+      "name": "o_calendars_remove_calendar_from_schedule",
       "module": "officialSpec",
       "description": "Remove user availability schedule from a calendar Official GHL API endpoint: DELETE /calendars/schedules/{id}/associations/{calendarId}. Scopes: calendars.write.",
       "category": "official-calendars",
@@ -10859,7 +10859,7 @@
       "operationId": "remove-calendar-from-schedule"
     },
     {
-      "name": "official_campaigns_get_campaigns",
+      "name": "o_campaigns_get_campaigns",
       "module": "officialSpec",
       "description": "Get Campaigns Official GHL API endpoint: GET /campaigns/. Scopes: campaigns.readonly.",
       "category": "official-campaigns",
@@ -10877,7 +10877,7 @@
       "operationId": "get-campaigns"
     },
     {
-      "name": "official_contacts_create_association",
+      "name": "o_contacts_create_association",
       "module": "officialSpec",
       "description": "Update Contacts Tags Official GHL API endpoint: POST /contacts/bulk/tags/update/{type}.",
       "category": "official-contacts",
@@ -10895,7 +10895,7 @@
       "operationId": "create-association"
     },
     {
-      "name": "official_contacts_add_remove_contact_from_business",
+      "name": "o_contacts_add_remove_contact_from_business",
       "module": "officialSpec",
       "description": "Add/Remove Contacts From Business Official GHL API endpoint: POST /contacts/bulk/business.",
       "category": "official-contacts",
@@ -10911,7 +10911,7 @@
       "operationId": "add-remove-contact-from-business"
     },
     {
-      "name": "official_contacts_remove_contact_from_every_campaign",
+      "name": "o_contacts_remove_contact_from_every_campaign",
       "module": "officialSpec",
       "description": "Remove Contact From Every Campaign Official GHL API endpoint: DELETE /contacts/{contactId}/campaigns/removeAll. Scopes: contacts.write.",
       "category": "official-contacts",
@@ -10931,7 +10931,7 @@
       "operationId": "remove-contact-from-every-campaign"
     },
     {
-      "name": "official_contacts_get_contacts",
+      "name": "o_contacts_get_contacts",
       "module": "officialSpec",
       "description": "Get Contacts Official GHL API endpoint: GET /contacts/. Scopes: contacts.readonly.",
       "category": "official-contacts",
@@ -10949,7 +10949,7 @@
       "operationId": "get-contacts"
     },
     {
-      "name": "official_conversation_ai_create_action",
+      "name": "o_conversation_ai_create_action",
       "module": "officialSpec",
       "description": "Attach Action to Agent Official GHL API endpoint: POST /conversation-ai/agents/{agentId}/actions. Scopes: conversation-ai.write.",
       "category": "official-conversation-ai",
@@ -10969,7 +10969,7 @@
       "operationId": "create-action"
     },
     {
-      "name": "official_conversation_ai_list_actions",
+      "name": "o_conversation_ai_list_actions",
       "module": "officialSpec",
       "description": "List Actions for an Agent Official GHL API endpoint: GET /conversation-ai/agents/{agentId}/actions/list. Scopes: conversation-ai.readonly.",
       "category": "official-conversation-ai",
@@ -10989,7 +10989,7 @@
       "operationId": "list-actions"
     },
     {
-      "name": "official_conversation_ai_get_action_by_id",
+      "name": "o_conversation_ai_get_action_by_id",
       "module": "officialSpec",
       "description": "Get Action by ID Official GHL API endpoint: GET /conversation-ai/agents/{agentId}/actions/{actionId}. Scopes: conversation-ai.readonly.",
       "category": "official-conversation-ai",
@@ -11010,7 +11010,7 @@
       "operationId": "get-action-by-id"
     },
     {
-      "name": "official_conversation_ai_update_action",
+      "name": "o_conversation_ai_update_action",
       "module": "officialSpec",
       "description": "Update Action Official GHL API endpoint: PUT /conversation-ai/agents/{agentId}/actions/{actionId}. Scopes: conversation-ai.write.",
       "category": "official-conversation-ai",
@@ -11031,7 +11031,7 @@
       "operationId": "update-action"
     },
     {
-      "name": "official_conversation_ai_delete_action",
+      "name": "o_conversation_ai_delete_action",
       "module": "officialSpec",
       "description": "Remove Action from Agent Official GHL API endpoint: DELETE /conversation-ai/agents/{agentId}/actions/{actionId}. Scopes: conversation-ai.write.",
       "category": "official-conversation-ai",
@@ -11052,7 +11052,7 @@
       "operationId": "delete-action"
     },
     {
-      "name": "official_conversation_ai_update_followup_settings",
+      "name": "o_conversation_ai_update_followup_settings",
       "module": "officialSpec",
       "description": "Update Followup Settings Official GHL API endpoint: PATCH /conversation-ai/agents/{agentId}/followup-settings. Scopes: conversation-ai.write.",
       "category": "official-conversation-ai",
@@ -11072,7 +11072,7 @@
       "operationId": "update-followup-settings"
     },
     {
-      "name": "official_conversation_ai_create_agent",
+      "name": "o_conversation_ai_create_agent",
       "module": "officialSpec",
       "description": "Create an Agent Official GHL API endpoint: POST /conversation-ai/agents. Scopes: conversation-ai.write.",
       "category": "official-conversation-ai",
@@ -11090,7 +11090,7 @@
       "operationId": "create-agent"
     },
     {
-      "name": "official_conversation_ai_search_agent",
+      "name": "o_conversation_ai_search_agent",
       "module": "officialSpec",
       "description": "Search Agents Official GHL API endpoint: GET /conversation-ai/agents/search. Scopes: conversation-ai.readonly.",
       "category": "official-conversation-ai",
@@ -11108,7 +11108,7 @@
       "operationId": "search-agent"
     },
     {
-      "name": "official_conversation_ai_update_agent",
+      "name": "o_conversation_ai_update_agent",
       "module": "officialSpec",
       "description": "Update Agent Official GHL API endpoint: PUT /conversation-ai/agents/{agentId}. Scopes: conversation-ai.write.",
       "category": "official-conversation-ai",
@@ -11128,7 +11128,7 @@
       "operationId": "update-agent"
     },
     {
-      "name": "official_conversation_ai_get_agent",
+      "name": "o_conversation_ai_get_agent",
       "module": "officialSpec",
       "description": "Get Agent Official GHL API endpoint: GET /conversation-ai/agents/{agentId}. Scopes: conversation-ai.readonly.",
       "category": "official-conversation-ai",
@@ -11148,7 +11148,7 @@
       "operationId": "get-agent"
     },
     {
-      "name": "official_conversation_ai_delete_agent",
+      "name": "o_conversation_ai_delete_agent",
       "module": "officialSpec",
       "description": "Delete Agent Official GHL API endpoint: DELETE /conversation-ai/agents/{agentId}. Scopes: conversation-ai.write.",
       "category": "official-conversation-ai",
@@ -11168,7 +11168,7 @@
       "operationId": "delete-agent"
     },
     {
-      "name": "official_conversation_ai_get_generation_details",
+      "name": "o_conversation_ai_get_generation_details",
       "module": "officialSpec",
       "description": "Get the generation details Official GHL API endpoint: GET /conversation-ai/generations. Scopes: conversation-ai.readonly.",
       "category": "official-conversation-ai",
@@ -11189,7 +11189,7 @@
       "operationId": "get-generation-details"
     },
     {
-      "name": "official_conversations_get_all_custom_subtypes",
+      "name": "o_conversations_get_all_custom_subtypes",
       "module": "officialSpec",
       "description": "Get All Custom Subtypes Official GHL API endpoint: GET /conversations/preferences/custom-subtypes.",
       "category": "official-conversations",
@@ -11205,7 +11205,7 @@
       "operationId": "get-all-custom-subtypes"
     },
     {
-      "name": "official_conversations_create_custom_subtype",
+      "name": "o_conversations_create_custom_subtype",
       "module": "officialSpec",
       "description": "Create Custom Subtype Official GHL API endpoint: POST /conversations/preferences/custom-subtypes.",
       "category": "official-conversations",
@@ -11221,7 +11221,7 @@
       "operationId": "create-custom-subtype"
     },
     {
-      "name": "official_conversations_update_custom_subtype",
+      "name": "o_conversations_update_custom_subtype",
       "module": "officialSpec",
       "description": "Update Custom Subtype Official GHL API endpoint: PUT /conversations/preferences/custom-subtypes/{id}.",
       "category": "official-conversations",
@@ -11239,7 +11239,7 @@
       "operationId": "update-custom-subtype"
     },
     {
-      "name": "official_conversations_get_contact_unsubscription_status",
+      "name": "o_conversations_get_contact_unsubscription_status",
       "module": "officialSpec",
       "description": "Get Contact Unsubscription Status Official GHL API endpoint: GET /conversations/preferences/unsubscriptions/status.",
       "category": "official-conversations",
@@ -11257,7 +11257,7 @@
       "operationId": "get-contact-unsubscription-status"
     },
     {
-      "name": "official_conversations_user_subscription_change",
+      "name": "o_conversations_user_subscription_change",
       "module": "officialSpec",
       "description": "User Subscription Change Official GHL API endpoint: POST /conversations/preferences/unsubscriptions/user-change.",
       "category": "official-conversations",
@@ -11273,7 +11273,7 @@
       "operationId": "user-subscription-change"
     },
     {
-      "name": "official_conversations_export_messages_by_location",
+      "name": "o_conversations_export_messages_by_location",
       "module": "officialSpec",
       "description": "Export messages by location ID Official GHL API endpoint: GET /conversations/messages/export. Scopes: conversations/message.readonly.",
       "category": "official-conversations",
@@ -11291,7 +11291,7 @@
       "operationId": "export-messages-by-location"
     },
     {
-      "name": "official_conversations_send_review_reply",
+      "name": "o_conversations_send_review_reply",
       "module": "officialSpec",
       "description": "Send a review reply to Google My Business Official GHL API endpoint: POST /conversations/messages/review-reply. Scopes: conversations/message.write.",
       "category": "official-conversations",
@@ -11309,7 +11309,7 @@
       "operationId": "send-review-reply"
     },
     {
-      "name": "official_conversations_initiate_file_upload",
+      "name": "o_conversations_initiate_file_upload",
       "module": "officialSpec",
       "description": "Initiate file upload to GCS Official GHL API endpoint: POST /conversations/messages/upload/initiate. Scopes: conversations/message.write.",
       "category": "official-conversations",
@@ -11327,7 +11327,7 @@
       "operationId": "initiate-file-upload"
     },
     {
-      "name": "official_conversations_complete_file_upload",
+      "name": "o_conversations_complete_file_upload",
       "module": "officialSpec",
       "description": "Complete file upload Official GHL API endpoint: POST /conversations/messages/upload/complete. Scopes: conversations/message.write.",
       "category": "official-conversations",
@@ -11345,7 +11345,7 @@
       "operationId": "complete-file-upload"
     },
     {
-      "name": "official_conversations_add_message_attachments",
+      "name": "o_conversations_add_message_attachments",
       "module": "officialSpec",
       "description": "Add message attachments Official GHL API endpoint: PUT /conversations/messages/{messageId}/attachments. Scopes: conversations/message.write.",
       "category": "official-conversations",
@@ -11365,7 +11365,7 @@
       "operationId": "add-message-attachments"
     },
     {
-      "name": "official_courses_import_courses",
+      "name": "o_courses_import_courses",
       "module": "officialSpec",
       "description": "Import Courses Official GHL API endpoint: POST /courses/courses-exporter/public/import.",
       "category": "official-courses",
@@ -11381,7 +11381,7 @@
       "operationId": "import-courses"
     },
     {
-      "name": "official_custom_menus_get_custom_menus",
+      "name": "o_custom_menus_get_custom_menus",
       "module": "officialSpec",
       "description": "Get Custom Menu Links Official GHL API endpoint: GET /custom-menus/. Scopes: custom-menu-link.readonly.",
       "category": "official-custom-menus",
@@ -11399,7 +11399,7 @@
       "operationId": "get-custom-menus"
     },
     {
-      "name": "official_funnels_create_redirect",
+      "name": "o_funnels_create_redirect",
       "module": "officialSpec",
       "description": "Create Redirect Official GHL API endpoint: POST /funnels/lookup/redirect. Scopes: funnels/redirect.write.",
       "category": "official-funnels",
@@ -11417,7 +11417,7 @@
       "operationId": "create-redirect"
     },
     {
-      "name": "official_funnels_update_redirect_by_id",
+      "name": "o_funnels_update_redirect_by_id",
       "module": "officialSpec",
       "description": "Update Redirect By Id Official GHL API endpoint: PATCH /funnels/lookup/redirect/{id}. Scopes: funnels/redirect.write.",
       "category": "official-funnels",
@@ -11437,7 +11437,7 @@
       "operationId": "update-redirect-by-id"
     },
     {
-      "name": "official_funnels_delete_redirect_by_id",
+      "name": "o_funnels_delete_redirect_by_id",
       "module": "officialSpec",
       "description": "Delete Redirect By Id Official GHL API endpoint: DELETE /funnels/lookup/redirect/{id}. Scopes: funnels/redirect.write.",
       "category": "official-funnels",
@@ -11457,7 +11457,7 @@
       "operationId": "delete-redirect-by-id"
     },
     {
-      "name": "official_funnels_fetch_redirects_list",
+      "name": "o_funnels_fetch_redirects_list",
       "module": "officialSpec",
       "description": "Fetch List of Redirects Official GHL API endpoint: GET /funnels/lookup/redirect/list. Scopes: funnels/redirect.readonly.",
       "category": "official-funnels",
@@ -11478,7 +11478,7 @@
       "operationId": "fetch-redirects-list"
     },
     {
-      "name": "official_funnels_getfunnels",
+      "name": "o_funnels_getfunnels",
       "module": "officialSpec",
       "description": "Fetch List of Funnels Official GHL API endpoint: GET /funnels/funnel/list.",
       "category": "official-funnels",
@@ -11494,7 +11494,7 @@
       "operationId": "getFunnels"
     },
     {
-      "name": "official_funnels_getpagesbyfunnelid",
+      "name": "o_funnels_getpagesbyfunnelid",
       "module": "officialSpec",
       "description": "Fetch list of funnel pages Official GHL API endpoint: GET /funnels/page.",
       "category": "official-funnels",
@@ -11514,7 +11514,7 @@
       "operationId": "getPagesByFunnelId"
     },
     {
-      "name": "official_funnels_getpagescountbyfunnelid",
+      "name": "o_funnels_getpagescountbyfunnelid",
       "module": "officialSpec",
       "description": "Fetch count of funnel pages Official GHL API endpoint: GET /funnels/page/count.",
       "category": "official-funnels",
@@ -11532,7 +11532,7 @@
       "operationId": "getPagesCountByFunnelId"
     },
     {
-      "name": "official_invoices_get_invoice_settings",
+      "name": "o_invoices_get_invoice_settings",
       "module": "officialSpec",
       "description": "Get Invoice Settings Official GHL API endpoint: GET /invoices/settings. Scopes: invoices.readonly.",
       "category": "official-invoices",
@@ -11553,7 +11553,7 @@
       "operationId": "get-invoice-settings"
     },
     {
-      "name": "official_knowledge_base_list",
+      "name": "o_knowledge_base_list",
       "module": "officialSpec",
       "description": "Get all FAQs by knowledge base with pagination support Official GHL API endpoint: GET /knowledge-bases/faqs.",
       "category": "official-knowledge-base",
@@ -11571,7 +11571,7 @@
       "operationId": "list"
     },
     {
-      "name": "official_knowledge_base_create",
+      "name": "o_knowledge_base_create",
       "module": "officialSpec",
       "description": "Create a new FAQ inside knowledge base Official GHL API endpoint: POST /knowledge-bases/faqs.",
       "category": "official-knowledge-base",
@@ -11587,7 +11587,7 @@
       "operationId": "create"
     },
     {
-      "name": "official_knowledge_base_update",
+      "name": "o_knowledge_base_update",
       "module": "officialSpec",
       "description": "Update an existing knowledge base FAQ Official GHL API endpoint: PUT /knowledge-bases/faqs/{id}.",
       "category": "official-knowledge-base",
@@ -11605,7 +11605,7 @@
       "operationId": "update"
     },
     {
-      "name": "official_knowledge_base_delete",
+      "name": "o_knowledge_base_delete",
       "module": "officialSpec",
       "description": "Delete an existing knowledge base FAQ Official GHL API endpoint: DELETE /knowledge-bases/faqs/{id}.",
       "category": "official-knowledge-base",
@@ -11623,7 +11623,7 @@
       "operationId": "delete"
     },
     {
-      "name": "official_knowledge_base_getallwebsiteurlsdatabyknowledgebase",
+      "name": "o_knowledge_base_getallwebsiteurlsdatabyknowledgebase",
       "module": "officialSpec",
       "description": "Get all trained page links by knowledge base Official GHL API endpoint: GET /knowledge-bases/crawler.",
       "category": "official-knowledge-base",
@@ -11641,7 +11641,7 @@
       "operationId": "getAllWebsiteUrlsDataByKnowledgeBase"
     },
     {
-      "name": "official_knowledge_base_discoverwebsite",
+      "name": "o_knowledge_base_discoverwebsite",
       "module": "officialSpec",
       "description": "Start crawling and discover pages for training Official GHL API endpoint: POST /knowledge-bases/crawler.",
       "category": "official-knowledge-base",
@@ -11657,7 +11657,7 @@
       "operationId": "discoverWebsite"
     },
     {
-      "name": "official_knowledge_base_deletetrainedurlsforknowledgebase",
+      "name": "o_knowledge_base_deletetrainedurlsforknowledgebase",
       "module": "officialSpec",
       "description": "Delete trained pages Official GHL API endpoint: DELETE /knowledge-bases/crawler.",
       "category": "official-knowledge-base",
@@ -11673,7 +11673,7 @@
       "operationId": "deleteTrainedUrlsForKnowledgeBase"
     },
     {
-      "name": "official_knowledge_base_getcrawlingstatusforlatestoperation",
+      "name": "o_knowledge_base_getcrawlingstatusforlatestoperation",
       "module": "officialSpec",
       "description": "Get crawling status for the latest operation Official GHL API endpoint: GET /knowledge-bases/crawler/status.",
       "category": "official-knowledge-base",
@@ -11692,7 +11692,7 @@
       "operationId": "getCrawlingStatusForLatestOperation"
     },
     {
-      "name": "official_knowledge_base_traindiscoveredurls",
+      "name": "o_knowledge_base_traindiscoveredurls",
       "module": "officialSpec",
       "description": "Train discovered website pages and ingest into the knowledge base Official GHL API endpoint: POST /knowledge-bases/crawler/train.",
       "category": "official-knowledge-base",
@@ -11708,7 +11708,7 @@
       "operationId": "trainDiscoveredUrls"
     },
     {
-      "name": "official_knowledge_base_getknowledgebasebyid",
+      "name": "o_knowledge_base_getknowledgebasebyid",
       "module": "officialSpec",
       "description": "Get knowledge base by ID Official GHL API endpoint: GET /knowledge-bases/{knowledgeBaseId}.",
       "category": "official-knowledge-base",
@@ -11726,7 +11726,7 @@
       "operationId": "getKnowledgeBaseById"
     },
     {
-      "name": "official_knowledge_base_deleteknowledgebase",
+      "name": "o_knowledge_base_deleteknowledgebase",
       "module": "officialSpec",
       "description": "Delete a knowledge base Official GHL API endpoint: DELETE /knowledge-bases/{knowledgeBaseId}.",
       "category": "official-knowledge-base",
@@ -11744,7 +11744,7 @@
       "operationId": "deleteKnowledgeBase"
     },
     {
-      "name": "official_knowledge_base_updateknowledgebase",
+      "name": "o_knowledge_base_updateknowledgebase",
       "module": "officialSpec",
       "description": "Update a knowledge base Official GHL API endpoint: PUT /knowledge-bases/{id}.",
       "category": "official-knowledge-base",
@@ -11762,7 +11762,7 @@
       "operationId": "updateKnowledgeBase"
     },
     {
-      "name": "official_knowledge_base_listallknowledgebasespaginated",
+      "name": "o_knowledge_base_listallknowledgebasespaginated",
       "module": "officialSpec",
       "description": "Get all knowledge bases for a location by location Id (paginated) Official GHL API endpoint: GET /knowledge-bases/.",
       "category": "official-knowledge-base",
@@ -11778,7 +11778,7 @@
       "operationId": "listAllKnowledgeBasesPaginated"
     },
     {
-      "name": "official_knowledge_base_createknowledgebase",
+      "name": "o_knowledge_base_createknowledgebase",
       "module": "officialSpec",
       "description": "Create a new knowledge base (max 15 knowledge bases per location) Official GHL API endpoint: POST /knowledge-bases/.",
       "category": "official-knowledge-base",
@@ -11794,7 +11794,7 @@
       "operationId": "createKnowledgeBase"
     },
     {
-      "name": "official_links_get_link_by_id",
+      "name": "o_links_get_link_by_id",
       "module": "officialSpec",
       "description": "Get Link by ID Official GHL API endpoint: GET /links/id/{linkId}.",
       "category": "official-links",
@@ -11812,7 +11812,7 @@
       "operationId": "get-link-by-id"
     },
     {
-      "name": "official_locations_get_timezones",
+      "name": "o_locations_get_timezones",
       "module": "officialSpec",
       "description": "Fetch Timezones Official GHL API endpoint: GET /locations/{locationId}/timezones. Scopes: locations.readonly.",
       "category": "official-locations",
@@ -11832,7 +11832,7 @@
       "operationId": "get-timezones"
     },
     {
-      "name": "official_marketplace_getcharges",
+      "name": "o_marketplace_getcharges",
       "module": "officialSpec",
       "description": "Get all wallet charges Official GHL API endpoint: GET /marketplace/billing/charges. Scopes: charges.readonly.",
       "category": "official-marketplace",
@@ -11850,7 +11850,7 @@
       "operationId": "getCharges"
     },
     {
-      "name": "official_marketplace_get_installer_details",
+      "name": "o_marketplace_get_installer_details",
       "module": "officialSpec",
       "description": "Get Installer Details Official GHL API endpoint: GET /marketplace/app/{appId}/installations. Scopes: marketplace-installer-details.readonly.",
       "category": "official-marketplace",
@@ -11870,7 +11870,7 @@
       "operationId": "get-installer-details"
     },
     {
-      "name": "official_marketplace_get_rebilling_config_for_app",
+      "name": "o_marketplace_get_rebilling_config_for_app",
       "module": "officialSpec",
       "description": "Get rebilling config for an app subscription and usage plans Official GHL API endpoint: GET /marketplace/app/{appId}/rebilling-config/location/{locationId}. Scopes: oauth.readonly.",
       "category": "official-marketplace",
@@ -11891,7 +11891,7 @@
       "operationId": "get-rebilling-config-for-app"
     },
     {
-      "name": "official_marketplace_migrateconnection",
+      "name": "o_marketplace_migrateconnection",
       "module": "officialSpec",
       "description": "Migrate external authentication connection Official GHL API endpoint: POST /marketplace/external-auth/migration. Scopes: marketplace-external-auth-migration.write.",
       "category": "official-marketplace",
@@ -11909,7 +11909,7 @@
       "operationId": "migrateConnection"
     },
     {
-      "name": "official_oauth_get_access_token",
+      "name": "o_oauth_get_access_token",
       "module": "officialSpec",
       "description": "Get Access Token Official GHL API endpoint: POST /oauth/token.",
       "category": "official-oauth",
@@ -11925,7 +11925,7 @@
       "operationId": "get-access-token"
     },
     {
-      "name": "official_opportunities_get_lost_reason",
+      "name": "o_opportunities_get_lost_reason",
       "module": "officialSpec",
       "description": "Get lost reason Official GHL API endpoint: GET /opportunities/lost-reason. Scopes: opportunities.readonly.",
       "category": "official-opportunities",
@@ -11943,7 +11943,7 @@
       "operationId": "get-lost-reason"
     },
     {
-      "name": "official_opportunities_search_opportunities_advanced",
+      "name": "o_opportunities_search_opportunities_advanced",
       "module": "officialSpec",
       "description": "Search Opportunities Official GHL API endpoint: POST /opportunities/search. Scopes: opportunities.readonly.",
       "category": "official-opportunities",
@@ -11961,7 +11961,7 @@
       "operationId": "search-opportunities-advanced"
     },
     {
-      "name": "official_payments_custom_provider_marketplace_app_update_capabilities",
+      "name": "o_payments_custom_provider_marketplace_app_update_capabilities",
       "module": "officialSpec",
       "description": "Custom-provider marketplace app update capabilities Official GHL API endpoint: PUT /payments/custom-provider/capabilities. Scopes: payments/custom-provider.write.",
       "category": "official-payments",
@@ -11979,7 +11979,7 @@
       "operationId": "custom-provider-marketplace-app-update-capabilities"
     },
     {
-      "name": "official_phone_system_getnumberpoollist",
+      "name": "o_phone_system_getnumberpoollist",
       "module": "officialSpec",
       "description": "List Number Pools Official GHL API endpoint: GET /phone-system/number-pools. Scopes: numberpools.read.",
       "category": "official-phone-system",
@@ -11997,7 +11997,7 @@
       "operationId": "getNumberPoolList"
     },
     {
-      "name": "official_phone_system_available_numbers",
+      "name": "o_phone_system_available_numbers",
       "module": "officialSpec",
       "description": "List available phone numbers Official GHL API endpoint: GET /phone-system/numbers/location/{locationId}/available. Scopes: phonenumbers.read.",
       "category": "official-phone-system",
@@ -12018,7 +12018,7 @@
       "operationId": "available-numbers"
     },
     {
-      "name": "official_phone_system_purchase_phone_number",
+      "name": "o_phone_system_purchase_phone_number",
       "module": "officialSpec",
       "description": "Purchase a phone number Official GHL API endpoint: POST /phone-system/numbers/location/{locationId}/purchase. Scopes: phonenumbers.write.",
       "category": "official-phone-system",
@@ -12038,7 +12038,7 @@
       "operationId": "purchase-phone-number"
     },
     {
-      "name": "official_products_update_display_priority",
+      "name": "o_products_update_display_priority",
       "module": "officialSpec",
       "description": "Update product display priorities in store Official GHL API endpoint: POST /products/store/{storeId}/priority.",
       "category": "official-products",
@@ -12056,7 +12056,7 @@
       "operationId": "update-display-priority"
     },
     {
-      "name": "official_saas_api_update_saas_subscription_deprecated",
+      "name": "o_saas_api_update_saas_subscription_deprecated",
       "module": "officialSpec",
       "description": "Update SaaS subscription Official GHL API endpoint: PUT /saas-api/public-api/update-saas-subscription/{locationId}.",
       "category": "official-saas-api",
@@ -12074,7 +12074,7 @@
       "operationId": "update-saas-subscription-deprecated"
     },
     {
-      "name": "official_saas_api_bulk_disable_saas_deprecated",
+      "name": "o_saas_api_bulk_disable_saas_deprecated",
       "module": "officialSpec",
       "description": "Disable SaaS for locations Official GHL API endpoint: POST /saas-api/public-api/bulk-disable-saas/{companyId}.",
       "category": "official-saas-api",
@@ -12092,7 +12092,7 @@
       "operationId": "bulk-disable-saas-deprecated"
     },
     {
-      "name": "official_saas_api_enable_saas_location_deprecated",
+      "name": "o_saas_api_enable_saas_location_deprecated",
       "module": "officialSpec",
       "description": "Enable SaaS for Sub-Account (Formerly Location) Official GHL API endpoint: POST /saas-api/public-api/enable-saas/{locationId}.",
       "category": "official-saas-api",
@@ -12110,7 +12110,7 @@
       "operationId": "enable-saas-location-deprecated"
     },
     {
-      "name": "official_saas_api_pause_location_deprecated",
+      "name": "o_saas_api_pause_location_deprecated",
       "module": "officialSpec",
       "description": "Pause location Official GHL API endpoint: POST /saas-api/public-api/pause/{locationId}.",
       "category": "official-saas-api",
@@ -12128,7 +12128,7 @@
       "operationId": "pause-location-deprecated"
     },
     {
-      "name": "official_saas_api_update_rebilling_deprecated",
+      "name": "o_saas_api_update_rebilling_deprecated",
       "module": "officialSpec",
       "description": "Update Rebilling Official GHL API endpoint: POST /saas-api/public-api/update-rebilling/{companyId}.",
       "category": "official-saas-api",
@@ -12146,7 +12146,7 @@
       "operationId": "update-rebilling-deprecated"
     },
     {
-      "name": "official_saas_api_get_agency_plans_deprecated",
+      "name": "o_saas_api_get_agency_plans_deprecated",
       "module": "officialSpec",
       "description": "Get Agency Plans Official GHL API endpoint: GET /saas-api/public-api/agency-plans/{companyId}.",
       "category": "official-saas-api",
@@ -12164,7 +12164,7 @@
       "operationId": "get-agency-plans-deprecated"
     },
     {
-      "name": "official_saas_api_get_location_subscription_deprecated",
+      "name": "o_saas_api_get_location_subscription_deprecated",
       "module": "officialSpec",
       "description": "Get Location Subscription Details Official GHL API endpoint: GET /saas-api/public-api/get-saas-subscription/{locationId}.",
       "category": "official-saas-api",
@@ -12183,7 +12183,7 @@
       "operationId": "get-location-subscription-deprecated"
     },
     {
-      "name": "official_saas_api_bulk_enable_saas_deprecated",
+      "name": "o_saas_api_bulk_enable_saas_deprecated",
       "module": "officialSpec",
       "description": "Bulk Enable SaaS Official GHL API endpoint: POST /saas-api/public-api/bulk-enable-saas/{companyId}.",
       "category": "official-saas-api",
@@ -12201,7 +12201,7 @@
       "operationId": "bulk-enable-saas-deprecated"
     },
     {
-      "name": "official_saas_api_get_saas_locations_deprecated",
+      "name": "o_saas_api_get_saas_locations_deprecated",
       "module": "officialSpec",
       "description": "Get SaaS Locations Official GHL API endpoint: GET /saas-api/public-api/saas-locations/{companyId}.",
       "category": "official-saas-api",
@@ -12219,7 +12219,7 @@
       "operationId": "get-saas-locations-deprecated"
     },
     {
-      "name": "official_saas_api_get_saas_plan_deprecated",
+      "name": "o_saas_api_get_saas_plan_deprecated",
       "module": "officialSpec",
       "description": "Get SaaS Plan Official GHL API endpoint: GET /saas-api/public-api/saas-plan/{planId}.",
       "category": "official-saas-api",
@@ -12238,7 +12238,7 @@
       "operationId": "get-saas-plan-deprecated"
     },
     {
-      "name": "official_saas_api_locations",
+      "name": "o_saas_api_locations",
       "module": "officialSpec",
       "description": "Get locations by stripeId with companyId Official GHL API endpoint: GET /saas/locations.",
       "category": "official-saas-api",
@@ -12258,7 +12258,7 @@
       "operationId": "locations"
     },
     {
-      "name": "official_saas_api_generate_payment_link",
+      "name": "o_saas_api_generate_payment_link",
       "module": "officialSpec",
       "description": "Update SaaS subscription Official GHL API endpoint: PUT /saas/update-saas-subscription/{locationId}.",
       "category": "official-saas-api",
@@ -12276,7 +12276,7 @@
       "operationId": "generate-payment-link"
     },
     {
-      "name": "official_saas_api_bulk_disable_saas",
+      "name": "o_saas_api_bulk_disable_saas",
       "module": "officialSpec",
       "description": "Disable SaaS for locations Official GHL API endpoint: POST /saas/bulk-disable-saas/{companyId}.",
       "category": "official-saas-api",
@@ -12294,7 +12294,7 @@
       "operationId": "bulk-disable-saas"
     },
     {
-      "name": "official_saas_api_enable_saas_location",
+      "name": "o_saas_api_enable_saas_location",
       "module": "officialSpec",
       "description": "Enable SaaS for Sub-Account (Formerly Location) Official GHL API endpoint: POST /saas/enable-saas/{locationId}.",
       "category": "official-saas-api",
@@ -12312,7 +12312,7 @@
       "operationId": "enable-saas-location"
     },
     {
-      "name": "official_saas_api_pause_location",
+      "name": "o_saas_api_pause_location",
       "module": "officialSpec",
       "description": "Pause location Official GHL API endpoint: POST /saas/pause/{locationId}.",
       "category": "official-saas-api",
@@ -12330,7 +12330,7 @@
       "operationId": "pause-location"
     },
     {
-      "name": "official_saas_api_update_rebilling",
+      "name": "o_saas_api_update_rebilling",
       "module": "officialSpec",
       "description": "Update Rebilling Official GHL API endpoint: POST /saas/update-rebilling/{companyId}.",
       "category": "official-saas-api",
@@ -12348,7 +12348,7 @@
       "operationId": "update-rebilling"
     },
     {
-      "name": "official_saas_api_get_agency_plans",
+      "name": "o_saas_api_get_agency_plans",
       "module": "officialSpec",
       "description": "Get Agency Plans Official GHL API endpoint: GET /saas/agency-plans/{companyId}.",
       "category": "official-saas-api",
@@ -12366,7 +12366,7 @@
       "operationId": "get-agency-plans"
     },
     {
-      "name": "official_saas_api_get_location_subscription",
+      "name": "o_saas_api_get_location_subscription",
       "module": "officialSpec",
       "description": "Get Location Subscription Details Official GHL API endpoint: GET /saas/get-saas-subscription/{locationId}.",
       "category": "official-saas-api",
@@ -12385,7 +12385,7 @@
       "operationId": "get-location-subscription"
     },
     {
-      "name": "official_saas_api_bulk_enable_saas",
+      "name": "o_saas_api_bulk_enable_saas",
       "module": "officialSpec",
       "description": "Bulk Enable SaaS Official GHL API endpoint: POST /saas/bulk-enable-saas/{companyId}.",
       "category": "official-saas-api",
@@ -12403,7 +12403,7 @@
       "operationId": "bulk-enable-saas"
     },
     {
-      "name": "official_saas_api_get_saas_locations",
+      "name": "o_saas_api_get_saas_locations",
       "module": "officialSpec",
       "description": "Get SaaS Locations Official GHL API endpoint: GET /saas/saas-locations/{companyId}.",
       "category": "official-saas-api",
@@ -12422,7 +12422,7 @@
       "operationId": "get-saas-locations"
     },
     {
-      "name": "official_saas_api_get_saas_plan",
+      "name": "o_saas_api_get_saas_plan",
       "module": "officialSpec",
       "description": "Get SaaS Plan Official GHL API endpoint: GET /saas/saas-plan/{planId}.",
       "category": "official-saas-api",
@@ -12441,7 +12441,7 @@
       "operationId": "get-saas-plan"
     },
     {
-      "name": "official_snapshots_get_snapshot_push",
+      "name": "o_snapshots_get_snapshot_push",
       "module": "officialSpec",
       "description": "Get Snapshot Push between Dates Official GHL API endpoint: GET /snapshots/snapshot-status/{snapshotId}.",
       "category": "official-snapshots",
@@ -12464,7 +12464,7 @@
       "operationId": "get-snapshot-push"
     },
     {
-      "name": "official_snapshots_get_latest_snapshot_push",
+      "name": "o_snapshots_get_latest_snapshot_push",
       "module": "officialSpec",
       "description": "Get Last Snapshot Push Official GHL API endpoint: GET /snapshots/snapshot-status/{snapshotId}/location/{locationId}.",
       "category": "official-snapshots",
@@ -12484,7 +12484,7 @@
       "operationId": "get-latest-snapshot-push"
     },
     {
-      "name": "official_social_media_posting_start_google_oauth",
+      "name": "o_social_media_posting_start_google_oauth",
       "module": "officialSpec",
       "description": "Starts OAuth For Google Account Official GHL API endpoint: GET /social-media-posting/oauth/google/start. Scopes: socialplanner/oauth.readonly.",
       "category": "official-social-media-posting",
@@ -12504,7 +12504,7 @@
       "operationId": "start-google-oauth"
     },
     {
-      "name": "official_social_media_posting_get_google_locations",
+      "name": "o_social_media_posting_get_google_locations",
       "module": "officialSpec",
       "description": "Get google business locations Official GHL API endpoint: GET /social-media-posting/oauth/{locationId}/google/locations/{accountId}.",
       "category": "official-social-media-posting",
@@ -12523,7 +12523,7 @@
       "operationId": "get-google-locations"
     },
     {
-      "name": "official_social_media_posting_set_google_locations",
+      "name": "o_social_media_posting_set_google_locations",
       "module": "officialSpec",
       "description": "Set google business locations Official GHL API endpoint: POST /social-media-posting/oauth/{locationId}/google/locations/{accountId}.",
       "category": "official-social-media-posting",
@@ -12542,7 +12542,7 @@
       "operationId": "set-google-locations"
     },
     {
-      "name": "official_social_media_posting_start_facebook_oauth",
+      "name": "o_social_media_posting_start_facebook_oauth",
       "module": "officialSpec",
       "description": "Starts OAuth For Facebook Account Official GHL API endpoint: GET /social-media-posting/oauth/facebook/start.",
       "category": "official-social-media-posting",
@@ -12560,7 +12560,7 @@
       "operationId": "start-facebook-oauth"
     },
     {
-      "name": "official_social_media_posting_get_facebook_page_group",
+      "name": "o_social_media_posting_get_facebook_page_group",
       "module": "officialSpec",
       "description": "Get facebook pages Official GHL API endpoint: GET /social-media-posting/oauth/{locationId}/facebook/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12579,7 +12579,7 @@
       "operationId": "get-facebook-page-group"
     },
     {
-      "name": "official_social_media_posting_attach_facebook_page_group",
+      "name": "o_social_media_posting_attach_facebook_page_group",
       "module": "officialSpec",
       "description": "Attach facebook pages Official GHL API endpoint: POST /social-media-posting/oauth/{locationId}/facebook/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12598,7 +12598,7 @@
       "operationId": "attach-facebook-page-group"
     },
     {
-      "name": "official_social_media_posting_start_instagram_oauth",
+      "name": "o_social_media_posting_start_instagram_oauth",
       "module": "officialSpec",
       "description": "Starts OAuth For Instagram Account Official GHL API endpoint: GET /social-media-posting/oauth/instagram/start. Scopes: socialplanner/oauth.readonly.",
       "category": "official-social-media-posting",
@@ -12618,7 +12618,7 @@
       "operationId": "start-instagram-oauth"
     },
     {
-      "name": "official_social_media_posting_get_instagram_page_group",
+      "name": "o_social_media_posting_get_instagram_page_group",
       "module": "officialSpec",
       "description": "Get Instagram Professional Accounts Official GHL API endpoint: GET /social-media-posting/oauth/{locationId}/instagram/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12637,7 +12637,7 @@
       "operationId": "get-instagram-page-group"
     },
     {
-      "name": "official_social_media_posting_attach_instagram_page_group",
+      "name": "o_social_media_posting_attach_instagram_page_group",
       "module": "officialSpec",
       "description": "Attach Instagram Professional Accounts Official GHL API endpoint: POST /social-media-posting/oauth/{locationId}/instagram/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12656,7 +12656,7 @@
       "operationId": "attach-instagram-page-group"
     },
     {
-      "name": "official_social_media_posting_start_linkedin_oauth",
+      "name": "o_social_media_posting_start_linkedin_oauth",
       "module": "officialSpec",
       "description": "Starts OAuth For LinkedIn Account Official GHL API endpoint: GET /social-media-posting/oauth/linkedin/start.",
       "category": "official-social-media-posting",
@@ -12674,7 +12674,7 @@
       "operationId": "start-linkedin-oauth"
     },
     {
-      "name": "official_social_media_posting_get_linkedin_page_profile",
+      "name": "o_social_media_posting_get_linkedin_page_profile",
       "module": "officialSpec",
       "description": "Get Linkedin pages and profile Official GHL API endpoint: GET /social-media-posting/oauth/{locationId}/linkedin/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12693,7 +12693,7 @@
       "operationId": "get-linkedin-page-profile"
     },
     {
-      "name": "official_social_media_posting_attach_linkedin_page_profile",
+      "name": "o_social_media_posting_attach_linkedin_page_profile",
       "module": "officialSpec",
       "description": "Attach linkedin pages and profile Official GHL API endpoint: POST /social-media-posting/oauth/{locationId}/linkedin/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12712,7 +12712,7 @@
       "operationId": "attach-linkedin-page-profile"
     },
     {
-      "name": "official_social_media_posting_start_twitter_oauth",
+      "name": "o_social_media_posting_start_twitter_oauth",
       "module": "officialSpec",
       "description": "Starts OAuth For Twitter Account Official GHL API endpoint: GET /social-media-posting/oauth/twitter/start. Scopes: socialplanner/oauth.readonly.",
       "category": "official-social-media-posting",
@@ -12732,7 +12732,7 @@
       "operationId": "start-twitter-oauth"
     },
     {
-      "name": "official_social_media_posting_get_twitter_profile",
+      "name": "o_social_media_posting_get_twitter_profile",
       "module": "officialSpec",
       "description": "Get Twitter profile Official GHL API endpoint: GET /social-media-posting/oauth/{locationId}/twitter/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12751,7 +12751,7 @@
       "operationId": "get-twitter-profile"
     },
     {
-      "name": "official_social_media_posting_attach_twitter_profile",
+      "name": "o_social_media_posting_attach_twitter_profile",
       "module": "officialSpec",
       "description": "Attach Twitter profile Official GHL API endpoint: POST /social-media-posting/oauth/{locationId}/twitter/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12770,7 +12770,7 @@
       "operationId": "attach-twitter-profile"
     },
     {
-      "name": "official_social_media_posting_start_tiktok_oauth",
+      "name": "o_social_media_posting_start_tiktok_oauth",
       "module": "officialSpec",
       "description": "Starts OAuth For Tiktok Account Official GHL API endpoint: GET /social-media-posting/oauth/tiktok/start. Scopes: socialplanner/oauth.readonly.",
       "category": "official-social-media-posting",
@@ -12790,7 +12790,7 @@
       "operationId": "start-tiktok-oauth"
     },
     {
-      "name": "official_social_media_posting_get_tiktok_profile",
+      "name": "o_social_media_posting_get_tiktok_profile",
       "module": "officialSpec",
       "description": "Get Tiktok profile Official GHL API endpoint: GET /social-media-posting/oauth/{locationId}/tiktok/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12809,7 +12809,7 @@
       "operationId": "get-tiktok-profile"
     },
     {
-      "name": "official_social_media_posting_attach_tiktok_profile",
+      "name": "o_social_media_posting_attach_tiktok_profile",
       "module": "officialSpec",
       "description": "Attach Tiktok profile Official GHL API endpoint: POST /social-media-posting/oauth/{locationId}/tiktok/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12828,7 +12828,7 @@
       "operationId": "attach-tiktok-profile"
     },
     {
-      "name": "official_social_media_posting_start_tiktok_business_oauth",
+      "name": "o_social_media_posting_start_tiktok_business_oauth",
       "module": "officialSpec",
       "description": "Starts OAuth For Tiktok Business Account Official GHL API endpoint: GET /social-media-posting/oauth/tiktok-business/start. Scopes: socialplanner/oauth.readonly.",
       "category": "official-social-media-posting",
@@ -12848,7 +12848,7 @@
       "operationId": "start-tiktok-business-oauth"
     },
     {
-      "name": "official_social_media_posting_get_tiktok_business_profile",
+      "name": "o_social_media_posting_get_tiktok_business_profile",
       "module": "officialSpec",
       "description": "Get Tiktok Business profile Official GHL API endpoint: GET /social-media-posting/oauth/{locationId}/tiktok-business/accounts/{accountId}.",
       "category": "official-social-media-posting",
@@ -12867,7 +12867,7 @@
       "operationId": "get-tiktok-business-profile"
     },
     {
-      "name": "official_social_media_posting_get_categories_location_id",
+      "name": "o_social_media_posting_get_categories_location_id",
       "module": "officialSpec",
       "description": "Get categories by location id Official GHL API endpoint: GET /social-media-posting/{locationId}/categories. Scopes: socialplanner/category.readonly.",
       "category": "official-social-media-posting",
@@ -12887,7 +12887,7 @@
       "operationId": "get-categories-location-id"
     },
     {
-      "name": "official_social_media_posting_get_categories_id",
+      "name": "o_social_media_posting_get_categories_id",
       "module": "officialSpec",
       "description": "Get categories by id Official GHL API endpoint: GET /social-media-posting/{locationId}/categories/{id}.",
       "category": "official-social-media-posting",
@@ -12906,7 +12906,7 @@
       "operationId": "get-categories-id"
     },
     {
-      "name": "official_social_media_posting_get_tags_location_id",
+      "name": "o_social_media_posting_get_tags_location_id",
       "module": "officialSpec",
       "description": "Get tags by location id Official GHL API endpoint: GET /social-media-posting/{locationId}/tags.",
       "category": "official-social-media-posting",
@@ -12924,7 +12924,7 @@
       "operationId": "get-tags-location-id"
     },
     {
-      "name": "official_social_media_posting_get_tags_by_ids",
+      "name": "o_social_media_posting_get_tags_by_ids",
       "module": "officialSpec",
       "description": "Get tags by ids Official GHL API endpoint: POST /social-media-posting/{locationId}/tags/details.",
       "category": "official-social-media-posting",
@@ -12942,7 +12942,7 @@
       "operationId": "get-tags-by-ids"
     },
     {
-      "name": "official_surveys_get_surveys_submissions",
+      "name": "o_surveys_get_surveys_submissions",
       "module": "officialSpec",
       "description": "Get Surveys Submissions Official GHL API endpoint: GET /surveys/submissions. Scopes: surveys.readonly.",
       "category": "official-surveys",
@@ -12960,7 +12960,7 @@
       "operationId": "get-surveys-submissions"
     },
     {
-      "name": "official_users_get_user_by_location",
+      "name": "o_users_get_user_by_location",
       "module": "officialSpec",
       "description": "Get User by Location Official GHL API endpoint: GET /users/. Scopes: users.readonly.",
       "category": "official-users",

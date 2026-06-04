@@ -649,9 +649,9 @@ function contactPayload(args: JsonRecord, locationId: string): JsonRecord {
 function adStatusTool(args: JsonRecord): string {
   const platform = stringArg(args.platform)?.toLowerCase();
   const status = stringArg(args.status)?.toLowerCase();
-  if (platform === 'google') return 'official_ad_manager_google_upsert_campaign';
-  if (platform === 'linkedin' || platform === 'li') return 'official_ad_manager_li_update_ad_status';
-  return status === 'active' || status === 'resume' ? 'official_ad_manager_fb_resume_campaign' : 'official_ad_manager_fb_pause_campaign';
+  if (platform === 'google') return 'o_ad_manager_google_upsert_campaign';
+  if (platform === 'linkedin' || platform === 'li') return 'o_ad_manager_li_update_ad_status';
+  return status === 'active' || status === 'resume' ? 'o_ad_manager_fb_resume_campaign' : 'o_ad_manager_fb_pause_campaign';
 }
 
 function enc(value: unknown): string {
