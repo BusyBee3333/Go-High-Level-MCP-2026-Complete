@@ -5827,7 +5827,7 @@
     }
   },
   {
-    "name": "official_payments_custom_provider_marketplace_app_update_capabilities",
+    "name": "official_payments_custom_provider_marketplace_app_update_9a8c6e",
     "method": "PUT",
     "path": "/payments/custom-provider/capabilities",
     "app": "payments",

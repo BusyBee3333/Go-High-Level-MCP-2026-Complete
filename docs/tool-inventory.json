@@ -11961,7 +11961,7 @@
       "operationId": "search-opportunities-advanced"
     },
     {
-      "name": "official_payments_custom_provider_marketplace_app_update_capabilities",
+      "name": "official_payments_custom_provider_marketplace_app_update_9a8c6e",
       "module": "officialSpec",
       "description": "Custom-provider marketplace app update capabilities Official GHL API endpoint: PUT /payments/custom-provider/capabilities. Scopes: payments/custom-provider.write.",
       "category": "official-payments",

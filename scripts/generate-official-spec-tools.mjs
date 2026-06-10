@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -244,11 +245,21 @@ console.log(`Wrote ${dataPath}`);
 
 function makeToolName(endpoint) {
   const base = endpoint.operationId || `${endpoint.method}-${endpoint.path}`;
-  return `official_${endpoint.app}_${base}`
+  return capToolName(`official_${endpoint.app}_${base}`
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '')
-    .replace(/_+/g, '_');
+    .replace(/_+/g, '_'));
+}
+
+function capToolName(name) {
+  const maxLength = 64;
+  if (name.length <= maxLength) return name;
+
+  const suffix = createHash('sha1').update(name).digest('hex').slice(0, 6);
+  const prefixLength = maxLength - suffix.length - 1;
+  const prefix = name.slice(0, prefixLength).replace(/_+$/g, '');
+  return `${prefix}_${suffix}`;
 }
 
 function dedupeToolNames(items) {

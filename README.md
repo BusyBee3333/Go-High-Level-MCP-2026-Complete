@@ -43,6 +43,10 @@ npx ghl-mcp test-tool search_contacts '{"locationId":"your_location_id","pageLim
 
 See `docs/TOOLING.md` for the full tooling map.
 
+## Contributors
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for contributor acknowledgements.
+
 ## Agent Tool Profiles
 
 By default, the server exposes the full tool surface: raw endpoint tools plus the curated CRM workflow layer. Agents that work better with fewer, higher-level actions can use:
