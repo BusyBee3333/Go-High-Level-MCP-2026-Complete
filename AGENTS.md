@@ -10,6 +10,15 @@ When an agent creates or changes a non-sensitive artifact that is reusable, dire
 - Do not publish temporary exploration, generated captures, raw vendor exports, unnecessary binaries, duplicate local copies, or work unrelated to the repository.
 - Use the repository that owns the artifact. Never put private work in a public repository merely to make it discoverable.
 
+## Autonomous project file changes
+
+Ordinary file work inside the user's requested project scope is standing-authorized. Do not ask for file-by-file approval before creating, editing, refactoring, renaming, or removing project files when the change is a normal, reversible implementation step.
+
+- Make the change, preserve unrelated user work, validate it in proportion to risk, and publish eligible non-sensitive artifacts under the rule above.
+- In a mixed worktree, edit and stage only the intended paths. Existing unrelated changes belong to the user or another agent.
+- Ask only when an action is destructive or difficult to recover, materially expands the requested scope, spends money, sends or publishes customer-facing material, changes live production behavior or data, merges a pull request, or crosses another explicit approval gate.
+- GitHub branch, commit, push, and draft-PR publication of eligible non-sensitive project artifacts are standing-authorized and do not require a separate approval prompt.
+
 ## Public-repository safety boundary
 
 This repository is public. GitHub publication never overrides privacy, security, or production-safety rules.
