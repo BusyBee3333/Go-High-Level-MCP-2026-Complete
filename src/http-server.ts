@@ -17,6 +17,7 @@ import * as dotenv from 'dotenv';
 import { GHLApiClient } from './clients/ghl-api-client.js';
 import { ToolRegistry } from './tool-registry.js';
 import { GHLConfig } from './types/ghl-types.js';
+import { resolveBindHost, originGuard, authGuard, describeBinding } from './openclaw-security.js';
 
 dotenv.config();
 
@@ -36,6 +37,9 @@ class GHLMCPHttpServer {
   }
 
   private setupExpress(): void {
+    // MCP spec: a disallowed Origin MUST get 403. Registered BEFORE cors(),
+    // whose refusal path throws and surfaces as 500. See src/openclaw-security.ts.
+    this.app.use(originGuard());
     this.app.use(cors({
       origin: (origin, callback) => {
         if (!origin) return callback(null, true);
@@ -51,6 +55,7 @@ class GHLMCPHttpServer {
       credentials: true
     }));
     this.app.use(express.json());
+    this.app.use(authGuard());
   }
 
   private initializeGHLClient(): GHLApiClient {
@@ -173,8 +178,10 @@ class GHLMCPHttpServer {
 
   async start(): Promise<void> {
     await this.ghlClient.testConnection();
-    this.app.listen(this.port, '0.0.0.0', () => {
-      console.log(`GoHighLevel MCP legacy SSE server listening on ${this.port}`);
+    const bindHost = resolveBindHost();
+    this.app.listen(this.port, bindHost, () => {
+      console.log(`GoHighLevel MCP legacy SSE server listening on ${bindHost}:${this.port}`);
+      console.log(describeBinding(bindHost, this.port));
     });
   }
 }
