@@ -16,6 +16,7 @@ import { EnhancedGHLClient } from './enhanced-ghl-client.js';
 import { ToolRegistry } from './tool-registry.js';
 import { GHLConfig } from './types/ghl-types.js';
 import { registerExecuteRoutes } from './execute-route.js';
+import { resolveBindHost, originGuard, authGuard, describeBinding } from './openclaw-security.js';
 
 dotenv.config();
 
@@ -69,6 +70,9 @@ async function main() {
   await ghlClient.testConnection();
 
   const app = express();
+  // MCP spec: a disallowed Origin MUST get 403. Registered BEFORE cors(),
+  // whose refusal path throws and surfaces as 500. See src/openclaw-security.ts.
+  app.use(originGuard());
   app.use(cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
@@ -84,6 +88,7 @@ async function main() {
     credentials: true,
   }));
   app.use(express.json());
+  app.use(authGuard());
   app.use((req, _res, next) => {
     log('debug', `${req.method} ${req.path}`, { ip: req.ip });
     next();
@@ -206,12 +211,14 @@ async function main() {
     }
   });
 
-  app.listen(port, '0.0.0.0', () => {
+  const bindHost = resolveBindHost();
+  app.listen(port, bindHost, () => {
     console.log('GoHighLevel MCP Server v2.0');
-    console.log(`Server: http://0.0.0.0:${port}`);
-    console.log(`Streamable HTTP: http://0.0.0.0:${port}/mcp`);
-    console.log(`Legacy SSE: http://0.0.0.0:${port}/sse`);
+    console.log(`Server: http://${bindHost}:${port}`);
+    console.log(`Streamable HTTP: http://${bindHost}:${port}/mcp`);
+    console.log(`Legacy SSE: http://${bindHost}:${port}/sse`);
     console.log(`Tools: ${toolCount}`);
+    console.log(describeBinding(bindHost, port));
   });
 
 }
