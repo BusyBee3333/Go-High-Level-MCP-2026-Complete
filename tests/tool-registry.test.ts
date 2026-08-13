@@ -13,9 +13,11 @@ const mockClient = {
 
 describe('ToolRegistry profiles', () => {
   const previousProfile = process.env.GHL_TOOL_PROFILE;
+  const previousGeneration = process.env.GHL_API_GENERATION;
 
   beforeEach(() => {
     delete process.env.GHL_TOOL_PROFILE;
+    delete process.env.GHL_API_GENERATION;
   });
 
   afterEach(() => {
@@ -23,6 +25,11 @@ describe('ToolRegistry profiles', () => {
       delete process.env.GHL_TOOL_PROFILE;
     } else {
       process.env.GHL_TOOL_PROFILE = previousProfile;
+    }
+    if (previousGeneration === undefined) {
+      delete process.env.GHL_API_GENERATION;
+    } else {
+      process.env.GHL_API_GENERATION = previousGeneration;
     }
   });
 
@@ -34,6 +41,82 @@ describe('ToolRegistry profiles', () => {
     expect(registry.getAllToolNames()).toContain('crm_prepare_lead_intake');
     expect(registry.getToolCount()).toBe(registry.getAllToolDefinitions().length);
   });
+
+  it('keeps every visible tool name unique across generations and profiles', () => {
+    const generations = ['v3', 'v2'] as const;
+    const profiles = ['full', 'raw', 'stable', 'official', 'curated'] as const;
+
+    for (const generation of generations) {
+      for (const profile of profiles) {
+        process.env.GHL_TOOL_PROFILE = profile;
+        const registry = new ToolRegistry({
+          ...mockClient,
+          getConfig: () => ({ ...mockClient.getConfig(), apiGeneration: generation }),
+        } as any);
+        const names = registry.getAllToolNames();
+        const duplicateNames = names.filter((name, index) => names.indexOf(name) !== index);
+
+        expect({ generation, profile, duplicateNames }).toEqual({
+          generation,
+          profile,
+          duplicateNames: [],
+        });
+      }
+    }
+  });
+
+  it.each([
+    ['v3', 'full'],
+    ['v3', 'raw'],
+    ['v2', 'full'],
+    ['v2', 'raw'],
+  ] as const)(
+    'dispatches public and internal workflow deletion unambiguously in %s/%s mode',
+    async (generation, profile) => {
+      process.env.GHL_TOOL_PROFILE = profile;
+      const registry = new ToolRegistry({
+        ...mockClient,
+        getConfig: () => ({ ...mockClient.getConfig(), apiGeneration: generation }),
+      } as any);
+      const modules = (registry as any).modules as Array<{
+        name: string;
+        executeTool: (name: string, args: Record<string, unknown>) => Promise<unknown>;
+      }>;
+      const publicModule = modules.find((module) => module.name === 'workflows');
+      const internalModule = modules.find((module) => module.name === 'workflowBuilder');
+      const calls: string[] = [];
+
+      expect(publicModule).toBeDefined();
+      expect(internalModule).toBeDefined();
+      publicModule!.executeTool = async (name) => {
+        calls.push(`public:${name}`);
+        return { module: 'public' };
+      };
+      internalModule!.executeTool = async (name) => {
+        calls.push(`internal:${name}`);
+        return { module: 'internal' };
+      };
+
+      await expect(registry.callTool('ghl_delete_workflow', { workflowId: 'public-id' }))
+        .resolves.toEqual({ module: 'public' });
+      await expect(registry.callTool('ghl_delete_workflow_internal', { workflowId: 'internal-id' }))
+        .resolves.toEqual({ module: 'internal' });
+      expect(calls).toEqual([
+        'public:ghl_delete_workflow',
+        'internal:ghl_delete_workflow_internal',
+      ]);
+
+      const inventoryByTool = new Map(registry.getToolInventory().map((tool) => [tool.name, tool]));
+      expect(inventoryByTool.get('ghl_delete_workflow')).toMatchObject({
+        module: 'workflows',
+        destructive: true,
+      });
+      expect(inventoryByTool.get('ghl_delete_workflow_internal')).toMatchObject({
+        module: 'workflowBuilder',
+        destructive: true,
+      });
+    }
+  );
 
   it('can expose only curated agent workspace tools', async () => {
     process.env.GHL_TOOL_PROFILE = 'curated';

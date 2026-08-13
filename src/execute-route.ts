@@ -10,6 +10,7 @@ import type { ToolRegistry } from './tool-registry.js';
 import type { GHLConfig } from './types/ghl-types.js';
 import { EnhancedGHLClient } from './enhanced-ghl-client.js';
 import { ToolRegistry as ToolRegistryClass } from './tool-registry.js';
+import { createPerRequestConfig } from './request-config.js';
 
 function toRouteToolDescriptor(tool: Tool) {
   const schema: Record<string, unknown> =
@@ -56,11 +57,12 @@ export function registerExecuteRoutes(
 
     let registry = defaultRegistry;
     if (perReqToken && perReqLoc && baseConfig) {
-      const perReqClient = new EnhancedGHLClient({
-        ...baseConfig,
-        accessToken: perReqToken,
-        locationId: perReqLoc,
-      });
+      const perReqClient = new EnhancedGHLClient(createPerRequestConfig(
+        baseConfig,
+        perReqToken,
+        perReqLoc,
+        req.headers['x-ghl-user-type'],
+      ));
       registry = new ToolRegistryClass(perReqClient) as unknown as ToolRegistry;
     }
 

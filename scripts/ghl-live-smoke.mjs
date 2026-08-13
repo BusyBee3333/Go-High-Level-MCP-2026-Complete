@@ -3,8 +3,8 @@
 const baseUrl = process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com';
 const apiKey = process.env.GHL_API_KEY;
 const locationId = process.env.GHL_LOCATION_ID;
-// v3 is the current named API version. Ad-publishing and Conversations keep
-// their own dated headers, but the smoke checks below only hit v3 modules.
+// v3 is the current named API version. The smoke checks below target routes
+// declared on the current v3 surface.
 const version = process.env.GHL_API_VERSION || 'v3';
 const timeoutMs = Number(process.env.GHL_LIVE_SMOKE_TIMEOUT_MS || 15000);
 const runWrites = process.env.GHL_LIVE_WRITE_SMOKE === '1';

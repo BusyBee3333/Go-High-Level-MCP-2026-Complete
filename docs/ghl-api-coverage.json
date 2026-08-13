@@ -10952,7 +10952,16 @@
         ],
         "deprecated": false,
         "specTier": "v3",
-        "sourceFile": "apps/v3/saas-v3.json"
+        "sourceFile": "apps/v3/saas-v3.json",
+        "queryParamRequiredOverrides": {
+          "customerId": false,
+          "subscriptionId": false,
+          "companyId": true
+        },
+        "correctionEvidence": {
+          "evidence": "apps/v3/saas-v3.json GET /saas-api/public-api/locations",
+          "reason": "The equivalent route in the same locked v3 spec reflects the corrected optional Stripe identifier contract."
+        }
       },
       {
         "key": "PUT /saas/update-saas-subscription/{}",
@@ -26440,12 +26449,13 @@
         "operationId": "create-email-campaign-v2",
         "summary": "Create Email Campaign V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/create-email-campaign-v-2"
       },
       {
@@ -26457,12 +26467,13 @@
         "operationId": "list-email-campaigns-v2",
         "summary": "List Email Campaigns V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/list-email-campaigns-v-2"
       },
       {
@@ -26474,12 +26485,13 @@
         "operationId": "update-email-campaign-v2",
         "summary": "Update Email Campaign V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/update-email-campaign-v-2"
       },
       {
@@ -26491,12 +26503,13 @@
         "operationId": "delete-email-campaign-v2",
         "summary": "Delete Email Campaign V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/delete-campaign-v-2"
       },
       {
@@ -26508,12 +26521,13 @@
         "operationId": "list-workflow-campaigns-v2",
         "summary": "List Workflow Campaigns V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/list-workflow-campaigns-v-2"
       },
       {
@@ -26525,12 +26539,13 @@
         "operationId": "list-bulk-action-campaigns-v2",
         "summary": "List Bulk Action Campaigns V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/list-bulk-action-campaigns-v-2"
       },
       {
@@ -26542,12 +26557,13 @@
         "operationId": "schedule-email-campaign-v2",
         "summary": "Schedule Campaign V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/schedule-campaign-v-2"
       },
       {
@@ -26559,12 +26575,13 @@
         "operationId": "create-email-template-v2",
         "summary": "Create Email Template V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/create-email-template-v-2"
       },
       {
@@ -26576,12 +26593,13 @@
         "operationId": "list-email-templates-v2",
         "summary": "List Email Templates V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/list-email-templates-v-2"
       },
       {
@@ -26593,12 +26611,13 @@
         "operationId": "import-email-template-v2",
         "summary": "Import Email Template V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/import-email-template-v-2"
       },
       {
@@ -26610,12 +26629,13 @@
         "operationId": "create-template-folder-v2",
         "summary": "Create Email Template Folder V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/create-template-folder-v-2"
       },
       {
@@ -26627,12 +26647,13 @@
         "operationId": "delete-email-template-v2",
         "summary": "Delete Email Template V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/delete-email-template-v-2"
       },
       {
@@ -26644,12 +26665,13 @@
         "operationId": "update-email-template-v2",
         "summary": "Update Email Template V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/update-email-template-v-2"
       },
       {
@@ -26661,12 +26683,13 @@
         "operationId": "get-campaign-stats-v2",
         "summary": "Get Campaign Statistics V2",
         "versions": [
-          "v3"
+          "2023-02-21"
         ],
         "scopes": [],
         "securitySchemes": [],
-        "deprecated": false,
-        "specTier": "live-docs",
+        "deprecated": true,
+        "supersededByV3": true,
+        "specTier": "v2",
         "sourceFile": "live-docs:ghl/emails/get-campaign-stats-under-campaigns-v-2"
       },
       {
@@ -26683,6 +26706,7 @@
         "scopes": [],
         "securitySchemes": [],
         "deprecated": false,
+        "supersededByV3": false,
         "specTier": "live-docs",
         "sourceFile": "live-docs:ghl/opportunities/create-pipeline"
       },
@@ -26700,6 +26724,7 @@
         "scopes": [],
         "securitySchemes": [],
         "deprecated": false,
+        "supersededByV3": false,
         "specTier": "live-docs",
         "sourceFile": "live-docs:ghl/opportunities/get-pipeline"
       },
@@ -26717,6 +26742,7 @@
         "scopes": [],
         "securitySchemes": [],
         "deprecated": false,
+        "supersededByV3": false,
         "specTier": "live-docs",
         "sourceFile": "live-docs:ghl/opportunities/update-pipeline"
       },
@@ -26734,6 +26760,7 @@
         "scopes": [],
         "securitySchemes": [],
         "deprecated": false,
+        "supersededByV3": false,
         "specTier": "live-docs",
         "sourceFile": "live-docs:ghl/opportunities/delete-pipeline"
       }
@@ -29262,10 +29289,10 @@
         "caller": "makeRequest"
       },
       {
-        "key": "GET /emails/schedule",
+        "key": "GET /campaigns",
         "method": "GET",
-        "path": "/emails/schedule",
-        "normalizedPath": "/emails/schedule",
+        "path": "/campaigns/",
+        "normalizedPath": "/campaigns",
         "sourceFile": "src/tools/campaigns-tools.ts",
         "caller": "makeRequest"
       },
@@ -32686,14 +32713,6 @@
         "caller": "official-spec-generated"
       },
       {
-        "key": "GET /campaigns",
-        "method": "GET",
-        "path": "/campaigns/",
-        "normalizedPath": "/campaigns",
-        "sourceFile": "src/tools/official-spec-endpoints.json",
-        "caller": "official-spec-generated"
-      },
-      {
         "key": "GET /chat-widget/list",
         "method": "GET",
         "path": "/chat-widget/list",
@@ -34838,14 +34857,6 @@
         "caller": "official-spec-generated"
       },
       {
-        "key": "GET /campaigns",
-        "method": "GET",
-        "path": "/campaigns/",
-        "normalizedPath": "/campaigns",
-        "sourceFile": "src/tools/official-spec-endpoints.json",
-        "caller": "official-spec-generated"
-      },
-      {
         "key": "POST /contacts/bulk/tags/update/{}",
         "method": "POST",
         "path": "/contacts/bulk/tags/update/{type}",
@@ -35854,11 +35865,119 @@
         "caller": "official-spec-generated"
       }
     ],
-    "filesScanned": 60
+    "filesScanned": 55,
+    "registeredToolModules": [
+      "src/tools/affiliates-tools.ts",
+      "src/tools/agent-studio-tools.ts",
+      "src/tools/agent-workspace-tools.ts",
+      "src/tools/association-tools.ts",
+      "src/tools/blog-tools.ts",
+      "src/tools/businesses-tools.ts",
+      "src/tools/calendar-tools.ts",
+      "src/tools/campaigns-tools.ts",
+      "src/tools/companies-tools.ts",
+      "src/tools/contact-tools.ts",
+      "src/tools/conversation-tools.ts",
+      "src/tools/courses-tools.ts",
+      "src/tools/custom-field-v2-tools.ts",
+      "src/tools/custom-menus-tools.ts",
+      "src/tools/email-isv-tools.ts",
+      "src/tools/email-tools.ts",
+      "src/tools/forms-tools.ts",
+      "src/tools/funnels-tools.ts",
+      "src/tools/invoices-tools.ts",
+      "src/tools/links-tools.ts",
+      "src/tools/location-tools.ts",
+      "src/tools/marketplace-tools.ts",
+      "src/tools/media-tools.ts",
+      "src/tools/notes-tools.ts",
+      "src/tools/oauth-tools.ts",
+      "src/tools/object-tools.ts",
+      "src/tools/official-spec-tools.ts",
+      "src/tools/opportunity-tools.ts",
+      "src/tools/payments-tools.ts",
+      "src/tools/phone-system-tools.ts",
+      "src/tools/phone-tools.ts",
+      "src/tools/products-tools.ts",
+      "src/tools/proposals-tools.ts",
+      "src/tools/reporting-tools.ts",
+      "src/tools/reputation-tools.ts",
+      "src/tools/saas-tools.ts",
+      "src/tools/smartlists-tools.ts",
+      "src/tools/snapshots-tools.ts",
+      "src/tools/social-media-tools.ts",
+      "src/tools/store-tools.ts",
+      "src/tools/survey-tools.ts",
+      "src/tools/templates-tools.ts",
+      "src/tools/triggers-tools.ts",
+      "src/tools/users-tools.ts",
+      "src/tools/voice-ai-tools.ts",
+      "src/tools/webhooks-tools.ts",
+      "src/tools/workflow-builder-tools.ts",
+      "src/tools/workflow-insights-tools.ts",
+      "src/tools/workflow-tools.ts"
+    ],
+    "reachableSourceFiles": [
+      "src/clients/endpoint-version-resolver.ts",
+      "src/clients/ghl-api-client.ts",
+      "src/clients/version-router.ts",
+      "src/clients/workflow-builder-client.ts",
+      "src/tools/affiliates-tools.ts",
+      "src/tools/agent-studio-tools.ts",
+      "src/tools/agent-workspace-tools.ts",
+      "src/tools/association-tools.ts",
+      "src/tools/blog-tools.ts",
+      "src/tools/businesses-tools.ts",
+      "src/tools/calendar-tools.ts",
+      "src/tools/campaigns-tools.ts",
+      "src/tools/companies-tools.ts",
+      "src/tools/contact-tools.ts",
+      "src/tools/conversation-tools.ts",
+      "src/tools/courses-tools.ts",
+      "src/tools/custom-field-v2-tools.ts",
+      "src/tools/custom-menus-tools.ts",
+      "src/tools/email-isv-tools.ts",
+      "src/tools/email-tools.ts",
+      "src/tools/forms-tools.ts",
+      "src/tools/funnels-tools.ts",
+      "src/tools/ghl-tool-client.ts",
+      "src/tools/invoices-tools.ts",
+      "src/tools/links-tools.ts",
+      "src/tools/location-tools.ts",
+      "src/tools/marketplace-tools.ts",
+      "src/tools/media-tools.ts",
+      "src/tools/notes-tools.ts",
+      "src/tools/oauth-tools.ts",
+      "src/tools/object-tools.ts",
+      "src/tools/official-spec-tools.ts",
+      "src/tools/opportunity-tools.ts",
+      "src/tools/payments-tools.ts",
+      "src/tools/phone-system-tools.ts",
+      "src/tools/phone-tools.ts",
+      "src/tools/products-tools.ts",
+      "src/tools/proposals-tools.ts",
+      "src/tools/reporting-tools.ts",
+      "src/tools/reputation-tools.ts",
+      "src/tools/saas-tools.ts",
+      "src/tools/smartlists-tools.ts",
+      "src/tools/snapshots-tools.ts",
+      "src/tools/social-media-tools.ts",
+      "src/tools/store-tools.ts",
+      "src/tools/survey-tools.ts",
+      "src/tools/templates-tools.ts",
+      "src/tools/triggers-tools.ts",
+      "src/tools/users-tools.ts",
+      "src/tools/voice-ai-tools.ts",
+      "src/tools/webhooks-tools.ts",
+      "src/tools/workflow-builder-tools.ts",
+      "src/tools/workflow-insights-tools.ts",
+      "src/tools/workflow-tools.ts",
+      "src/types/ghl-types.ts"
+    ]
   },
   "comparison": {
-    "coveredCount": 675,
-    "officialUniqueCount": 675,
+    "coveredCount": 661,
+    "officialUniqueCount": 661,
     "localUniqueCount": 926,
     "coveragePercent": 100,
     "missingOfficial": [],
@@ -35998,6 +36117,22 @@
         "normalizedPath": "/email-isv/domains/{}",
         "sourceFile": "src/tools/email-isv-tools.ts",
         "caller": "makeRequest"
+      },
+      {
+        "key": "DELETE /emails/public/v2/locations/{}/campaigns/{}",
+        "method": "DELETE",
+        "path": "/emails/public/v2/locations/{param}/campaigns/{param}",
+        "normalizedPath": "/emails/public/v2/locations/{}/campaigns/{}",
+        "sourceFile": "src/tools/email-tools.ts",
+        "caller": "makeRequest"
+      },
+      {
+        "key": "DELETE /emails/public/v2/locations/{}/templates/{}",
+        "method": "DELETE",
+        "path": "/emails/public/v2/locations/{locationId}/templates/{templateId}",
+        "normalizedPath": "/emails/public/v2/locations/{}/templates/{}",
+        "sourceFile": "src/tools/official-spec-endpoints.json",
+        "caller": "official-spec-generated"
       },
       {
         "key": "DELETE /funnels/{}/redirect/{}",
@@ -36454,6 +36589,46 @@
         "normalizedPath": "/email-isv/stats${qs ",
         "sourceFile": "src/tools/email-isv-tools.ts",
         "caller": "makeRequest"
+      },
+      {
+        "key": "GET /emails/public/v2/locations/{}/campaigns/bulk-actions",
+        "method": "GET",
+        "path": "/emails/public/v2/locations/{param}/campaigns/bulk-actions",
+        "normalizedPath": "/emails/public/v2/locations/{}/campaigns/bulk-actions",
+        "sourceFile": "src/tools/email-tools.ts",
+        "caller": "makeRequest"
+      },
+      {
+        "key": "GET /emails/public/v2/locations/{}/campaigns/emails",
+        "method": "GET",
+        "path": "/emails/public/v2/locations/{param}/campaigns/emails",
+        "normalizedPath": "/emails/public/v2/locations/{}/campaigns/emails",
+        "sourceFile": "src/tools/email-tools.ts",
+        "caller": "makeRequest"
+      },
+      {
+        "key": "GET /emails/public/v2/locations/{}/campaigns/stats/{}/{}",
+        "method": "GET",
+        "path": "/emails/public/v2/locations/{locationId}/campaigns/stats/{source}/{sourceId}",
+        "normalizedPath": "/emails/public/v2/locations/{}/campaigns/stats/{}/{}",
+        "sourceFile": "src/tools/official-spec-endpoints.json",
+        "caller": "official-spec-generated"
+      },
+      {
+        "key": "GET /emails/public/v2/locations/{}/campaigns/workflows",
+        "method": "GET",
+        "path": "/emails/public/v2/locations/{param}/campaigns/workflows",
+        "normalizedPath": "/emails/public/v2/locations/{}/campaigns/workflows",
+        "sourceFile": "src/tools/email-tools.ts",
+        "caller": "makeRequest"
+      },
+      {
+        "key": "GET /emails/public/v2/locations/{}/templates",
+        "method": "GET",
+        "path": "/emails/public/v2/locations/{locationId}/templates",
+        "normalizedPath": "/emails/public/v2/locations/{}/templates",
+        "sourceFile": "src/tools/official-spec-endpoints.json",
+        "caller": "official-spec-generated"
       },
       {
         "key": "GET /forms/{}",
@@ -37096,6 +37271,22 @@
         "caller": "makeRequest"
       },
       {
+        "key": "PATCH /emails/public/v2/locations/{}/campaigns/{}",
+        "method": "PATCH",
+        "path": "/emails/public/v2/locations/{param}/campaigns/{param}",
+        "normalizedPath": "/emails/public/v2/locations/{}/campaigns/{}",
+        "sourceFile": "src/tools/email-tools.ts",
+        "caller": "makeRequest"
+      },
+      {
+        "key": "PATCH /emails/public/v2/locations/{}/templates/{}",
+        "method": "PATCH",
+        "path": "/emails/public/v2/locations/{locationId}/templates/{templateId}",
+        "normalizedPath": "/emails/public/v2/locations/{}/templates/{}",
+        "sourceFile": "src/tools/official-spec-endpoints.json",
+        "caller": "official-spec-generated"
+      },
+      {
         "key": "PATCH /funnels/{}/redirect/{}",
         "method": "PATCH",
         "path": "/funnels/{param}/redirect/{param}",
@@ -37366,6 +37557,46 @@
         "normalizedPath": "/email-isv/domains/{}/verify",
         "sourceFile": "src/tools/email-isv-tools.ts",
         "caller": "makeRequest"
+      },
+      {
+        "key": "POST /emails/public/v2/locations/{}/campaigns/email-campaign",
+        "method": "POST",
+        "path": "/emails/public/v2/locations/{param}/campaigns/email-campaign",
+        "normalizedPath": "/emails/public/v2/locations/{}/campaigns/email-campaign",
+        "sourceFile": "src/tools/email-tools.ts",
+        "caller": "makeRequest"
+      },
+      {
+        "key": "POST /emails/public/v2/locations/{}/campaigns/{}/schedule",
+        "method": "POST",
+        "path": "/emails/public/v2/locations/{param}/campaigns/{param}/schedule",
+        "normalizedPath": "/emails/public/v2/locations/{}/campaigns/{}/schedule",
+        "sourceFile": "src/tools/email-tools.ts",
+        "caller": "makeRequest"
+      },
+      {
+        "key": "POST /emails/public/v2/locations/{}/templates",
+        "method": "POST",
+        "path": "/emails/public/v2/locations/{locationId}/templates",
+        "normalizedPath": "/emails/public/v2/locations/{}/templates",
+        "sourceFile": "src/tools/official-spec-endpoints.json",
+        "caller": "official-spec-generated"
+      },
+      {
+        "key": "POST /emails/public/v2/locations/{}/templates/folders",
+        "method": "POST",
+        "path": "/emails/public/v2/locations/{locationId}/templates/folders",
+        "normalizedPath": "/emails/public/v2/locations/{}/templates/folders",
+        "sourceFile": "src/tools/official-spec-endpoints.json",
+        "caller": "official-spec-generated"
+      },
+      {
+        "key": "POST /emails/public/v2/locations/{}/templates/import",
+        "method": "POST",
+        "path": "/emails/public/v2/locations/{locationId}/templates/import",
+        "normalizedPath": "/emails/public/v2/locations/{}/templates/import",
+        "sourceFile": "src/tools/official-spec-endpoints.json",
+        "caller": "official-spec-generated"
       },
       {
         "key": "POST /funnels/{}/redirect",
@@ -37964,8 +38195,8 @@
         "missing": 0
       },
       "emails": {
-        "official": 37,
-        "covered": 37,
+        "official": 23,
+        "covered": 23,
         "missing": 0
       },
       "forms": {
@@ -38088,6 +38319,27 @@
         "covered": 20,
         "missing": 0
       }
+    },
+    "currentV3": {
+      "officialUniqueCount": 661,
+      "coveredCount": 661,
+      "coveragePercent": 100,
+      "missingOfficial": [],
+      "localOnlyCount": 265
+    },
+    "v2Compatibility": {
+      "officialUniqueCount": 590,
+      "coveredCount": 590,
+      "coveragePercent": 100,
+      "missingOfficial": [],
+      "localOnlyCount": 336
+    },
+    "dualGeneration": {
+      "officialUniqueCount": 681,
+      "coveredCount": 681,
+      "coveragePercent": 100,
+      "missingOfficial": [],
+      "localOnlyCount": 245
     }
   },
   "changelogFindings": [

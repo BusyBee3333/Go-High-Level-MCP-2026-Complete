@@ -1,9 +1,10 @@
 /**
  * GoHighLevel API Client
- * Implements exact API endpoints from OpenAPI specifications v2021-07-28 (Contacts) and v2021-04-15 (Conversations)
+ * Implements hand-written GHL endpoints with request-time version routing from
+ * the locked v2/v3 OpenAPI source set.
  */
 
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import {
   GHLConfig,
   GHLContact,
@@ -382,6 +383,8 @@ import {
   ListInvoicesResponseDto,
   AltDto
 } from '../types/ghl-types.js';
+import { resolveVersion } from './version-router.js';
+import { resolveRequestVersion } from './endpoint-version-resolver.js';
 
 /**
  * GoHighLevel API Client
@@ -392,14 +395,20 @@ export class GHLApiClient {
   private config: GHLConfig;
 
   constructor(config: GHLConfig) {
-    this.config = config;
+    this.config = {
+      ...config,
+      // Normalize inconsistent combinations (notably an existing
+      // GHL_API_VERSION=v3 alongside GHL_API_GENERATION=v2) at the client
+      // boundary so no request can inherit a named-v3 fallback in legacy mode.
+      version: resolveVersion([], config.apiGeneration, config.version),
+    };
     
     // Create axios instance with base configuration
     this.axiosInstance = axios.create({
-      baseURL: config.baseUrl,
+      baseURL: this.config.baseUrl,
       headers: {
-        'Authorization': `Bearer ${config.accessToken}`,
-        'Version': config.version,
+        'Authorization': `Bearer ${this.config.accessToken}`,
+        'Version': this.config.version,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
@@ -409,6 +418,20 @@ export class GHLApiClient {
     // Add request interceptor for logging
     this.axiosInstance.interceptors.request.use(
       (config) => {
+        const requestFallback = typeof config.headers?.get === 'function'
+          ? config.headers.get('Version')
+          : config.headers?.Version;
+        const version = resolveRequestVersion(
+          config.method,
+          config.url,
+          this.config.apiGeneration,
+          typeof requestFallback === 'string' ? requestFallback : this.config.version,
+        );
+        if (typeof config.headers?.set === 'function') {
+          config.headers.set('Version', version);
+        } else if (config.headers) {
+          config.headers.Version = version;
+        }
         process.stderr.write(`[GHL API] ${config.method?.toUpperCase()} ${config.url}\n`);
         return config;
       },
@@ -462,7 +485,11 @@ export class GHLApiClient {
   private getConversationHeaders() {
     return {
       'Authorization': `Bearer ${this.config.accessToken}`,
-      'Version': '2021-04-15', // Conversations API uses different version
+      'Version': resolveVersion(
+        ['v3', '2021-04-15'],
+        this.config.apiGeneration,
+        this.config.version
+      ),
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     };
@@ -470,15 +497,23 @@ export class GHLApiClient {
 
   /**
    * Returns an axios request config that sends the named `v3` Version header
-   * when the client is in v3 generation mode. In v2/legacy mode it returns
-   * undefined so the client default (a dated version) is used instead.
+   * when the client is in v3 generation mode and the legacy `2021-07-28`
+   * header in v2 mode. Returning an explicit header keeps compatibility mode
+   * safe even when a caller supplied an inconsistent global fallback.
    *
    * Used by hand-written methods for modules that migrated to v3
    * (contacts, opportunities, oauth, emails, brand-boards, saas, email-isv).
    */
-  private v3Config(): { headers: { Version: string } } | undefined {
-    const gen = this.config.apiGeneration ?? 'v3';
-    return gen === 'v3' ? { headers: { Version: 'v3' } } : undefined;
+  private v3Config(): { headers: { Version: string } } {
+    return {
+      headers: {
+        Version: resolveVersion(
+          ['v3', '2021-07-28'],
+          this.config.apiGeneration,
+          this.config.version
+        )
+      }
+    };
   }
 
   /**
@@ -1582,11 +1617,18 @@ export class GHLApiClient {
   async makeRequest<T = any>(
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     path: string,
-    body?: Record<string, unknown>,
-    options?: { version?: string; app?: string }
+    body?: Record<string, unknown> | string,
+    options?: {
+      version?: string;
+      app?: string;
+      contentType?: 'application/json' | 'application/x-www-form-urlencoded';
+    }
   ): Promise<GHLApiResponse<T>> {
     try {
-      const requestConfig = options?.version ? { headers: { Version: options.version } } : undefined;
+      const headers: Record<string, string> = {};
+      if (options?.version) headers.Version = options.version;
+      if (options?.contentType) headers['Content-Type'] = options.contentType;
+      const requestConfig: AxiosRequestConfig = Object.keys(headers).length ? { headers } : {};
       let response;
       switch (method) {
         case 'GET':
@@ -1602,7 +1644,7 @@ export class GHLApiClient {
           response = await this.axiosInstance.patch(path, body, requestConfig);
           break;
         case 'DELETE':
-          response = await this.axiosInstance.delete(path, requestConfig);
+          response = await this.axiosInstance.delete(path, { ...requestConfig, data: body });
           break;
       }
       return this.wrapResponse(response.data);
@@ -1671,7 +1713,10 @@ export class GHLApiClient {
       process.stderr.write(`[GHL API] Search opportunities params (${gen}): ${JSON.stringify(params, null, 2)}\n`);
 
       // v3 sends the named version header; v2 uses the client default.
-      const requestConfig = isV3 ? { headers: { Version: 'v3' }, params } : { params };
+      const requestConfig = {
+        headers: { Version: isV3 ? 'v3' : '2021-07-28' },
+        params,
+      };
       const response: AxiosResponse<GHLSearchOpportunitiesResponse> = await this.axiosInstance.get(
         '/opportunities/search',
         requestConfig
@@ -2180,6 +2225,7 @@ export class GHLApiClient {
   async getEmailCampaigns(params: MCPGetEmailCampaignsParams): Promise<GHLApiResponse<GHLEmailCampaignsResponse>> {
     try {
       const response: AxiosResponse<GHLEmailCampaignsResponse> = await this.axiosInstance.get('/emails/schedule', {
+        headers: { Version: '2021-07-28' },
         params: {
           locationId: this.config.locationId,
           ...params
@@ -2197,7 +2243,7 @@ export class GHLApiClient {
         locationId: this.config.locationId,
         type: 'html',
         ...params
-      });
+      }, { headers: { Version: '2021-07-28' } });
       return this.wrapResponse(response.data);
     } catch (error) {
       throw this.handleApiError(error as AxiosError<GHLErrorResponse>);
@@ -2207,6 +2253,7 @@ export class GHLApiClient {
   async getEmailTemplates(params: MCPGetEmailTemplatesParams): Promise<GHLApiResponse<GHLEmailTemplate[]>> {
     try {
       const response: AxiosResponse<GHLEmailTemplate[]> = await this.axiosInstance.get('/emails/builder', {
+        headers: { Version: '2021-07-28' },
         params: {
           locationId: this.config.locationId,
           ...params
@@ -2226,7 +2273,7 @@ export class GHLApiClient {
         templateId,
         ...data,
         editorType: 'html'
-      });
+      }, { headers: { Version: '2021-07-28' } });
       return this.wrapResponse(response.data);
     } catch (error) {
       throw this.handleApiError(error as AxiosError<GHLErrorResponse>);
@@ -2236,7 +2283,10 @@ export class GHLApiClient {
   async deleteEmailTemplate(params: MCPDeleteEmailTemplateParams): Promise<GHLApiResponse<any>> {
     try {
       const { templateId } = params;
-      const response: AxiosResponse<any> = await this.axiosInstance.delete(`/emails/builder/${this.config.locationId}/${templateId}`);
+      const response: AxiosResponse<any> = await this.axiosInstance.delete(
+        `/emails/builder/${this.config.locationId}/${templateId}`,
+        { headers: { Version: '2021-07-28' } }
+      );
       return this.wrapResponse(response.data);
     } catch (error) {
       throw this.handleApiError(error as AxiosError<GHLErrorResponse>);

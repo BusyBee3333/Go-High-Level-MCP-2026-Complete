@@ -4,6 +4,7 @@
  */
 
 import type { GHLToolClient } from './ghl-tool-client.js';
+import { resolveRequestVersion } from '../clients/endpoint-version-resolver.js';
 
 export class CampaignsTools {
   constructor(private ghlClient: GHLToolClient) {}
@@ -13,18 +14,12 @@ export class CampaignsTools {
       // Campaign Management
       {
         name: 'get_campaigns',
-        description: 'Get all campaigns (email/SMS) for a location',
+        description: 'Get all legacy campaigns (email/SMS) for a location from the official generation-aware Campaigns endpoint.',
         inputSchema: {
           type: 'object',
           properties: {
             locationId: { type: 'string', description: 'Location ID' },
             status: { type: 'string', enum: ['draft', 'scheduled', 'running', 'completed', 'paused'], description: 'Filter by campaign status' },
-            limit: { type: 'number', description: 'Max results' },
-            offset: { type: 'number', description: 'Pagination offset' },
-            campaignsOnly: { type: 'boolean', description: 'Email Campaign V2 campaignsOnly flag (default: true)' },
-            showStats: { type: 'boolean', description: 'Include Email Campaign V2 stats when available (default: true)' },
-            startAt: { type: 'string', description: 'Optional schedule start filter' },
-            endAt: { type: 'string', description: 'Optional schedule end filter' }
           }
         },
         _meta: {
@@ -32,7 +27,13 @@ export class CampaignsTools {
             category: "campaigns",
             access: "read",
             complexity: "simple"
-          }
+          },
+          official: {
+            method: 'GET',
+            path: '/campaigns/',
+            versions: ['v3', '2021-07-28'],
+            apiGenerations: ['v2', 'v3']
+          },
         }
       },
       {
@@ -268,14 +269,13 @@ export class CampaignsTools {
       case 'get_campaigns': {
         const params = new URLSearchParams();
         params.append('locationId', locationId);
-        params.append('campaignsOnly', String(args.campaignsOnly ?? true));
-        params.append('showStats', String(args.showStats ?? true));
         if (args.status) params.append('status', String(args.status));
-        if (args.limit) params.append('limit', String(args.limit));
-        if (args.offset) params.append('offset', String(args.offset));
-        if (args.startAt) params.append('startAt', String(args.startAt));
-        if (args.endAt) params.append('endAt', String(args.endAt));
-        return this.ghlClient.makeRequest('GET', `/emails/schedule?${params.toString()}`);
+        return this.ghlClient.makeRequest(
+          'GET',
+          `/campaigns/?${params.toString()}`,
+          undefined,
+          this.requestOptions('GET', `/campaigns/?${params.toString()}`),
+        );
       }
       case 'get_campaign': {
         return this.ghlClient.makeRequest('GET', `/campaigns/${args.campaignId}?locationId=${locationId}`);
@@ -331,5 +331,12 @@ export class CampaignsTools {
       default:
         throw new Error(`Unknown tool: ${toolName}`);
     }
+  }
+
+  private requestOptions(method: string, path: string): { version: string } {
+    const config = this.ghlClient.getConfig();
+    return {
+      version: resolveRequestVersion(method, path, config.apiGeneration, config.version),
+    };
   }
 }

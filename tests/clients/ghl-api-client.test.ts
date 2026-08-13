@@ -57,8 +57,9 @@ describe('GHLApiClient', () => {
     ghlClient = new GHLApiClient({
       accessToken: 'test_api_key_123',
       baseUrl: 'https://test.leadconnectorhq.com',
-      version: '2021-07-28',
-      locationId: 'test_location_123'
+      version: 'v3',
+      locationId: 'test_location_123',
+      apiGeneration: 'v3',
     });
   });
 
@@ -74,7 +75,7 @@ describe('GHLApiClient', () => {
           'Authorization': 'Bearer test_api_key_123',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Version': '2021-07-28'
+          'Version': 'v3'
         },
         timeout: 30000
       });
@@ -119,6 +120,21 @@ describe('GHLApiClient', () => {
         timeout: 30000
       });
     });
+
+    it('normalizes an inherited v3 fallback when compatibility mode is v2', () => {
+      const legacyClient = new GHLApiClient({
+        accessToken: 'legacy_token',
+        baseUrl: 'https://legacy.ghl.test',
+        locationId: 'legacy_location',
+        version: 'v3',
+        apiGeneration: 'v2',
+      });
+
+      expect(legacyClient.getConfig().version).toBe('2023-02-21');
+      expect(mockAxios.create).toHaveBeenLastCalledWith(expect.objectContaining({
+        headers: expect.objectContaining({ Version: '2023-02-21' }),
+      }));
+    });
   });
 
   describe('getConfig', () => {
@@ -129,7 +145,7 @@ describe('GHLApiClient', () => {
         accessToken: 'test_api_key_123',
         baseUrl: 'https://test.leadconnectorhq.com',
         locationId: 'test_location_123',
-        version: '2021-07-28'
+        version: 'v3'
       });
     });
   });
@@ -202,6 +218,25 @@ describe('GHLApiClient', () => {
           ghlClient.createContact({ email: 'invalid' })
         ).rejects.toThrow('GHL API Error (400): Invalid email');
       });
+
+      it('uses the legacy contact date in v2 even when configured fallback was v3', async () => {
+        const legacyClient = new GHLApiClient({
+          accessToken: 'legacy_token',
+          baseUrl: 'https://test.leadconnectorhq.com',
+          version: 'v3',
+          locationId: 'legacy_location',
+          apiGeneration: 'v2',
+        });
+        mockAxiosInstance.post.mockResolvedValueOnce({ data: { contact: { id: 'legacy-contact' } } });
+
+        await legacyClient.createContact({ firstName: 'Legacy' });
+
+        expect(mockAxiosInstance.post).toHaveBeenCalledWith(
+          '/contacts/',
+          expect.objectContaining({ locationId: 'legacy_location' }),
+          { headers: { Version: '2021-07-28' } }
+        );
+      });
     });
 
     describe('getContact', () => {
@@ -241,6 +276,26 @@ describe('GHLApiClient', () => {
   });
 
   describe('Conversation API methods', () => {
+    it('routes core conversation calls to v3 or the legacy conversation date', async () => {
+      const v2Client = new GHLApiClient({
+        accessToken: 'legacy_token',
+        baseUrl: 'https://test.leadconnectorhq.com',
+        version: '2023-02-21',
+        locationId: 'legacy_location',
+        apiGeneration: 'v2',
+      });
+      mockAxiosInstance.get.mockResolvedValueOnce({ data: { conversations: [] } });
+
+      await v2Client.searchConversations({ locationId: 'legacy_location' });
+
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/conversations/search',
+        expect.objectContaining({
+          headers: expect.objectContaining({ Version: '2021-04-15' }),
+        })
+      );
+    });
+
     describe('sendSMS', () => {
       it('should send SMS successfully', async () => {
         mockAxiosInstance.post.mockResolvedValueOnce({
@@ -261,7 +316,7 @@ describe('GHLApiClient', () => {
           },
           { headers: expect.objectContaining({
             'Authorization': expect.any(String),
-            'Version': '2021-04-15'
+            'Version': 'v3'
           })}
         );
       });
@@ -282,7 +337,7 @@ describe('GHLApiClient', () => {
             fromNumber: '+1-555-000-0000'
           },
           { headers: expect.objectContaining({
-            'Version': '2021-04-15'
+            'Version': 'v3'
           })}
         );
       });
@@ -308,7 +363,7 @@ describe('GHLApiClient', () => {
             message: 'Test body'
           }),
           { headers: expect.objectContaining({
-            'Version': '2021-04-15'
+            'Version': 'v3'
           })}
         );
       });
@@ -332,10 +387,41 @@ describe('GHLApiClient', () => {
             emailCc: ['cc@example.com']
           }),
           { headers: expect.objectContaining({
-            'Version': '2021-04-15'
+            'Version': 'v3'
           })}
         );
       });
+    });
+  });
+
+  describe('legacy routed APIs', () => {
+    it('uses the legacy opportunity date in v2 mode', async () => {
+      const legacyClient = new GHLApiClient({
+        accessToken: 'legacy_token',
+        baseUrl: 'https://test.leadconnectorhq.com',
+        version: 'v3',
+        locationId: 'legacy_location',
+        apiGeneration: 'v2',
+      });
+      mockAxiosInstance.get.mockResolvedValueOnce({ data: { opportunities: [] } });
+
+      await legacyClient.searchOpportunities({ location_id: 'legacy_location' });
+
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/opportunities/search',
+        expect.objectContaining({ headers: { Version: '2021-07-28' } })
+      );
+    });
+
+    it('pins old Email Builder calls to their locked v2 version', async () => {
+      mockAxiosInstance.get.mockResolvedValueOnce({ data: { schedules: [], total: 0 } });
+
+      await ghlClient.getEmailCampaigns({});
+
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/emails/schedule',
+        expect.objectContaining({ headers: { Version: '2021-07-28' } })
+      );
     });
   });
 
@@ -415,6 +501,39 @@ describe('GHLApiClient', () => {
   });
 
   describe('Request/Response handling', () => {
+    it('sends generic DELETE bodies and preserves request headers', async () => {
+      mockAxiosInstance.delete.mockResolvedValueOnce({ data: { ok: true } });
+
+      await ghlClient.makeRequest(
+        'DELETE',
+        '/example',
+        { ids: ['one'] },
+        { version: 'v3', contentType: 'application/json' }
+      );
+
+      expect(mockAxiosInstance.delete).toHaveBeenCalledWith('/example', {
+        headers: { Version: 'v3', 'Content-Type': 'application/json' },
+        data: { ids: ['one'] },
+      });
+    });
+
+    it('sends form-encoded request bodies with an explicit content type', async () => {
+      mockAxiosInstance.post.mockResolvedValueOnce({ data: { accessToken: 'location-token' } });
+
+      await ghlClient.makeRequest(
+        'POST',
+        '/oauth/location-token',
+        'companyId=company&locationId=location',
+        { version: 'v3', contentType: 'application/x-www-form-urlencoded' }
+      );
+
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
+        '/oauth/location-token',
+        'companyId=company&locationId=location',
+        { headers: { Version: 'v3', 'Content-Type': 'application/x-www-form-urlencoded' } }
+      );
+    });
+
     it('should properly format successful responses', async () => {
       mockAxiosInstance.get.mockResolvedValueOnce({
         data: { contact: { id: 'contact_123' } },

@@ -2,13 +2,13 @@
 
 Generated from `docs/ghl-api-coverage.json`.
 
-Every local-only endpoint is classified into one of the implementation-plan categories. Local-only does not automatically mean wrong; it means the endpoint was not matched by the official GitHub OpenAPI fragments plus the live-docs supplemental endpoint list.
+This report heuristically groups every endpoint reference in `comparison.localOnly`, which is relative to the current/default v3 surface. A current-v3 local-only reference is not automatically wrong or unofficial: it may be a known legacy v2 endpoint, a live-docs compatibility supplement, a wrapper, or a private/internal route. Treat these categories as triage signals, not verification or removal decisions.
 
 ## Summary
 
-- Total local-only endpoint references: 251
+- Current-v3 local-only endpoint references: 265
 - Official but scanner-missed candidates: 24
-- Live-docs supplemental candidates: 0
+- Known legacy v2 live-docs supplements: 14
 - Legacy but still useful: 141
 - Private/internal and unstable: 55
 - Deprecated or compatibility aliases: 18
@@ -16,7 +16,7 @@ Every local-only endpoint is classified into one of the implementation-plan cate
 
 ## Official But Scanner-Missed Candidates
 
-These should be checked against current live docs and promoted into the supplemental official list if confirmed.
+These are pattern-based candidates only. Check them against current live docs before treating them as official or promoting them into the current-v3 supplemental list.
 
 - `DELETE /calendars/events/appointments/{param}` (src/clients/ghl-api-client.ts)
 - `DELETE /contacts/smart-lists/{param}` (src/tools/smartlists-tools.ts)
@@ -43,15 +43,28 @@ These should be checked against current live docs and promoted into the suppleme
 - `PUT /contacts/smart-lists/{param}` (src/tools/smartlists-tools.ts)
 - `PUT /surveys/{param}` (src/tools/survey-tools.ts)
 
-## Live-Docs Supplemental Candidates
+## Known Legacy V2 Live-Docs Supplements
 
-These are expected to disappear from local-only once their paths are added to the supplemental official list or published in HighLevel's GitHub OpenAPI fragments.
+These Email V2 routes are already tracked as legacy live-docs supplements for `GHL_API_GENERATION=v2`. They remain local-only relative to the current-v3 surface by design; their presence here does not mean the scanner missed them.
 
-- None
+- `DELETE /emails/public/v2/locations/{param}/campaigns/{param}` (src/tools/email-tools.ts)
+- `DELETE /emails/public/v2/locations/{locationId}/templates/{templateId}` (src/tools/official-spec-endpoints.json)
+- `GET /emails/public/v2/locations/{param}/campaigns/bulk-actions` (src/tools/email-tools.ts)
+- `GET /emails/public/v2/locations/{param}/campaigns/emails` (src/tools/email-tools.ts)
+- `GET /emails/public/v2/locations/{locationId}/campaigns/stats/{source}/{sourceId}` (src/tools/official-spec-endpoints.json)
+- `GET /emails/public/v2/locations/{param}/campaigns/workflows` (src/tools/email-tools.ts)
+- `GET /emails/public/v2/locations/{locationId}/templates` (src/tools/official-spec-endpoints.json)
+- `PATCH /emails/public/v2/locations/{param}/campaigns/{param}` (src/tools/email-tools.ts)
+- `PATCH /emails/public/v2/locations/{locationId}/templates/{templateId}` (src/tools/official-spec-endpoints.json)
+- `POST /emails/public/v2/locations/{param}/campaigns/email-campaign` (src/tools/email-tools.ts)
+- `POST /emails/public/v2/locations/{param}/campaigns/{param}/schedule` (src/tools/email-tools.ts)
+- `POST /emails/public/v2/locations/{locationId}/templates` (src/tools/official-spec-endpoints.json)
+- `POST /emails/public/v2/locations/{locationId}/templates/folders` (src/tools/official-spec-endpoints.json)
+- `POST /emails/public/v2/locations/{locationId}/templates/import` (src/tools/official-spec-endpoints.json)
 
 ## Legacy But Still Useful
 
-These should remain available for compatibility, but their descriptions should make the stability profile clear.
+These are heuristic compatibility candidates. Verify actual availability and usage before retaining them, and make the stability profile clear for any route that remains exposed.
 
 - `DELETE /affiliates/{param}` (src/tools/affiliates-tools.ts)
 - `DELETE /calendars/events/appointments/{param}/notes/{param}` (src/clients/ghl-api-client.ts)

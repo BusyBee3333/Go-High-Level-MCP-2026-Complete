@@ -29,9 +29,11 @@ GHL_API_KEY=your_private_integration_api_key
 GHL_LOCATION_ID=your_location_id
 GHL_BASE_URL=https://services.leadconnectorhq.com
 GHL_API_VERSION=v3
+GHL_API_GENERATION=v3
+# GHL_USER_TYPE=Location # or Company; optional access preflight
 ```
 
-`GHL_API_VERSION=v3` is the current HighLevel API `Version` header — a named version released 2026-06-11, not a date. Most modules use `v3`; ad-publishing keeps `2021-07-28` and Conversations keep `2021-04-15`, routed automatically per endpoint. Set `GHL_API_GENERATION=v2` to opt into the legacy pre-v3 surface. See [docs/V3-MIGRATION.md](docs/V3-MIGRATION.md) for details.
+`GHL_API_VERSION=v3` is the current named HighLevel API `Version` header, not a date. Routing is per endpoint: ad-publishing remains mostly on `2021-07-28`; Conversations use `v3` in current mode and `2021-04-15` in legacy v2 mode. Set `GHL_API_GENERATION=v2` for the legacy surface; the starter `GHL_API_VERSION=v3` value is then replaced by the `2023-02-21` fallback. See [docs/V3-MIGRATION.md](docs/V3-MIGRATION.md).
 
 Then verify live auth:
 
@@ -162,12 +164,13 @@ Start agents with the curated profile and prefer these high-level tools before r
 
 ## API Coverage
 
-- Official GHL endpoints parsed: `1221` (v3: 627, v2: 576, live-docs: 18)
-- Unique official endpoints (v3 + non-superseded v2): `681`
-- Official endpoint coverage: `681 / 681` (100%)
-- Generated official endpoint tools: `545`
-- MCP tools in registry: `943`
-- Local-only / compatibility endpoints under review: `253`
+- Official endpoint references parsed: `1221` (v3 repo: `627`, v2 repo: `590`, current live-docs v3: `4`)
+- Current/default v3 coverage: `661 / 661` (100%)
+- Legacy v2 compatibility coverage: `590 / 590` (100%)
+- Dual-generation union coverage: `681 / 681` (100%)
+- Generated official endpoint tools: `543`
+- MCP tools in the full registry: `926`
+- Local-only endpoint references: current v3 `265`; dual-generation union `245`
 
 The scanner reads both the v2 (`apps/*.json`) and v3 (`apps/v3/*-v3.json`) OpenAPI fragments. v3 endpoints are the source of truth; superseded v2 entries are retained for `GHL_API_GENERATION=v2` legacy mode.
 

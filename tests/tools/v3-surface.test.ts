@@ -54,22 +54,64 @@ describe('v3 surface: removed/renamed endpoints', () => {
 });
 
 describe('v3 surface: no duplicate method+path', () => {
-  it('exposes at most one tool per method+path in v3 mode', () => {
-    process.env.GHL_API_GENERATION = 'v3';
+  it.each(['v3', 'v2'] as const)('exposes at most one tool per method+path in %s mode', (generation) => {
+    process.env.GHL_API_GENERATION = generation;
     const stub: any = {
-      getConfig: () => ({ locationId: 'l', version: 'v3', apiGeneration: 'v3' }),
+      getConfig: () => ({
+        locationId: 'l',
+        version: generation === 'v3' ? 'v3' : '2023-02-21',
+        apiGeneration: generation,
+      }),
       makeRequest: async () => ({ success: true }),
     };
     const tools = new ToolRegistry(stub).getToolInventory();
     const byPath = new Map<string, string[]>();
-    for (const t of tools as any[]) {
-      const o = t._meta?.official;
-      if (!o?.path) continue;
-      const k = `${o.method} ${o.path}`;
+    for (const t of tools) {
+      if (!t.path || !t.method) continue;
+      const k = `${t.method} ${t.path}`;
       if (!byPath.has(k)) byPath.set(k, []);
       byPath.get(k)!.push(t.name);
     }
     const dups = [...byPath.entries()].filter(([, ns]) => ns.length > 1);
     expect(dups).toEqual([]);
+  });
+});
+
+describe('generation-specific handwritten tools', () => {
+  it('exposes registered v3 OAuth tools only in v3 mode', () => {
+    const v3 = new Set(visibleNames('v3'));
+    const v2 = new Set(visibleNames('v2'));
+    expect(v3.has('get_installed_locations')).toBe(true);
+    expect(v3.has('get_location_access_token')).toBe(true);
+    expect(v2.has('get_installed_locations')).toBe(false);
+    expect(v2.has('get_location_access_token')).toBe(false);
+  });
+
+  it('hides unconditional-v3 Notes and legacy Email Builder tools in the wrong generation', () => {
+    const v3 = new Set(visibleNames('v3'));
+    const v2 = new Set(visibleNames('v2'));
+    expect(v2.has('create_note')).toBe(false);
+    expect(v2.has('search_notes')).toBe(false);
+    expect(v3.has('get_email_campaigns')).toBe(false);
+    expect(v3.has('create_email_template')).toBe(false);
+    expect(v2.has('get_email_campaigns')).toBe(true);
+    expect(v2.has('create_email_template')).toBe(true);
+  });
+
+  it('retains a non-superseded v2-spec dated endpoint in v3 mode', () => {
+    process.env.GHL_API_GENERATION = 'v3';
+    const stub: any = {
+      getConfig: () => ({ locationId: 'l', version: 'v3', apiGeneration: 'v3' }),
+      makeRequest: async () => ({ success: true }),
+    };
+    const tool = new ToolRegistry(stub).getAllToolDefinitions()
+      .find((item) => item.name === 'official_conversations_get_all_custom_subtypes');
+
+    expect(tool).toBeDefined();
+    expect((tool as any)._meta.official).toMatchObject({
+      specTier: 'v2',
+      apiGenerations: ['v2', 'v3'],
+      versions: ['2021-04-15'],
+    });
   });
 });

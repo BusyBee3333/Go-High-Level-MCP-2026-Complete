@@ -15,6 +15,8 @@ export interface GHLToolRequestOptions {
   version?: string;
   /** App/module name (informational; used for logging/cache scoping). */
   app?: string;
+  /** Restrictive request content type override for form-encoded GHL APIs. */
+  contentType?: 'application/json' | 'application/x-www-form-urlencoded';
 }
 
 export interface GHLToolResponse<T = any> {
@@ -32,7 +34,7 @@ export interface GHLToolClient {
   makeRequest<T = any>(
     method: HttpMethod,
     path: string,
-    body?: Record<string, unknown>,
+    body?: Record<string, unknown> | string,
     options?: GHLToolRequestOptions
   ): Promise<GHLToolResponse<T>>;
 }

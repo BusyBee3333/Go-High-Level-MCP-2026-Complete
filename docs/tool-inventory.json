@@ -2,7 +2,28 @@
   "generatedFrom": {
     "officialDocsCommit": "0af86a4cbd48c66a4071c7e509d1079f9f10ed17",
     "officialDocsTag": "0af86a4",
-    "coveragePercent": 100
+    "coveragePercent": 100,
+    "currentV3": {
+      "officialUniqueCount": 661,
+      "coveredCount": 661,
+      "coveragePercent": 100,
+      "missingOfficial": [],
+      "localOnlyCount": 265
+    },
+    "legacyV2": {
+      "officialUniqueCount": 590,
+      "coveredCount": 590,
+      "coveragePercent": 100,
+      "missingOfficial": [],
+      "localOnlyCount": 336
+    },
+    "dualGenerationUnion": {
+      "officialUniqueCount": 681,
+      "coveredCount": 681,
+      "coveragePercent": 100,
+      "missingOfficial": [],
+      "localOnlyCount": 245
+    }
   },
   "tools": [
     {
@@ -1775,85 +1796,6 @@
       "stability": "legacy-compatible"
     },
     {
-      "name": "get_email_campaigns",
-      "module": "email",
-      "description": "Get a list of email campaigns from GoHighLevel.",
-      "category": "email",
-      "access": "read",
-      "destructive": false,
-      "readOnly": true,
-      "idempotent": true,
-      "required": [],
-      "scopes": [],
-      "source": "local-tool-module",
-      "stability": "deprecated",
-      "deprecated": true
-    },
-    {
-      "name": "create_email_template",
-      "module": "email",
-      "description": "Create a new email template in GoHighLevel.",
-      "category": "email",
-      "access": "write",
-      "destructive": false,
-      "readOnly": false,
-      "idempotent": false,
-      "required": [
-        "title",
-        "html"
-      ],
-      "scopes": [],
-      "source": "local-tool-module",
-      "stability": "legacy-compatible"
-    },
-    {
-      "name": "get_email_templates",
-      "module": "email",
-      "description": "Get a list of email templates from GoHighLevel.",
-      "category": "email",
-      "access": "read",
-      "destructive": false,
-      "readOnly": true,
-      "idempotent": true,
-      "required": [],
-      "scopes": [],
-      "source": "local-tool-module",
-      "stability": "legacy-compatible"
-    },
-    {
-      "name": "update_email_template",
-      "module": "email",
-      "description": "Update an existing email template in GoHighLevel.",
-      "category": "email",
-      "access": "write",
-      "destructive": false,
-      "readOnly": false,
-      "idempotent": true,
-      "required": [
-        "templateId",
-        "html"
-      ],
-      "scopes": [],
-      "source": "local-tool-module",
-      "stability": "legacy-compatible"
-    },
-    {
-      "name": "delete_email_template",
-      "module": "email",
-      "description": "Delete an email template from GoHighLevel.",
-      "category": "email",
-      "access": "delete",
-      "destructive": true,
-      "readOnly": false,
-      "idempotent": true,
-      "required": [
-        "templateId"
-      ],
-      "scopes": [],
-      "source": "local-tool-module",
-      "stability": "legacy-compatible"
-    },
-    {
       "name": "search_locations",
       "module": "location",
       "description": "Search for locations/sub-accounts in GoHighLevel with filtering options",
@@ -3390,7 +3332,7 @@
     },
     {
       "name": "ghl_delete_workflow",
-      "module": "workflowBuilder",
+      "module": "workflows",
       "description": "Permanently delete a workflow. All contacts currently in the workflow will be removed from it.",
       "category": "workflows",
       "access": "delete",
@@ -4404,7 +4346,7 @@
     {
       "name": "get_campaigns",
       "module": "campaigns",
-      "description": "Get all campaigns (email/SMS) for a location",
+      "description": "Get all legacy campaigns (email/SMS) for a location from the official generation-aware Campaigns endpoint.",
       "category": "campaigns",
       "access": "read",
       "destructive": false,
@@ -4414,6 +4356,8 @@
       "scopes": [],
       "source": "local-tool-module",
       "stability": "deprecated",
+      "method": "GET",
+      "path": "/campaigns/",
       "deprecated": true
     },
     {
@@ -8986,6 +8930,50 @@
       "stability": "legacy-compatible"
     },
     {
+      "name": "get_installed_locations",
+      "module": "oauth",
+      "description": "Get all locations where an OAuth/Marketplace app is installed. Agency endpoint (requires a Company token).",
+      "category": "oauth",
+      "access": "read",
+      "destructive": false,
+      "readOnly": true,
+      "idempotent": true,
+      "required": [
+        "appId",
+        "companyId"
+      ],
+      "scopes": [
+        "oauth.readonly"
+      ],
+      "source": "official-ghl-openapi",
+      "stability": "official",
+      "method": "GET",
+      "path": "/oauth/installed-locations",
+      "operationId": "get-installed-location"
+    },
+    {
+      "name": "get_location_access_token",
+      "module": "oauth",
+      "description": "Mint a Location-scoped access token from an Agency token (POST /oauth/location-token). Agency endpoint.",
+      "category": "oauth",
+      "access": "read",
+      "destructive": false,
+      "readOnly": true,
+      "idempotent": true,
+      "required": [
+        "companyId",
+        "locationId"
+      ],
+      "scopes": [
+        "oauth.write"
+      ],
+      "source": "official-ghl-openapi",
+      "stability": "official",
+      "method": "POST",
+      "path": "/oauth/location-token",
+      "operationId": "get-location-access-token"
+    },
+    {
       "name": "official_ad_publishing_fb_get_reporting",
       "module": "officialSpec",
       "description": "Get reporting data Official GHL API endpoint: GET /ad-publishing/facebook/reporting. Version: 2021-07-28. Scopes: adPublishing.readonly. Uses configured locationId when omitted.",
@@ -12070,25 +12058,6 @@
       "operationId": "updateCalendarSchedule"
     },
     {
-      "name": "official_campaigns_get_campaigns",
-      "module": "officialSpec",
-      "description": "Get Campaigns Official GHL API endpoint: GET /campaigns/. Version: v3. Scopes: campaigns.readonly. Uses configured locationId when omitted.",
-      "category": "official-campaigns",
-      "access": "read",
-      "destructive": false,
-      "readOnly": true,
-      "idempotent": true,
-      "required": [],
-      "scopes": [
-        "campaigns.readonly"
-      ],
-      "source": "official-ghl-openapi",
-      "stability": "official",
-      "method": "GET",
-      "path": "/campaigns/",
-      "operationId": "get-campaigns"
-    },
-    {
       "name": "official_chat_widget_listchatwidget",
       "module": "officialSpec",
       "description": "List Chat Widgets Official GHL API endpoint: GET /chat-widget/list. Version: v3. Scopes: chat-widget.readonly. Uses configured locationId when omitted.",
@@ -14088,8 +14057,6 @@
       "readOnly": true,
       "idempotent": true,
       "required": [
-        "customerId",
-        "subscriptionId",
         "companyId"
       ],
       "scopes": [],
@@ -15509,143 +15476,6 @@
       "operationId": "get-tiktok-business-profile"
     },
     {
-      "name": "official_emails_create_email_template_v2",
-      "module": "officialSpec",
-      "description": "Live-docs supplemental endpoint. Create Email Template V2 Official GHL API endpoint: POST /emails/public/v2/locations/{locationId}/templates. Version: v3.",
-      "category": "official-emails",
-      "access": "write",
-      "destructive": false,
-      "readOnly": false,
-      "idempotent": false,
-      "required": [
-        "locationId"
-      ],
-      "scopes": [],
-      "source": "live-ghl-docs",
-      "stability": "live-docs-supplemental",
-      "method": "POST",
-      "path": "/emails/public/v2/locations/{locationId}/templates",
-      "operationId": "create-email-template-v2"
-    },
-    {
-      "name": "official_emails_list_email_templates_v2",
-      "module": "officialSpec",
-      "description": "Live-docs supplemental endpoint. List Email Templates V2 Official GHL API endpoint: GET /emails/public/v2/locations/{locationId}/templates. Version: v3.",
-      "category": "official-emails",
-      "access": "read",
-      "destructive": false,
-      "readOnly": true,
-      "idempotent": true,
-      "required": [
-        "locationId"
-      ],
-      "scopes": [],
-      "source": "live-ghl-docs",
-      "stability": "live-docs-supplemental",
-      "method": "GET",
-      "path": "/emails/public/v2/locations/{locationId}/templates",
-      "operationId": "list-email-templates-v2"
-    },
-    {
-      "name": "official_emails_import_email_template_v2",
-      "module": "officialSpec",
-      "description": "Live-docs supplemental endpoint. Import Email Template V2 Official GHL API endpoint: POST /emails/public/v2/locations/{locationId}/templates/import. Version: v3.",
-      "category": "official-emails",
-      "access": "write",
-      "destructive": false,
-      "readOnly": false,
-      "idempotent": false,
-      "required": [
-        "locationId"
-      ],
-      "scopes": [],
-      "source": "live-ghl-docs",
-      "stability": "live-docs-supplemental",
-      "method": "POST",
-      "path": "/emails/public/v2/locations/{locationId}/templates/import",
-      "operationId": "import-email-template-v2"
-    },
-    {
-      "name": "official_emails_create_template_folder_v2",
-      "module": "officialSpec",
-      "description": "Live-docs supplemental endpoint. Create Email Template Folder V2 Official GHL API endpoint: POST /emails/public/v2/locations/{locationId}/templates/folders. Version: v3.",
-      "category": "official-emails",
-      "access": "write",
-      "destructive": false,
-      "readOnly": false,
-      "idempotent": false,
-      "required": [
-        "locationId"
-      ],
-      "scopes": [],
-      "source": "live-ghl-docs",
-      "stability": "live-docs-supplemental",
-      "method": "POST",
-      "path": "/emails/public/v2/locations/{locationId}/templates/folders",
-      "operationId": "create-template-folder-v2"
-    },
-    {
-      "name": "official_emails_delete_email_template_v2",
-      "module": "officialSpec",
-      "description": "Live-docs supplemental endpoint. Delete Email Template V2 Official GHL API endpoint: DELETE /emails/public/v2/locations/{locationId}/templates/{templateId}. Version: v3.",
-      "category": "official-emails",
-      "access": "delete",
-      "destructive": true,
-      "readOnly": false,
-      "idempotent": true,
-      "required": [
-        "locationId",
-        "templateId"
-      ],
-      "scopes": [],
-      "source": "live-ghl-docs",
-      "stability": "live-docs-supplemental",
-      "method": "DELETE",
-      "path": "/emails/public/v2/locations/{locationId}/templates/{templateId}",
-      "operationId": "delete-email-template-v2"
-    },
-    {
-      "name": "official_emails_update_email_template_v2",
-      "module": "officialSpec",
-      "description": "Live-docs supplemental endpoint. Update Email Template V2 Official GHL API endpoint: PATCH /emails/public/v2/locations/{locationId}/templates/{templateId}. Version: v3.",
-      "category": "official-emails",
-      "access": "write",
-      "destructive": false,
-      "readOnly": false,
-      "idempotent": false,
-      "required": [
-        "locationId",
-        "templateId"
-      ],
-      "scopes": [],
-      "source": "live-ghl-docs",
-      "stability": "live-docs-supplemental",
-      "method": "PATCH",
-      "path": "/emails/public/v2/locations/{locationId}/templates/{templateId}",
-      "operationId": "update-email-template-v2"
-    },
-    {
-      "name": "official_emails_get_campaign_stats_v2",
-      "module": "officialSpec",
-      "description": "Live-docs supplemental endpoint. Get Campaign Statistics V2 Official GHL API endpoint: GET /emails/public/v2/locations/{locationId}/campaigns/stats/{source}/{sourceId}. Version: v3.",
-      "category": "official-emails",
-      "access": "read",
-      "destructive": false,
-      "readOnly": true,
-      "idempotent": true,
-      "required": [
-        "locationId",
-        "source",
-        "sourceId"
-      ],
-      "scopes": [],
-      "source": "live-ghl-docs",
-      "stability": "live-docs-supplemental",
-      "method": "GET",
-      "path": "/emails/public/v2/locations/{locationId}/campaigns/stats/{source}/{sourceId}",
-      "operationId": "get-campaign-stats-v2"
-    },
-    {
       "name": "official_opportunities_create_pipeline",
       "module": "officialSpec",
       "description": "Live-docs supplemental endpoint. Create a pipeline (v3, live-docs) Official GHL API endpoint: POST /opportunities/pipelines/. Version: v3.",
@@ -16500,9 +16330,9 @@
       "stability": "legacy-compatible"
     },
     {
-      "name": "ghl_delete_workflow",
+      "name": "ghl_delete_workflow_internal",
       "module": "workflowBuilder",
-      "description": "Permanently delete a workflow by ID. This cannot be undone. Returns confirmation of deletion.",
+      "description": "Permanently delete a workflow by ID through the internal workflow-builder API. This cannot be undone. Returns confirmation of deletion.",
       "category": "workflows",
       "access": "delete",
       "destructive": true,
@@ -16513,7 +16343,7 @@
       ],
       "scopes": [],
       "source": "local-tool-module",
-      "stability": "legacy-compatible"
+      "stability": "private-or-unstable"
     },
     {
       "name": "ghl_publish_workflow",

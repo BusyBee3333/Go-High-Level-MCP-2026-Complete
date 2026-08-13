@@ -30,9 +30,10 @@ GHL_API_KEY=your_private_integration_api_key
 GHL_LOCATION_ID=your_location_id
 GHL_BASE_URL=https://services.leadconnectorhq.com
 GHL_API_VERSION=v3
+GHL_API_GENERATION=v3
 ```
 
-`GHL_API_VERSION=v3` is the HighLevel API `Version` header — a named version released 2026-06-11, not a date. Most modules use `v3`; ad-publishing and Conversations keep their own dated headers, routed automatically. Set `GHL_API_GENERATION=v2` for the legacy pre-v3 surface.
+`GHL_API_VERSION=v3` is the current named HighLevel API `Version` header. The MCP routes exceptions per endpoint: ad-publishing remains mostly dated; Conversations use `v3` in current mode and `2021-04-15` in legacy v2 mode. Set `GHL_API_GENERATION=v2` for the legacy surface; the starter `v3` value is then replaced by the `2023-02-21` fallback.
 
 Where to find values:
 
@@ -80,4 +81,3 @@ npm run apps:preview
 ```
 
 Open `http://localhost:3001/preview`.
-

@@ -9,6 +9,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -53,7 +56,8 @@
             ]
           }
         },
-        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks)."
+        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks).",
+        "arrayFormat": "comma"
       },
       {
         "name": "groupBy",
@@ -108,6 +112,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -160,6 +167,9 @@
     "operationId": "fb-get-reporting-list",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -240,6 +250,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -283,6 +296,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -325,6 +341,9 @@
     "operationId": "fb-get-instagram-accounts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -375,6 +394,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -420,6 +442,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -439,7 +464,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateLeadFormDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_get_ad_accounts",
@@ -450,6 +476,9 @@
     "operationId": "fb-get-ad-accounts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -518,6 +547,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -563,6 +595,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -582,7 +617,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_get_conversation_forms",
@@ -593,6 +629,9 @@
     "operationId": "fb-get-conversation-forms",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -637,6 +676,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -654,7 +696,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateConversationFormDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_create_integration",
@@ -665,6 +708,9 @@
     "operationId": "fb-create-integration",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -683,7 +729,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateIntegrationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_get_integration",
@@ -694,6 +741,9 @@
     "operationId": "fb-get-integration",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -738,6 +788,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -755,7 +808,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_search_targeting",
@@ -766,6 +820,9 @@
     "operationId": "fb-search-targeting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -826,6 +883,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -845,7 +905,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PublishAdDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_delete_page",
@@ -856,6 +917,9 @@
     "operationId": "fb-delete-page",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -899,6 +963,9 @@
     "operationId": "fb-get-pixels",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -959,6 +1026,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -976,7 +1046,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertConversionPixelDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_get_custom_audiences",
@@ -987,6 +1058,9 @@
     "operationId": "fb-get-custom-audiences",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -1056,6 +1130,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1101,6 +1178,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1120,7 +1200,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/FbUpdateAudienceBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_get_custom_audience_by_id",
@@ -1131,6 +1212,9 @@
     "operationId": "fb-get-custom-audience-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -1177,6 +1261,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1196,7 +1283,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomAudienceDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_remove_custom_audience_member",
@@ -1208,6 +1296,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1227,7 +1318,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomAudienceDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_batch_update_audience_members",
@@ -1238,6 +1330,9 @@
     "operationId": "fb-batch-update-audience-members",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -1258,7 +1353,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomAudienceBatchDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_set_default_page",
@@ -1269,6 +1365,9 @@
     "operationId": "fb-set-default-page",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -1304,7 +1403,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/FbSetDefaultPageBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_get_lead_form",
@@ -1315,6 +1415,9 @@
     "operationId": "fb-get-lead-form",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -1360,6 +1463,9 @@
     "operationId": "fb-get-campaign",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -1413,6 +1519,9 @@
     "operationId": "fb-get-entity",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -1522,6 +1631,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1539,7 +1651,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertCampaignDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_upsert_adset",
@@ -1550,6 +1663,9 @@
     "operationId": "fb-upsert-adset",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -1568,7 +1684,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertAdsetDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_upsert_ad",
@@ -1579,6 +1696,9 @@
     "operationId": "fb-upsert-ad",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -1597,7 +1717,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertAdDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_pause_campaign",
@@ -1609,6 +1730,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1628,7 +1752,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_resume_campaign",
@@ -1640,6 +1765,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1659,7 +1787,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_duplicate_campaign",
@@ -1671,6 +1800,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1690,7 +1822,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_delete_campaign",
@@ -1702,6 +1835,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1721,7 +1857,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_pause_adset",
@@ -1733,6 +1870,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1752,7 +1892,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_resume_adset",
@@ -1764,6 +1905,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1783,7 +1927,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_duplicate_adset",
@@ -1794,6 +1939,9 @@
     "operationId": "fb-duplicate-adset",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -1823,6 +1971,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1842,7 +1993,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_pause_ad",
@@ -1854,6 +2006,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1873,7 +2028,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_resume_ad",
@@ -1885,6 +2041,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1904,7 +2063,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_duplicate_ad",
@@ -1915,6 +2075,9 @@
     "operationId": "fb-duplicate-ad",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -1944,6 +2107,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -1963,7 +2129,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_fb_get_campaign_publishing_progress",
@@ -1973,6 +2140,9 @@
     "summary": "Get campaign publishing progress",
     "operationId": "fb-get-campaign-publishing-progress",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -2020,6 +2190,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -2062,7 +2235,8 @@
             ]
           }
         },
-        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks)."
+        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks).",
+        "arrayFormat": "comma"
       },
       {
         "name": "groupBy",
@@ -2116,6 +2290,9 @@
     "operationId": "google-get-reporting-list",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -2196,6 +2373,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -2248,6 +2428,9 @@
     "operationId": "google-get-conversions",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -2328,6 +2511,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -2345,7 +2531,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertConversionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_get_conversion_by_id",
@@ -2356,6 +2543,9 @@
     "operationId": "google-get-conversion-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -2402,6 +2592,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -2447,6 +2640,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -2490,6 +2686,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -2507,7 +2706,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateGoogleIntegrationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_get_current_user",
@@ -2518,6 +2718,9 @@
     "operationId": "google-get-current-user",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -2561,6 +2764,9 @@
     "operationId": "google-get-ad-accounts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -2609,6 +2815,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -2654,6 +2863,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -2673,7 +2885,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_publish_ad",
@@ -2684,6 +2897,9 @@
     "operationId": "google-publish-ad",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -2712,6 +2928,9 @@
     "operationId": "google-search-targeting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -2764,6 +2983,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -2798,7 +3020,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/KeywordSuggestionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_get_assets",
@@ -2809,6 +3032,9 @@
     "operationId": "google-get-assets",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -2876,6 +3102,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -2893,7 +3122,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertAssetsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_get_entity",
@@ -2904,6 +3134,9 @@
     "operationId": "google-get-entity",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -3013,6 +3246,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -3068,6 +3304,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -3111,6 +3350,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -3151,7 +3393,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertSegmentDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_delete_segment",
@@ -3162,6 +3405,9 @@
     "operationId": "google-delete-segment",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -3212,6 +3458,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -3261,6 +3510,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -3278,7 +3530,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateOfflineUserListJobDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_upsert_audience",
@@ -3289,6 +3542,9 @@
     "operationId": "google-upsert-audience",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -3307,7 +3563,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertAudienceDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_get_audiences",
@@ -3318,6 +3575,9 @@
     "operationId": "google-get-audiences",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -3361,6 +3621,9 @@
     "operationId": "google-get-audience-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -3407,6 +3670,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -3424,7 +3690,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CampaignDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_google_get_campaign_by_id",
@@ -3435,6 +3702,9 @@
     "operationId": "google-get-campaign-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -3481,6 +3751,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -3523,6 +3796,9 @@
     "operationId": "li-get-integration",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -3567,6 +3843,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -3584,7 +3863,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateLinkedinIntegrationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_li_get_ad_accounts",
@@ -3595,6 +3875,9 @@
     "operationId": "li-get-ad-accounts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -3639,6 +3922,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -3681,6 +3967,9 @@
     "operationId": "li-delete-ad-account",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -3725,6 +4014,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -3767,6 +4059,9 @@
     "operationId": "li-get-campaign-group",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -3813,6 +4108,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -3832,7 +4130,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_li_upsert_campaign_group",
@@ -3843,6 +4142,9 @@
     "operationId": "li-upsert-campaign-group",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -3861,7 +4163,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AdCampaignGroupDataDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_li_search_targeting",
@@ -3872,6 +4175,9 @@
     "operationId": "li-search-targeting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -3932,6 +4238,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -3977,6 +4286,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -4013,7 +4325,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LinkedInCreateLeadFormBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_li_update_ad_status",
@@ -4024,6 +4337,9 @@
     "operationId": "li-update-ad-status",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.write"
@@ -4061,7 +4377,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LinkedInUpdateAdStatusBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_publishing_li_get_ad_analytics",
@@ -4072,6 +4389,9 @@
     "operationId": "li-get-ad-analytics",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -4171,7 +4491,8 @@
             ]
           }
         },
-        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks)."
+        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks).",
+        "arrayFormat": "comma"
       }
     ]
   },
@@ -4184,6 +4505,9 @@
     "operationId": "li-get-reporting-list",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -4270,7 +4594,8 @@
             ]
           }
         },
-        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks)."
+        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks).",
+        "arrayFormat": "comma"
       }
     ]
   },
@@ -4283,6 +4608,9 @@
     "operationId": "li-get-campaign-group-reporting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v3"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -4347,7 +4675,8 @@
             ]
           }
         },
-        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks)."
+        "description": "Reporting fields. Pass as comma-separated values on the wire (e.g. ?fields=impressions,clicks).",
+        "arrayFormat": "comma"
       },
       {
         "name": "campaignGroupId",
@@ -4367,6 +4696,9 @@
     "summary": "List Affiliates",
     "operationId": "list-affiliates",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -4451,6 +4783,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "affiliate-manager.readonly"
     ],
@@ -4478,6 +4813,9 @@
     "summary": "List Payouts",
     "operationId": "list-payouts",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -4569,6 +4907,9 @@
     "summary": "List Commissions",
     "operationId": "list-commissions",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -4663,6 +5004,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "agent-studio.readonly"
     ],
@@ -4726,6 +5070,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "agent-studio.write"
     ],
@@ -4753,7 +5100,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PromoteAndPublishDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_agent_studio_executeagent",
@@ -4763,6 +5111,9 @@
     "summary": "Execute Agent",
     "operationId": "executeAgent",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -4792,7 +5143,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ExecutePublicAgentDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_agent_studio_getagents_deprecated",
@@ -4802,6 +5154,9 @@
     "summary": "List Agents (Deprecated)",
     "operationId": "getAgents-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -4859,6 +5214,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "agent-studio.readonly"
     ],
@@ -4902,6 +5260,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "agent-studio.write"
     ],
@@ -4929,7 +5290,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ExecutePublicAgentDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_brand_boards_list_brand_voices",
@@ -4939,6 +5301,9 @@
     "summary": "List Brand Voices",
     "operationId": "list-brand-voices",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -5006,6 +5371,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -5023,7 +5391,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateBrandVoicePublicV1BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_brand_boards_get_brand_voice",
@@ -5033,6 +5402,9 @@
     "summary": "Get Brand Voice",
     "operationId": "get-brand-voice",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -5062,6 +5434,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -5080,7 +5455,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateBrandVoicePublicV1BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_brand_boards_delete_brand_voice",
@@ -5090,6 +5466,9 @@
     "summary": "Delete Brand Voice",
     "operationId": "delete-brand-voice",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -5119,6 +5498,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -5144,6 +5526,9 @@
     "summary": "Get Brand Boards",
     "operationId": "getBrandBoardsByLocation",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5211,6 +5596,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "brand-boards/design-kit.readonly"
     ],
@@ -5240,6 +5628,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "brand-boards/design-kit.write"
     ],
@@ -5260,7 +5651,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateBrandBoardBody"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_brand_boards_deletebrandboard",
@@ -5270,6 +5662,9 @@
     "summary": "Delete a Brand Board",
     "operationId": "deleteBrandBoard",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5301,6 +5696,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "brand-boards/design-kit.write"
     ],
@@ -5318,7 +5716,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateBrandBoardParam"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_validate_groups_slug",
@@ -5328,6 +5727,9 @@
     "summary": "Validate group slug",
     "operationId": "validate-groups-slug",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5347,7 +5749,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ValidateGroupSlugPostBody"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_disable_group",
@@ -5357,6 +5760,9 @@
     "summary": "Disable Group",
     "operationId": "disable-group",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5378,7 +5784,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/GroupStatusUpdateParams"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_get_service_bookings",
@@ -5388,6 +5795,9 @@
     "summary": "Get Service Bookings",
     "operationId": "get-service-bookings",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5457,6 +5867,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars/events.write"
     ],
@@ -5493,7 +5906,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreatePublicServiceBookingDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_get_service_booking_by_id",
@@ -5503,6 +5917,9 @@
     "summary": "Get Service Booking by ID",
     "operationId": "get-service-booking-by-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5531,6 +5948,9 @@
     "summary": "Update Service Booking",
     "operationId": "update-service-booking",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5571,7 +5991,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateServiceBookingDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_delete_service_booking",
@@ -5581,6 +6002,9 @@
     "summary": "Delete Service Booking",
     "operationId": "delete-service-booking",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5609,6 +6033,9 @@
     "summary": "Get Services",
     "operationId": "get-services-catalog",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5662,6 +6089,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -5679,7 +6109,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateServiceDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_get_service_catalog_by_id",
@@ -5689,6 +6120,9 @@
     "summary": "Get Service by ID",
     "operationId": "get-service-catalog-by-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5719,6 +6153,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -5738,7 +6175,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateServiceDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_delete_service_catalog",
@@ -5748,6 +6186,9 @@
     "summary": "Delete Service",
     "operationId": "delete-service-catalog",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5776,6 +6217,9 @@
     "summary": "Get Service Locations",
     "operationId": "get-service-locations",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5813,6 +6257,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -5830,7 +6277,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateServiceLocationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_get_service_location_by_id",
@@ -5840,6 +6288,9 @@
     "summary": "Get Service Location by ID",
     "operationId": "get-service-location-by-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5870,6 +6321,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -5889,7 +6343,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateServiceLocationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_delete_service_location",
@@ -5899,6 +6354,9 @@
     "summary": "Delete Service Location",
     "operationId": "delete-service-location",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5929,6 +6387,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars/events.write"
     ],
@@ -5946,7 +6407,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BlockSlotCreateRequestDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_delete_event",
@@ -5956,6 +6418,9 @@
     "summary": "Delete Event",
     "operationId": "delete-event",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -5977,7 +6442,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/DeleteAppointmentSchema"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_get_appointment_notes",
@@ -5987,6 +6453,9 @@
     "summary": "Get Notes",
     "operationId": "get-appointment-notes",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6036,6 +6505,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars/events.write"
     ],
@@ -6055,7 +6527,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/NotesDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_update_appointment_note",
@@ -6065,6 +6538,9 @@
     "summary": "Update Note",
     "operationId": "update-appointment-note",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6087,7 +6563,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/NotesDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_delete_appointment_note",
@@ -6097,6 +6574,9 @@
     "summary": "Delete Note",
     "operationId": "delete-appointment-note",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6126,6 +6606,9 @@
     "summary": "List user availability schedule",
     "operationId": "getAllSchedules",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6200,6 +6683,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.readonly"
     ],
@@ -6228,6 +6714,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -6247,7 +6736,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateScheduleDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_deleteschedule",
@@ -6257,6 +6747,9 @@
     "summary": "Delete user availability schedule",
     "operationId": "deleteSchedule",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6287,6 +6780,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -6304,7 +6800,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateScheduleDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_add_calendar_to_schedule",
@@ -6314,6 +6811,9 @@
     "summary": "Apply user availability schedule to a calendar",
     "operationId": "add-calendar-to-schedule",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6345,6 +6845,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -6374,6 +6877,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -6393,7 +6899,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateEventCalendarScheduleDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_getcalendarschedule",
@@ -6403,6 +6910,9 @@
     "summary": "Get event calendar availability schedule",
     "operationId": "getCalendarSchedule",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6433,6 +6943,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -6452,48 +6965,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateEventCalendarScheduleDTO"
-    }
-  },
-  {
-    "name": "official_campaigns_get_campaigns",
-    "method": "GET",
-    "path": "/campaigns/",
-    "app": "campaigns",
-    "summary": "Get Campaigns",
-    "operationId": "get-campaigns",
-    "versions": [
-      "v3"
-    ],
-    "scopes": [
-      "campaigns.readonly"
-    ],
-    "securitySchemes": [
-      "bearer"
-    ],
-    "accessLevel": "any",
-    "specTier": "v3",
-    "sourceFile": "apps/v3/campaigns-v3.json",
-    "source": "official-ghl-openapi",
-    "stability": "official",
-    "deprecated": false,
-    "removedInV3": false,
-    "pathParams": [],
-    "queryParams": [
-      {
-        "name": "locationId",
-        "required": true,
-        "schema": {
-          "type": "string"
-        }
-      },
-      {
-        "name": "status",
-        "required": false,
-        "schema": {
-          "type": "string"
-        }
-      }
-    ]
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_chat_widget_listchatwidget",
@@ -6503,6 +6976,9 @@
     "summary": "List Chat Widgets",
     "operationId": "listChatWidget",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6617,6 +7093,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "chat-widget.readonly"
     ],
@@ -6646,36 +7125,7 @@
     "versions": [
       "v3"
     ],
-    "scopes": [
-      "chat-widget.write"
-    ],
-    "securitySchemes": [
-      "Location-Access"
-    ],
-    "accessLevel": "any",
-    "specTier": "v3",
-    "sourceFile": "apps/v3/chat-widget-v3.json",
-    "source": "official-ghl-openapi",
-    "stability": "official",
-    "deprecated": false,
-    "removedInV3": false,
-    "pathParams": [
-      "locationId",
-      "id"
-    ],
-    "queryParams": [],
-    "requestBodySchema": {
-      "$ref": "#/components/schemas/UpdateWidgetDTO"
-    }
-  },
-  {
-    "name": "official_chat_widget_patchchatwidget",
-    "method": "PATCH",
-    "path": "/chat-widget/data/{locationId}/{id}",
-    "app": "chat-widget",
-    "summary": "Patch Chat Widget",
-    "operationId": "patchChatWidget",
-    "versions": [
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6698,7 +7148,44 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateWidgetDTO"
-    }
+    },
+    "requestContentType": "application/json"
+  },
+  {
+    "name": "official_chat_widget_patchchatwidget",
+    "method": "PATCH",
+    "path": "/chat-widget/data/{locationId}/{id}",
+    "app": "chat-widget",
+    "summary": "Patch Chat Widget",
+    "operationId": "patchChatWidget",
+    "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
+      "v3"
+    ],
+    "scopes": [
+      "chat-widget.write"
+    ],
+    "securitySchemes": [
+      "Location-Access"
+    ],
+    "accessLevel": "any",
+    "specTier": "v3",
+    "sourceFile": "apps/v3/chat-widget-v3.json",
+    "source": "official-ghl-openapi",
+    "stability": "official",
+    "deprecated": false,
+    "removedInV3": false,
+    "pathParams": [
+      "locationId",
+      "id"
+    ],
+    "queryParams": [],
+    "requestBodySchema": {
+      "$ref": "#/components/schemas/UpdateWidgetDTO"
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_chat_widget_getwidget",
@@ -6708,6 +7195,9 @@
     "summary": "Get Widget Config",
     "operationId": "getWidget",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -6743,6 +7233,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "chat-widget.write"
     ],
@@ -6772,6 +7265,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "chat-widget.write"
     ],
@@ -6789,7 +7285,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CloneChatWidgetDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_chat_widget_createchatwidget",
@@ -6799,6 +7296,9 @@
     "summary": "Create Chat Widget",
     "operationId": "createChatWidget",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6818,7 +7318,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateWidgetDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_contacts_create_association",
@@ -6828,6 +7329,9 @@
     "summary": "Update Contacts Tags",
     "operationId": "create-association",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -6845,7 +7349,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateTagsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_contacts_add_remove_contact_from_business",
@@ -6855,6 +7360,9 @@
     "summary": "Add/Remove Contacts From Business",
     "operationId": "add-remove-contact-from-business",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -6870,7 +7378,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ContactsBusinessUpdate"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_contacts_remove_contact_from_every_campaign",
@@ -6880,6 +7389,9 @@
     "summary": "Remove Contact From Every Campaign",
     "operationId": "remove-contact-from-every-campaign",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6910,6 +7422,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -6929,7 +7444,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateActionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_list_actions",
@@ -6939,6 +7455,9 @@
     "summary": "List Actions for an Agent",
     "operationId": "list-actions",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6967,6 +7486,9 @@
     "summary": "Get Action by ID",
     "operationId": "get-action-by-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -6998,6 +7520,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -7018,7 +7543,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateActionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_delete_action",
@@ -7028,6 +7554,9 @@
     "summary": "Remove Action from Agent",
     "operationId": "delete-action",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7059,6 +7588,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -7078,7 +7610,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateFollowupSettingsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_create_agent",
@@ -7088,6 +7621,9 @@
     "summary": "Create an Agent",
     "operationId": "create-agent",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7107,7 +7643,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateEmployeeDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_search_agent",
@@ -7117,6 +7654,9 @@
     "summary": "Search Agents",
     "operationId": "search-agent",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7170,6 +7710,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -7189,7 +7732,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateEmployeeDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_get_agent",
@@ -7199,6 +7743,9 @@
     "summary": "Get Agent",
     "operationId": "get-agent",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7229,6 +7776,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -7255,6 +7805,9 @@
     "summary": "Get the generation details",
     "operationId": "get-generation-details",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7303,6 +7856,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "conversations/message.write"
     ],
@@ -7322,7 +7878,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateEmailMessageStatusDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_export_messages_by_location",
@@ -7332,6 +7889,9 @@
     "summary": "Export messages by location ID",
     "operationId": "export-messages-by-location",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7462,6 +8022,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "conversations/message.write"
     ],
@@ -7481,7 +8044,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AddMessageAttachmentsDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_send_review_reply",
@@ -7491,6 +8055,9 @@
     "summary": "Send a review reply to Google My Business",
     "operationId": "send-review-reply",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7510,7 +8077,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/SendReviewReplyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_initiate_file_upload",
@@ -7520,6 +8088,9 @@
     "summary": "Initiate file upload to GCS",
     "operationId": "initiate-file-upload",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7539,7 +8110,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/InitiateFileUploadDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_complete_file_upload",
@@ -7549,6 +8121,9 @@
     "summary": "Complete file upload",
     "operationId": "complete-file-upload",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7568,7 +8143,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CompleteFileUploadDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_courses_import_courses",
@@ -7578,6 +8154,9 @@
     "summary": "Import Courses",
     "operationId": "import-courses",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -7595,7 +8174,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PublicExporterPayload"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_custom_menus_get_custom_menus",
@@ -7605,6 +8185,9 @@
     "summary": "Get Custom Menu Links",
     "operationId": "get-custom-menus",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7678,6 +8261,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/templates.write"
     ],
@@ -7697,7 +8283,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateTemplatePublicV2BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_emails_list_email_templates",
@@ -7707,6 +8294,9 @@
     "summary": "List templates",
     "operationId": "list-email-templates",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7823,6 +8413,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/templates.write"
     ],
@@ -7842,7 +8435,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ImportTemplatePublicV2BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_emails_create_template_folder",
@@ -7852,6 +8446,9 @@
     "summary": "Create a template folder",
     "operationId": "create-template-folder",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7873,7 +8470,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateTemplateFolderPublicV2BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_emails_get_email_template",
@@ -7883,6 +8481,9 @@
     "summary": "Get Email Template by ID",
     "operationId": "get-email-template",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -7914,6 +8515,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/templates.write"
     ],
@@ -7943,6 +8547,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/templates.write"
     ],
@@ -7963,7 +8570,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateTemplatePublicV2BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_emails_get_campaign_stats",
@@ -7973,6 +8581,9 @@
     "summary": "Get Campaign Statistics",
     "operationId": "get-campaign-stats",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8014,6 +8625,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/campaigns.write"
     ],
@@ -8033,7 +8647,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateEmailCampaignPublicV2BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_emails_list_email_campaigns",
@@ -8043,6 +8658,9 @@
     "summary": "List Email Campaigns",
     "operationId": "list-email-campaigns",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8122,6 +8740,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/campaigns.write"
     ],
@@ -8142,7 +8763,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateEmailCampaignPublicV2BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_emails_get_email_campaign",
@@ -8152,6 +8774,9 @@
     "summary": "Get Email Campaign by ID",
     "operationId": "get-email-campaign",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8183,6 +8808,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/campaigns.write"
     ],
@@ -8210,6 +8838,9 @@
     "summary": "List Workflow Campaigns",
     "operationId": "list-workflow-campaigns",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8283,6 +8914,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/campaigns.readonly"
     ],
@@ -8310,6 +8944,9 @@
     "summary": "List Bulk Action Campaigns",
     "operationId": "list-bulk-action-campaigns",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8402,6 +9039,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/campaigns.readonly"
     ],
@@ -8431,6 +9071,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "emails/campaigns.write"
     ],
@@ -8451,7 +9094,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ScheduleCampaignPublicV2BodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_funnels_create_redirect",
@@ -8461,6 +9105,9 @@
     "summary": "Create Redirect",
     "operationId": "create-redirect",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8480,7 +9127,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateRedirectParams"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_funnels_update_redirect_by_id",
@@ -8490,6 +9138,9 @@
     "summary": "Update Redirect By Id",
     "operationId": "update-redirect-by-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8511,7 +9162,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateRedirectParams"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_funnels_delete_redirect_by_id",
@@ -8521,6 +9173,9 @@
     "summary": "Delete Redirect By Id",
     "operationId": "delete-redirect-by-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8557,6 +9212,9 @@
     "summary": "Fetch List of Redirects",
     "operationId": "fetch-redirects-list",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -8612,6 +9270,9 @@
     "summary": "Fetch List of Funnels",
     "operationId": "getFunnels",
     "versions": [],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -8684,6 +9345,9 @@
     "summary": "Fetch list of funnel pages",
     "operationId": "getPagesByFunnelId",
     "versions": [],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -8742,6 +9406,9 @@
     "summary": "Fetch count of funnel pages",
     "operationId": "getPagesCountByFunnelId",
     "versions": [],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -8788,6 +9455,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "invoices.readonly"
     ],
@@ -8832,6 +9502,9 @@
     "summary": "Get all FAQs by knowledge base with pagination support",
     "operationId": "list",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -8892,6 +9565,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -8907,7 +9583,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AddFaqDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_update",
@@ -8917,6 +9594,9 @@
     "summary": "Update an existing knowledge base FAQ",
     "operationId": "update",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -8936,7 +9616,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateFaqBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_delete",
@@ -8946,6 +9627,9 @@
     "summary": "Delete an existing knowledge base FAQ",
     "operationId": "delete",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -8972,6 +9656,9 @@
     "summary": "Get all trained page links by knowledge base",
     "operationId": "getAllWebsiteUrlsDataByKnowledgeBase",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -9039,6 +9726,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -9054,7 +9744,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/DiscoverWebsiteRequestDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_deletetrainedurlsforknowledgebase",
@@ -9064,6 +9755,9 @@
     "summary": "Delete trained pages",
     "operationId": "deleteTrainedUrlsForKnowledgeBase",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -9081,7 +9775,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/DeleteWebsiteUrlRequestDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_getcrawlingstatusforlatestoperation",
@@ -9091,6 +9786,9 @@
     "summary": "Get crawling status for the latest operation",
     "operationId": "getCrawlingStatusForLatestOperation",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -9142,6 +9840,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -9157,7 +9858,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/TrainDiscoveredUrlsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_getknowledgebasebyid",
@@ -9167,6 +9869,9 @@
     "summary": "Get knowledge base by ID",
     "operationId": "getKnowledgeBaseById",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -9195,6 +9900,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -9221,6 +9929,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -9238,7 +9949,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateKnowledgeBaseDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_listallknowledgebasespaginated",
@@ -9248,6 +9960,9 @@
     "summary": "Get all knowledge bases for a location by location Id (paginated)",
     "operationId": "listAllKnowledgeBasesPaginated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -9307,6 +10022,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -9322,7 +10040,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateKnowledgeBaseDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_links_get_link_by_id",
@@ -9332,6 +10051,9 @@
     "summary": "Get Link by ID",
     "operationId": "get-link-by-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -9371,6 +10093,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "locations/write"
     ],
@@ -9399,6 +10124,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "locations/write"
     ],
@@ -9418,7 +10146,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdatePermissionsDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_locations_get_timezones",
@@ -9428,6 +10157,9 @@
     "summary": "Fetch Timezones",
     "operationId": "get-timezones",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -9459,6 +10191,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "locations.readonly"
     ],
@@ -9486,6 +10221,9 @@
     "summary": "Get all wallet charges",
     "operationId": "getCharges",
     "versions": [],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "charges.readonly"
     ],
@@ -9569,6 +10307,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "marketplace-installer-details.readonly"
     ],
@@ -9596,6 +10337,9 @@
     "summary": "Get rebilling config for an app subscription and usage plans",
     "operationId": "get-rebilling-config-for-app",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -9627,6 +10371,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "marketplace-external-auth-migration.write"
     ],
@@ -9645,7 +10392,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/MigrateConnectionDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_oauth_get_access_token",
@@ -9655,6 +10403,9 @@
     "summary": "Get Access Token",
     "operationId": "get-access-token",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -9670,7 +10421,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/GetAccessTokenBodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_opportunities_get_lost_reason",
@@ -9680,6 +10432,9 @@
     "summary": "Get lost reason",
     "operationId": "get-lost-reason",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -9768,6 +10523,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "opportunities.readonly"
     ],
@@ -9785,7 +10543,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/OpportunitySearchBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_payments_custom_provider_marketplace_app_update_9a8c6e",
@@ -9795,6 +10554,9 @@
     "summary": "Custom-provider marketplace app update capabilities",
     "operationId": "custom-provider-marketplace-app-update-capabilities",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -9814,7 +10576,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomProviderCapabilitiesDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_phone_system_getnumberpoollist",
@@ -9824,6 +10587,9 @@
     "summary": "List number pools",
     "operationId": "getNumberPoolList",
     "versions": [],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "numberpools.read"
     ],
@@ -9857,6 +10623,9 @@
     "summary": "List available phone numbers",
     "operationId": "listAvailableNumbersForACountry",
     "versions": [],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "phonenumbers.read"
     ],
@@ -9907,7 +10676,8 @@
             "type": "string"
           }
         },
-        "description": "comma separated types of phone number required"
+        "description": "comma separated types of phone number required",
+        "arrayFormat": "comma"
       },
       {
         "name": "smsEnabled",
@@ -9951,6 +10721,9 @@
     "summary": "Purchase number for location",
     "operationId": "purchase-number-for-location",
     "versions": [],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "phonenumbers.write"
     ],
@@ -9970,7 +10743,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PurchasePhoneNumberBodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_products_update_display_priority",
@@ -9980,6 +10754,9 @@
     "summary": "Update product display priorities in store",
     "operationId": "update-display-priority",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -9999,7 +10776,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateDisplayPriorityBodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_generate_payment_link_deprecated",
@@ -10009,6 +10787,9 @@
     "summary": "Update SaaS subscription",
     "operationId": "generate-payment-link-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10028,7 +10809,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateSubscriptionDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_bulk_disable_saas_deprecated",
@@ -10038,6 +10820,9 @@
     "summary": "Disable SaaS for locations",
     "operationId": "bulk-disable-saas-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10057,7 +10842,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BulkDisableSaasDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_enable_saas_location_deprecated",
@@ -10067,6 +10853,9 @@
     "summary": "Enable SaaS for Sub-Account (Formerly Location)",
     "operationId": "enable-saas-location-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10086,7 +10875,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/EnableSaasDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_pause_location_deprecated",
@@ -10096,6 +10886,9 @@
     "summary": "Pause location",
     "operationId": "pause-location-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10115,7 +10908,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PauseLocationDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_update_rebilling_deprecated",
@@ -10125,6 +10919,9 @@
     "summary": "Update Rebilling",
     "operationId": "update-rebilling-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10144,7 +10941,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateRebillingDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_get_agency_plans_deprecated",
@@ -10154,6 +10952,9 @@
     "summary": "Get Agency Plans",
     "operationId": "get-agency-plans-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10180,6 +10981,9 @@
     "summary": "Get Location Subscription Details",
     "operationId": "get-location-subscription-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10217,6 +11021,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -10234,7 +11041,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BulkEnableSaasRequestDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_get_saas_locations_deprecated",
@@ -10244,6 +11052,9 @@
     "summary": "Get SaaS Locations",
     "operationId": "get-saas-locations-deprecated",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10281,6 +11092,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -10316,6 +11130,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -10331,14 +11148,14 @@
     "queryParams": [
       {
         "name": "customerId",
-        "required": true,
+        "required": false,
         "schema": {
           "type": "string"
         }
       },
       {
         "name": "subscriptionId",
-        "required": true,
+        "required": false,
         "schema": {
           "type": "string"
         }
@@ -10362,6 +11179,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -10379,7 +11199,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateSubscriptionDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_bulk_disable_saas",
@@ -10389,6 +11210,9 @@
     "summary": "Disable SaaS for locations",
     "operationId": "bulk-disable-saas",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10408,7 +11232,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BulkDisableSaasDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_enable_saas_location",
@@ -10418,6 +11243,9 @@
     "summary": "Enable SaaS for Sub-Account (Formerly Location)",
     "operationId": "enable-saas-location",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10437,7 +11265,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/EnableSaasDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_pause_location",
@@ -10447,6 +11276,9 @@
     "summary": "Pause location",
     "operationId": "pause-location",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10466,7 +11298,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PauseLocationDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_update_rebilling",
@@ -10476,6 +11309,9 @@
     "summary": "Update Rebilling",
     "operationId": "update-rebilling",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10495,7 +11331,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateRebillingDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_get_agency_plans",
@@ -10505,6 +11342,9 @@
     "summary": "Get Agency Plans",
     "operationId": "get-agency-plans",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10531,6 +11371,9 @@
     "summary": "Get Location Subscription Details",
     "operationId": "get-location-subscription",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10567,6 +11410,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -10584,7 +11430,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BulkEnableSaasRequestDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_get_saas_locations",
@@ -10594,6 +11441,9 @@
     "summary": "Get SaaS Locations",
     "operationId": "get-saas-locations",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10630,6 +11480,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -10664,6 +11517,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "saas/company.read"
     ],
@@ -10683,7 +11539,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AllowAttachRebillingDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_getlocationwalletbalance",
@@ -10693,6 +11550,9 @@
     "summary": "Get Location Wallet Balance",
     "operationId": "getLocationWalletBalance",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -10724,6 +11584,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "saas/company.write"
     ],
@@ -10744,7 +11607,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ComplimentaryCreditDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_snapshots_get_snapshot_push",
@@ -10754,6 +11618,9 @@
     "summary": "Get Snapshot Push between Dates",
     "operationId": "get-snapshot-push",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10822,6 +11689,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -10855,6 +11725,9 @@
     "summary": "Start OAuth Flow (Step 1 of 3)",
     "operationId": "start-oauth",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -10914,6 +11787,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -10949,6 +11825,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -10964,7 +11843,8 @@
       "accountId"
     ],
     "queryParams": [],
-    "requestBodySchema": {}
+    "requestBodySchema": {},
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_get_categories_location_id",
@@ -10974,6 +11854,9 @@
     "summary": "Get categories by location id",
     "operationId": "get-categories-location-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11029,6 +11912,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -11054,6 +11940,9 @@
     "summary": "Get tags by location id",
     "operationId": "get-tags-location-id",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -11107,6 +11996,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -11124,7 +12016,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateTagDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_fetchavailablecategories",
@@ -11134,6 +12027,9 @@
     "summary": "Get all categories with their queue status",
     "operationId": "fetchAvailableCategories",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11195,6 +12091,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "socialplanner/category.write"
     ],
@@ -11212,7 +12111,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateCategoryQueueDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_fetchqueues",
@@ -11222,6 +12122,9 @@
     "summary": "Fetch category queues for a location",
     "operationId": "fetchQueues",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11241,7 +12144,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/FetchCategoryQueuesDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_fetchqueuebyid",
@@ -11251,6 +12155,9 @@
     "summary": "Fetch a category queue by ID",
     "operationId": "fetchQueueById",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11290,6 +12197,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "socialplanner/category.write"
     ],
@@ -11309,7 +12219,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCategoryQueueDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_fetchqueueitems",
@@ -11319,6 +12230,9 @@
     "summary": "Fetch items from a queue",
     "operationId": "fetchQueueItems",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11340,7 +12254,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/FetchQueueItemsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_starteditsession",
@@ -11350,6 +12265,9 @@
     "summary": "Start or resume an edit session",
     "operationId": "startEditSession",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11371,7 +12289,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/StartEditSessionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_saveeditsession",
@@ -11381,6 +12300,9 @@
     "summary": "Save edit session changes",
     "operationId": "saveEditSession",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11402,7 +12324,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/SaveEditSessionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_discardeditsession",
@@ -11412,6 +12335,9 @@
     "summary": "Discard edit session changes",
     "operationId": "discardEditSession",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11433,7 +12359,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/DiscardEditSessionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_fetcheditsessioncalendar",
@@ -11443,6 +12370,9 @@
     "summary": "Fetch calendar view for an edit session",
     "operationId": "fetchEditSessionCalendar",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11464,7 +12394,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/EditSessionCalendarDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_fetchslots",
@@ -11474,6 +12405,9 @@
     "summary": "Fetch slot information for queue items",
     "operationId": "fetchSlots",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11495,7 +12429,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/FetchSlotsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_deletequeueitem",
@@ -11505,6 +12440,9 @@
     "summary": "Delete an item from a queue",
     "operationId": "deleteQueueItem",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11553,6 +12491,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "socialplanner/category.write"
     ],
@@ -11573,7 +12514,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateQueueItemDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_fetchcalendarlist",
@@ -11583,6 +12525,9 @@
     "summary": "Get scheduled posts calendar view",
     "operationId": "fetchCalendarList",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11602,7 +12547,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CalendarListDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_deletecurrentactivepostandschedulenext",
@@ -11612,6 +12558,9 @@
     "summary": "Delete an active post and schedule the next one",
     "operationId": "deleteCurrentActivePostAndScheduleNext",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11651,6 +12600,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [
       "socialplanner/category.write"
     ],
@@ -11671,7 +12623,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ResetQueueItemDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_clonequeueitem",
@@ -11681,6 +12634,9 @@
     "summary": "Clone a queue item",
     "operationId": "cloneQueueItem",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11703,7 +12659,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CloneQueueItemDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_createqueueitem",
@@ -11713,6 +12670,9 @@
     "summary": "Create a new item in the queue",
     "operationId": "createQueueItem",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11734,7 +12694,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateQueueItemDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_create_comment",
@@ -11744,6 +12705,9 @@
     "summary": "Create a comment or reply",
     "operationId": "create-comment",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -11770,7 +12734,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CommentsCreateBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_planner_create_like",
@@ -11780,6 +12745,9 @@
     "summary": "Like a comment",
     "operationId": "create-like",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -11816,6 +12784,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -11850,6 +12821,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -11874,7 +12848,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CommentsGetListBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_surveys_get_surveys_submissions",
@@ -11884,6 +12859,9 @@
     "summary": "Get Surveys Submissions",
     "operationId": "get-surveys-submissions",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [
@@ -11970,6 +12948,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -12055,7 +13036,8 @@
             ]
           }
         },
-        "description": "Comma-separated reporting fields"
+        "description": "Comma-separated reporting fields",
+        "arrayFormat": "comma"
       }
     ]
   },
@@ -12068,6 +13050,9 @@
     "operationId": "fb-get-campaign-reporting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12122,6 +13107,9 @@
     "operationId": "fb-get-reporting-list",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12203,6 +13191,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -12238,6 +13229,9 @@
     "operationId": "fb-get-pages",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12282,6 +13276,9 @@
     "operationId": "fb-get-instagram-accounts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12333,6 +13330,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -12371,6 +13371,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -12391,7 +13394,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateLeadFormDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_get_ad_accounts",
@@ -12402,6 +13406,9 @@
     "operationId": "fb-get-ad-accounts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12471,6 +13478,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -12509,6 +13519,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -12529,7 +13542,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_get_conversation_forms",
@@ -12540,6 +13554,9 @@
     "operationId": "fb-get-conversation-forms",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12577,6 +13594,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -12595,7 +13615,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateConversationFormDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_create_integration",
@@ -12606,6 +13627,9 @@
     "operationId": "fb-create-integration",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -12625,7 +13649,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateIntegrationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_get_integration",
@@ -12636,6 +13661,9 @@
     "operationId": "fb-get-integration",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12673,6 +13701,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -12691,7 +13722,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_search_targeting",
@@ -12702,6 +13734,9 @@
     "operationId": "fb-search-targeting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -12753,6 +13788,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -12773,7 +13811,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PublishAdDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_delete_page",
@@ -12784,6 +13823,9 @@
     "operationId": "fb-delete-page",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -12828,6 +13870,9 @@
     "operationId": "fb-get-pixels",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12889,6 +13934,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -12907,7 +13955,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertConversionPixelDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_get_custom_audiences",
@@ -12918,6 +13967,9 @@
     "operationId": "fb-get-custom-audiences",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -12988,6 +14040,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13026,6 +14081,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13046,7 +14104,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/FbUpdateAudienceBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_get_custom_audience_by_id",
@@ -13057,6 +14116,9 @@
     "operationId": "fb-get-custom-audience-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -13096,6 +14158,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13116,7 +14181,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomAudienceDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_remove_custom_audience_member",
@@ -13128,6 +14194,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13148,7 +14217,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomAudienceDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_batch_update_audience_members",
@@ -13159,6 +14229,9 @@
     "operationId": "fb-batch-update-audience-members",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -13180,7 +14253,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomAudienceBatchDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_set_default_page",
@@ -13191,6 +14265,9 @@
     "operationId": "fb-set-default-page",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -13219,7 +14296,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/FbSetDefaultPageBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_get_lead_form",
@@ -13230,6 +14308,9 @@
     "operationId": "fb-get-lead-form",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -13268,6 +14349,9 @@
     "operationId": "fb-get-campaign",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -13322,6 +14406,9 @@
     "operationId": "fb-get-entity",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -13432,6 +14519,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13450,7 +14540,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertCampaignDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_upsert_adset",
@@ -13461,6 +14552,9 @@
     "operationId": "fb-upsert-adset",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -13480,7 +14574,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertAdsetDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_upsert_ad",
@@ -13491,6 +14586,9 @@
     "operationId": "fb-upsert-ad",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -13510,7 +14608,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertAdDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_pause_campaign",
@@ -13522,6 +14621,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13542,7 +14644,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_resume_campaign",
@@ -13554,6 +14657,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13574,7 +14680,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_duplicate_campaign",
@@ -13586,6 +14693,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13606,7 +14716,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_delete_campaign",
@@ -13618,6 +14729,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13638,7 +14752,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_pause_adset",
@@ -13650,6 +14765,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13670,7 +14788,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_resume_adset",
@@ -13682,6 +14801,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13702,7 +14824,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_duplicate_adset",
@@ -13713,6 +14836,9 @@
     "operationId": "fb-duplicate-adset",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -13743,6 +14869,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13763,7 +14892,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_pause_ad",
@@ -13775,6 +14905,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13795,7 +14928,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_resume_ad",
@@ -13807,6 +14941,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13827,7 +14964,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_fb_duplicate_ad",
@@ -13838,6 +14976,9 @@
     "operationId": "fb-duplicate-ad",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -13868,6 +15009,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -13888,7 +15032,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_get_reporting",
@@ -13899,6 +15044,9 @@
     "operationId": "google-get-reporting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -13984,7 +15132,8 @@
             ]
           }
         },
-        "description": "Comma-separated reporting fields"
+        "description": "Comma-separated reporting fields",
+        "arrayFormat": "comma"
       }
     ]
   },
@@ -13997,6 +15146,9 @@
     "operationId": "google-get-reporting-list",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -14078,6 +15230,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -14131,6 +15286,9 @@
     "operationId": "google-get-conversions",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -14212,6 +15370,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -14230,7 +15391,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertConversionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_get_conversion_by_id",
@@ -14241,6 +15403,9 @@
     "operationId": "google-get-conversion-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -14280,6 +15445,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -14318,6 +15486,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -14354,6 +15525,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -14372,7 +15546,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateGoogleIntegrationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_get_current_user",
@@ -14383,6 +15558,9 @@
     "operationId": "google-get-current-user",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -14419,6 +15597,9 @@
     "operationId": "google-get-ad-accounts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -14468,6 +15649,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -14506,6 +15690,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -14526,7 +15713,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_publish_ad",
@@ -14537,6 +15725,9 @@
     "operationId": "google-publish-ad",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -14566,6 +15757,9 @@
     "operationId": "google-search-targeting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -14619,6 +15813,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -14646,7 +15843,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/KeywordSuggestionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_get_assets",
@@ -14657,6 +15855,9 @@
     "operationId": "google-get-assets",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -14725,6 +15926,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -14743,7 +15947,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertAssetsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_get_entity",
@@ -14754,6 +15959,9 @@
     "operationId": "google-get-entity",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -14864,6 +16072,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -14920,6 +16131,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -14964,6 +16178,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -15005,7 +16222,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertSegmentDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_delete_segment",
@@ -15016,6 +16234,9 @@
     "operationId": "google-delete-segment",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -15067,6 +16288,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -15117,6 +16341,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -15135,7 +16362,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateOfflineUserListJobDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_upsert_audience",
@@ -15146,6 +16374,9 @@
     "operationId": "google-upsert-audience",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -15165,7 +16396,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpsertAudienceDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_get_audiences",
@@ -15176,6 +16408,9 @@
     "operationId": "google-get-audiences",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15212,6 +16447,9 @@
     "operationId": "google-get-audience-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15251,6 +16489,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -15269,7 +16510,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CampaignDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_google_get_campaign_by_id",
@@ -15280,6 +16522,9 @@
     "operationId": "google-get-campaign-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15319,6 +16564,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -15354,6 +16602,9 @@
     "operationId": "li-get-integration",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15391,6 +16642,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -15409,7 +16663,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateLinkedinIntegrationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_li_get_ad_accounts",
@@ -15420,6 +16675,9 @@
     "operationId": "li-get-ad-accounts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15456,6 +16714,9 @@
     "operationId": "li-get-ad-account-details",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15501,6 +16762,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -15545,6 +16809,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -15580,6 +16847,9 @@
     "operationId": "li-get-campaign-group",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15619,6 +16889,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -15639,7 +16912,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LocationIdBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_li_upsert_campaign_group",
@@ -15650,6 +16924,9 @@
     "operationId": "li-upsert-campaign-group",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -15669,7 +16946,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AdCampaignGroupDataDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_li_search_targeting",
@@ -15680,6 +16958,9 @@
     "operationId": "li-search-targeting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15741,6 +17022,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.readonly"
     ],
@@ -15779,6 +17063,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "adPublishing.write"
     ],
@@ -15808,7 +17095,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LinkedInCreateLeadFormBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_li_update_ad_status",
@@ -15819,6 +17107,9 @@
     "operationId": "li-update-ad-status",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.write"
@@ -15849,7 +17140,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/LinkedInUpdateAdStatusBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_ad_manager_li_get_ad_analytics",
@@ -15860,6 +17152,9 @@
     "operationId": "li-get-ad-analytics",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -15947,7 +17242,8 @@
             "type": "string"
           }
         },
-        "description": "Comma-separated list of fields to retrieve"
+        "description": "Comma-separated list of fields to retrieve",
+        "arrayFormat": "comma"
       }
     ]
   },
@@ -15960,6 +17256,9 @@
     "operationId": "li-get-reporting-list",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -16034,7 +17333,8 @@
             "type": "string"
           }
         },
-        "description": "Comma-separated list of fields to retrieve"
+        "description": "Comma-separated list of fields to retrieve",
+        "arrayFormat": "comma"
       }
     ]
   },
@@ -16047,6 +17347,9 @@
     "operationId": "li-get-campaign-group-reporting",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "adPublishing.readonly"
@@ -16099,7 +17402,8 @@
             "type": "string"
           }
         },
-        "description": "Comma-separated list of fields to retrieve"
+        "description": "Comma-separated list of fields to retrieve",
+        "arrayFormat": "comma"
       },
       {
         "name": "campaignGroupId",
@@ -16120,6 +17424,9 @@
     "operationId": "list-affiliates",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "affiliate-manager.readonly"
@@ -16204,6 +17511,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "affiliate-manager.readonly"
     ],
@@ -16233,6 +17543,9 @@
     "operationId": "list-payouts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "affiliate-manager.readonly"
@@ -16325,6 +17638,9 @@
     "operationId": "list-commissions",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "affiliate-manager.readonly"
@@ -16419,6 +17735,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "agent-studio.readonly"
     ],
@@ -16483,6 +17802,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "agent-studio.write"
     ],
@@ -16511,7 +17833,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PromoteAndPublishDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_agent_studio_executeagent_2",
@@ -16522,6 +17845,9 @@
     "operationId": "executeAgent",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "agent-studio.write"
@@ -16551,7 +17877,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ExecutePublicAgentDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_agent_studio_getagents_deprecated_2",
@@ -16562,6 +17889,9 @@
     "operationId": "getAgents-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "agent-studio.readonly"
@@ -16619,6 +17949,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "agent-studio.readonly"
     ],
@@ -16663,6 +17996,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "agent-studio.write"
     ],
@@ -16691,7 +18027,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ExecutePublicAgentDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_brand_boards_getbrandboardsbylocation_2",
@@ -16702,6 +18039,9 @@
     "operationId": "getBrandBoardsByLocation",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "brand-boards/design-kit.readonly"
@@ -16769,6 +18109,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "brand-boards/design-kit.readonly"
     ],
@@ -16799,6 +18142,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "brand-boards/design-kit.write"
     ],
@@ -16820,7 +18166,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateBrandBoardBody"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_brand_boards_deletebrandboard_2",
@@ -16831,6 +18178,9 @@
     "operationId": "deleteBrandBoard",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "brand-boards/design-kit.write"
@@ -16862,6 +18212,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "brand-boards/design-kit.write"
     ],
@@ -16880,7 +18233,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateBrandBoardParam"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_validate_groups_slug_2",
@@ -16891,6 +18245,9 @@
     "operationId": "validate-groups-slug",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars/groups.write"
@@ -16910,7 +18267,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ValidateGroupSlugPostBody"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_disable_group_2",
@@ -16921,6 +18279,9 @@
     "operationId": "disable-group",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars/groups.write"
@@ -16942,7 +18303,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/GroupStatusUpdateParams"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_create_block_slot_2",
@@ -16953,6 +18315,9 @@
     "operationId": "create-block-slot",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars/events.write"
@@ -16972,7 +18337,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BlockSlotCreateRequestDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_delete_event_2",
@@ -16983,6 +18349,9 @@
     "operationId": "delete-event",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars/events.write"
@@ -17004,7 +18373,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/DeleteAppointmentSchema"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_get_appointment_notes_2",
@@ -17015,6 +18385,9 @@
     "operationId": "get-appointment-notes",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars/events.readonly"
@@ -17064,6 +18437,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "calendars/events.write"
     ],
@@ -17084,7 +18460,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/NotesDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_update_appointment_note_2",
@@ -17095,6 +18472,9 @@
     "operationId": "update-appointment-note",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars/events.write"
@@ -17117,7 +18497,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/NotesDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_delete_appointment_note_2",
@@ -17128,6 +18509,9 @@
     "operationId": "delete-appointment-note",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars/events.write"
@@ -17158,6 +18542,9 @@
     "operationId": "getAllSchedules",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars.readonly"
@@ -17232,6 +18619,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "calendars.readonly"
     ],
@@ -17261,6 +18651,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -17281,7 +18674,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateScheduleDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_deleteschedule_2",
@@ -17292,6 +18686,9 @@
     "operationId": "deleteSchedule",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars.write"
@@ -17322,6 +18719,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -17340,7 +18740,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateScheduleDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_calendars_add_calendar_to_schedule_2",
@@ -17351,6 +18752,9 @@
     "operationId": "add-calendar-to-schedule",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "calendars.write"
@@ -17382,6 +18786,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "calendars.write"
     ],
@@ -17403,48 +18810,6 @@
     "queryParams": []
   },
   {
-    "name": "official_campaigns_get_campaigns_2",
-    "method": "GET",
-    "path": "/campaigns/",
-    "app": "campaigns",
-    "summary": "Get Campaigns",
-    "operationId": "get-campaigns",
-    "versions": [
-      "2021-07-28"
-    ],
-    "scopes": [
-      "campaigns.readonly"
-    ],
-    "securitySchemes": [
-      "bearer"
-    ],
-    "accessLevel": "any",
-    "specTier": "v2",
-    "sourceFile": "apps/campaigns.json",
-    "source": "official-ghl-openapi",
-    "stability": "deprecated",
-    "deprecated": true,
-    "supersededBy": "v3",
-    "removedInV3": false,
-    "pathParams": [],
-    "queryParams": [
-      {
-        "name": "locationId",
-        "required": true,
-        "schema": {
-          "type": "string"
-        }
-      },
-      {
-        "name": "status",
-        "required": false,
-        "schema": {
-          "type": "string"
-        }
-      }
-    ]
-  },
-  {
     "name": "official_contacts_create_association_2",
     "method": "POST",
     "path": "/contacts/bulk/tags/update/{type}",
@@ -17453,6 +18818,9 @@
     "operationId": "create-association",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
@@ -17470,7 +18838,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateTagsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_contacts_add_remove_contact_from_business_2",
@@ -17481,6 +18850,9 @@
     "operationId": "add-remove-contact-from-business",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
@@ -17496,7 +18868,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/ContactsBusinessUpdate"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_contacts_remove_contact_from_every_campaign_2",
@@ -17507,6 +18880,9 @@
     "operationId": "remove-contact-from-every-campaign",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "contacts.write"
@@ -17536,6 +18912,9 @@
     "operationId": "get-contacts",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "contacts.readonly"
@@ -17606,6 +18985,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -17626,7 +19008,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateActionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_list_actions_2",
@@ -17637,6 +19020,9 @@
     "operationId": "list-actions",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversation-ai.readonly"
@@ -17666,6 +19052,9 @@
     "operationId": "get-action-by-id",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversation-ai.readonly"
@@ -17697,6 +19086,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -17718,7 +19110,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateActionDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_delete_action_2",
@@ -17729,6 +19122,9 @@
     "operationId": "delete-action",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversation-ai.write"
@@ -17760,6 +19156,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -17780,7 +19179,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateFollowupSettingsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_create_agent_2",
@@ -17791,6 +19191,9 @@
     "operationId": "create-agent",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversation-ai.write"
@@ -17810,7 +19213,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateEmployeeDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_search_agent_2",
@@ -17821,6 +19225,9 @@
     "operationId": "search-agent",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversation-ai.readonly"
@@ -17874,6 +19281,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -17894,7 +19304,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateEmployeeDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversation_ai_get_agent_2",
@@ -17905,6 +19316,9 @@
     "operationId": "get-agent",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversation-ai.readonly"
@@ -17935,6 +19349,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "conversation-ai.write"
     ],
@@ -17963,6 +19380,9 @@
     "operationId": "get-generation-details",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversation-ai.readonly"
@@ -18011,6 +19431,10 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -18042,6 +19466,10 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -18064,7 +19492,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateCustomSubtypeDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_update_custom_subtype",
@@ -18075,6 +19504,10 @@
     "operationId": "update-custom-subtype",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [],
     "securitySchemes": [],
@@ -18100,7 +19533,8 @@
     ],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomSubtypeDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_get_contact_unsubscription_status",
@@ -18111,6 +19545,10 @@
     "operationId": "get-contact-unsubscription-status",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [],
     "securitySchemes": [],
@@ -18159,6 +19597,10 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -18172,7 +19614,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UserSubscriptionChangeDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_export_messages_by_location_2",
@@ -18183,6 +19626,9 @@
     "operationId": "export-messages-by-location",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversations/message.readonly"
@@ -18313,6 +19759,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "conversations/message.write"
     ],
@@ -18331,7 +19780,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/SendReviewReplyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_initiate_file_upload_2",
@@ -18342,6 +19792,9 @@
     "operationId": "initiate-file-upload",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversations/message.write"
@@ -18361,7 +19814,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/InitiateFileUploadDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_complete_file_upload_2",
@@ -18372,6 +19826,9 @@
     "operationId": "complete-file-upload",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversations/message.write"
@@ -18391,7 +19848,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CompleteFileUploadDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_conversations_add_message_attachments_2",
@@ -18402,6 +19860,9 @@
     "operationId": "add-message-attachments",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "conversations/message.write"
@@ -18423,7 +19884,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AddMessageAttachmentsDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_courses_import_courses_2",
@@ -18434,6 +19896,9 @@
     "operationId": "import-courses",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -18451,7 +19916,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PublicExporterPayload"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_custom_menus_get_custom_menus_2",
@@ -18462,6 +19928,9 @@
     "operationId": "get-custom-menus",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "custom-menu-link.readonly"
@@ -18535,6 +20004,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "funnels/redirect.write"
     ],
@@ -18553,7 +20025,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateRedirectParams"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_funnels_update_redirect_by_id_2",
@@ -18564,6 +20037,9 @@
     "operationId": "update-redirect-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "funnels/redirect.write"
@@ -18585,7 +20061,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateRedirectParams"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_funnels_delete_redirect_by_id_2",
@@ -18596,6 +20073,9 @@
     "operationId": "delete-redirect-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "funnels/redirect.write"
@@ -18633,6 +20113,9 @@
     "operationId": "fetch-redirects-list",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "funnels/redirect.readonly"
@@ -18688,6 +20171,9 @@
     "summary": "Fetch List of Funnels",
     "operationId": "getFunnels",
     "versions": [],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -18761,6 +20247,9 @@
     "summary": "Fetch list of funnel pages",
     "operationId": "getPagesByFunnelId",
     "versions": [],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -18820,6 +20309,9 @@
     "summary": "Fetch count of funnel pages",
     "operationId": "getPagesCountByFunnelId",
     "versions": [],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -18867,6 +20359,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "invoices.readonly"
     ],
@@ -18913,6 +20408,9 @@
     "operationId": "list",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -18973,6 +20471,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -18989,7 +20490,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AddFaqDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_update_2",
@@ -19000,6 +20502,9 @@
     "operationId": "update",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -19019,7 +20524,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateFaqBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_delete_2",
@@ -19030,6 +20536,9 @@
     "operationId": "delete",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -19057,6 +20566,9 @@
     "operationId": "getAllWebsiteUrlsDataByKnowledgeBase",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -19124,6 +20636,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -19140,7 +20655,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/DiscoverWebsiteRequestDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_deletetrainedurlsforknowledgebase_2",
@@ -19151,6 +20667,9 @@
     "operationId": "deleteTrainedUrlsForKnowledgeBase",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -19168,7 +20687,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/DeleteWebsiteUrlRequestDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_getcrawlingstatusforlatestoperation_2",
@@ -19179,6 +20699,9 @@
     "operationId": "getCrawlingStatusForLatestOperation",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -19230,6 +20753,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -19246,7 +20772,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/TrainDiscoveredUrlsDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_getknowledgebasebyid_2",
@@ -19257,6 +20784,9 @@
     "operationId": "getKnowledgeBaseById",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -19285,6 +20815,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -19312,6 +20845,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -19330,7 +20866,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateKnowledgeBaseDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_knowledge_base_listallknowledgebasespaginated_2",
@@ -19341,6 +20878,9 @@
     "operationId": "listAllKnowledgeBasesPaginated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -19400,6 +20940,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Location-Access"
@@ -19416,7 +20959,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/CreateKnowledgeBaseDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_links_get_link_by_id_2",
@@ -19427,6 +20971,9 @@
     "operationId": "get-link-by-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -19464,6 +21011,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "locations.readonly"
     ],
@@ -19492,6 +21042,9 @@
     "summary": "Get all wallet charges",
     "operationId": "getCharges",
     "versions": [],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "charges.readonly"
     ],
@@ -19576,6 +21129,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "marketplace-installer-details.readonly"
     ],
@@ -19605,6 +21161,9 @@
     "operationId": "get-rebilling-config-for-app",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "oauth.readonly"
@@ -19636,6 +21195,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "marketplace-external-auth-migration.write"
     ],
@@ -19655,7 +21217,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/MigrateConnectionDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_oauth_get_access_token_2",
@@ -19665,6 +21228,9 @@
     "summary": "Get Access Token",
     "operationId": "get-access-token",
     "versions": [],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -19676,7 +21242,11 @@
     "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [],
-    "queryParams": []
+    "queryParams": [],
+    "requestBodySchema": {
+      "$ref": "#/components/schemas/GetAccessCodebodyDto"
+    },
+    "requestContentType": "application/x-www-form-urlencoded"
   },
   {
     "name": "official_oauth_get_location_access_token",
@@ -19687,6 +21257,9 @@
     "operationId": "get-location-access-token",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "oauth.write"
@@ -19703,7 +21276,11 @@
     "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [],
-    "queryParams": []
+    "queryParams": [],
+    "requestBodySchema": {
+      "$ref": "#/components/schemas/GetLocationAccessCodeBodyDto"
+    },
+    "requestContentType": "application/x-www-form-urlencoded"
   },
   {
     "name": "official_oauth_get_installed_location",
@@ -19714,6 +21291,9 @@
     "operationId": "get-installed-location",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "oauth.readonly"
@@ -19825,6 +21405,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "opportunities.readonly"
     ],
@@ -19911,6 +21494,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "opportunities.readonly"
     ],
@@ -19929,7 +21515,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/OpportunitySearchBodyDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_payments_custom_provider_marketplace_app_update_e9108c",
@@ -19940,6 +21527,9 @@
     "operationId": "custom-provider-marketplace-app-update-capabilities",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "payments/custom-provider.write"
@@ -19959,7 +21549,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateCustomProviderCapabilitiesDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_phone_system_getnumberpoollist_2",
@@ -19970,6 +21561,9 @@
     "operationId": "getNumberPoolList",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "numberpools.read"
@@ -20006,6 +21600,9 @@
     "operationId": "available-numbers",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "phonenumbers.read"
@@ -20101,6 +21698,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "phonenumbers.write"
     ],
@@ -20121,7 +21721,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PurchasePhoneNumberBodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_products_update_display_priority_2",
@@ -20132,6 +21733,9 @@
     "operationId": "update-display-priority",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20151,7 +21755,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateDisplayPriorityBodyDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_update_saas_subscription_deprecated",
@@ -20162,6 +21767,9 @@
     "operationId": "update-saas-subscription-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20181,7 +21789,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateSubscriptionDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_bulk_disable_saas_deprecated",
@@ -20192,6 +21801,9 @@
     "operationId": "bulk-disable-saas-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20211,7 +21823,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BulkDisableSaasDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_enable_saas_location_deprecated",
@@ -20222,6 +21835,9 @@
     "operationId": "enable-saas-location-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20241,7 +21857,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/EnableSaasDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_pause_location_deprecated",
@@ -20252,6 +21869,9 @@
     "operationId": "pause-location-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20271,7 +21891,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PauseLocationDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_update_rebilling_deprecated",
@@ -20282,6 +21903,9 @@
     "operationId": "update-rebilling-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20301,7 +21925,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateRebillingDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_get_agency_plans_deprecated",
@@ -20312,6 +21937,9 @@
     "operationId": "get-agency-plans-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20339,6 +21967,9 @@
     "operationId": "get-location-subscription-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20376,6 +22007,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -20394,7 +22028,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BulkEnableSaasRequestDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_get_saas_locations_deprecated",
@@ -20405,6 +22040,9 @@
     "operationId": "get-saas-locations-deprecated",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20442,6 +22080,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -20477,6 +22118,9 @@
     "operationId": "locations",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20525,6 +22169,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -20543,7 +22190,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateSubscriptionDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_bulk_disable_saas",
@@ -20554,6 +22202,9 @@
     "operationId": "bulk-disable-saas",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20573,7 +22224,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BulkDisableSaasDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_enable_saas_location",
@@ -20584,6 +22236,9 @@
     "operationId": "enable-saas-location",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20603,7 +22258,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/EnableSaasDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_pause_location",
@@ -20614,6 +22270,9 @@
     "operationId": "pause-location",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20633,7 +22292,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/PauseLocationDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_update_rebilling",
@@ -20644,6 +22304,9 @@
     "operationId": "update-rebilling",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20663,7 +22326,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateRebillingDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_get_agency_plans",
@@ -20674,6 +22338,9 @@
     "operationId": "get-agency-plans",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20701,6 +22368,9 @@
     "operationId": "get-location-subscription",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20737,6 +22407,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -20755,7 +22428,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/BulkEnableSaasRequestDto"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_saas_api_get_saas_locations",
@@ -20766,6 +22440,9 @@
     "operationId": "get-saas-locations",
     "versions": [
       "2021-04-15"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20802,6 +22479,9 @@
     "versions": [
       "2021-04-15"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -20836,6 +22516,9 @@
     "operationId": "get-snapshot-push",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -20901,6 +22584,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "Agency-Access"
@@ -20936,6 +22622,10 @@
     "operationId": "start-google-oauth",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [
       "socialplanner/oauth.readonly"
@@ -20996,6 +22686,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21023,6 +22717,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21041,7 +22739,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AttachGMBLocationDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_media_posting_start_facebook_oauth",
@@ -21052,6 +22751,10 @@
     "operationId": "start-facebook-oauth",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -21110,6 +22813,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21137,6 +22844,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21155,7 +22866,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AttachFBAccountDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_media_posting_start_instagram_oauth",
@@ -21166,6 +22878,10 @@
     "operationId": "start-instagram-oauth",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [
       "socialplanner/oauth.readonly"
@@ -21226,6 +22942,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21253,6 +22973,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21271,7 +22995,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AttachIGAccountDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_media_posting_start_linkedin_oauth",
@@ -21282,6 +23007,10 @@
     "operationId": "start-linkedin-oauth",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -21340,6 +23069,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21367,6 +23100,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21385,7 +23122,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AttachLinkedinAccountDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_media_posting_start_twitter_oauth",
@@ -21396,6 +23134,10 @@
     "operationId": "start-twitter-oauth",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [
       "socialplanner/oauth.readonly"
@@ -21456,6 +23198,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -21481,6 +23227,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -21497,7 +23247,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AttachTwitterAccountDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_media_posting_start_tiktok_oauth",
@@ -21508,6 +23259,10 @@
     "operationId": "start-tiktok-oauth",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [
       "socialplanner/oauth.readonly"
@@ -21568,6 +23323,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21595,6 +23354,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21613,7 +23376,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/AttachTiktokAccountDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_social_media_posting_start_tiktok_business_oauth",
@@ -21624,6 +23388,10 @@
     "operationId": "start-tiktok-business-oauth",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2",
+      "v3"
     ],
     "scopes": [
       "socialplanner/oauth.readonly"
@@ -21684,6 +23452,10 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2",
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21710,6 +23482,9 @@
     "operationId": "get-categories-location-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "socialplanner/category.readonly"
@@ -21765,6 +23540,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21792,6 +23570,9 @@
     "operationId": "get-tags-location-id",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [
@@ -21845,6 +23626,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [],
     "securitySchemes": [
       "bearer"
@@ -21863,7 +23647,8 @@
     "queryParams": [],
     "requestBodySchema": {
       "$ref": "#/components/schemas/UpdateTagDTO"
-    }
+    },
+    "requestContentType": "application/json"
   },
   {
     "name": "official_surveys_get_surveys_submissions_2",
@@ -21874,6 +23659,9 @@
     "operationId": "get-surveys-submissions",
     "versions": [
       "2021-07-28"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [
       "surveys.readonly"
@@ -21960,6 +23748,9 @@
     "versions": [
       "2021-07-28"
     ],
+    "apiGenerations": [
+      "v2"
+    ],
     "scopes": [
       "users.readonly"
     ],
@@ -21993,16 +23784,20 @@
     "summary": "Create Email Template V2",
     "operationId": "create-email-template-v2",
     "versions": [
-      "v3"
+      "2023-02-21"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
-    "specTier": "live-docs",
+    "specTier": "v2",
     "sourceFile": "live-docs:ghl/emails/create-email-template-v-2",
     "source": "live-ghl-docs",
-    "stability": "live-docs-supplemental",
-    "deprecated": false,
+    "stability": "deprecated",
+    "deprecated": true,
+    "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [
       "locationId"
@@ -22017,16 +23812,20 @@
     "summary": "List Email Templates V2",
     "operationId": "list-email-templates-v2",
     "versions": [
-      "v3"
+      "2023-02-21"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
-    "specTier": "live-docs",
+    "specTier": "v2",
     "sourceFile": "live-docs:ghl/emails/list-email-templates-v-2",
     "source": "live-ghl-docs",
-    "stability": "live-docs-supplemental",
-    "deprecated": false,
+    "stability": "deprecated",
+    "deprecated": true,
+    "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [
       "locationId"
@@ -22041,16 +23840,20 @@
     "summary": "Import Email Template V2",
     "operationId": "import-email-template-v2",
     "versions": [
-      "v3"
+      "2023-02-21"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
-    "specTier": "live-docs",
+    "specTier": "v2",
     "sourceFile": "live-docs:ghl/emails/import-email-template-v-2",
     "source": "live-ghl-docs",
-    "stability": "live-docs-supplemental",
-    "deprecated": false,
+    "stability": "deprecated",
+    "deprecated": true,
+    "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [
       "locationId"
@@ -22065,16 +23868,20 @@
     "summary": "Create Email Template Folder V2",
     "operationId": "create-template-folder-v2",
     "versions": [
-      "v3"
+      "2023-02-21"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
-    "specTier": "live-docs",
+    "specTier": "v2",
     "sourceFile": "live-docs:ghl/emails/create-template-folder-v-2",
     "source": "live-ghl-docs",
-    "stability": "live-docs-supplemental",
-    "deprecated": false,
+    "stability": "deprecated",
+    "deprecated": true,
+    "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [
       "locationId"
@@ -22089,16 +23896,20 @@
     "summary": "Delete Email Template V2",
     "operationId": "delete-email-template-v2",
     "versions": [
-      "v3"
+      "2023-02-21"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
-    "specTier": "live-docs",
+    "specTier": "v2",
     "sourceFile": "live-docs:ghl/emails/delete-email-template-v-2",
     "source": "live-ghl-docs",
-    "stability": "live-docs-supplemental",
-    "deprecated": false,
+    "stability": "deprecated",
+    "deprecated": true,
+    "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [
       "locationId",
@@ -22114,16 +23925,20 @@
     "summary": "Update Email Template V2",
     "operationId": "update-email-template-v2",
     "versions": [
-      "v3"
+      "2023-02-21"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
-    "specTier": "live-docs",
+    "specTier": "v2",
     "sourceFile": "live-docs:ghl/emails/update-email-template-v-2",
     "source": "live-ghl-docs",
-    "stability": "live-docs-supplemental",
-    "deprecated": false,
+    "stability": "deprecated",
+    "deprecated": true,
+    "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [
       "locationId",
@@ -22139,16 +23954,20 @@
     "summary": "Get Campaign Statistics V2",
     "operationId": "get-campaign-stats-v2",
     "versions": [
-      "v3"
+      "2023-02-21"
+    ],
+    "apiGenerations": [
+      "v2"
     ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
-    "specTier": "live-docs",
+    "specTier": "v2",
     "sourceFile": "live-docs:ghl/emails/get-campaign-stats-under-campaigns-v-2",
     "source": "live-ghl-docs",
-    "stability": "live-docs-supplemental",
-    "deprecated": false,
+    "stability": "deprecated",
+    "deprecated": true,
+    "supersededBy": "v3",
     "removedInV3": false,
     "pathParams": [
       "locationId",
@@ -22165,6 +23984,9 @@
     "summary": "Create a pipeline (v3, live-docs)",
     "operationId": "create-pipeline",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -22187,6 +24009,9 @@
     "summary": "Get a pipeline by ID (v3, live-docs)",
     "operationId": "get-pipeline",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],
@@ -22213,6 +24038,9 @@
     "versions": [
       "v3"
     ],
+    "apiGenerations": [
+      "v3"
+    ],
     "scopes": [],
     "securitySchemes": [],
     "accessLevel": "any",
@@ -22235,6 +24063,9 @@
     "summary": "Delete a pipeline by ID (v3, live-docs)",
     "operationId": "delete-pipeline",
     "versions": [
+      "v3"
+    ],
+    "apiGenerations": [
       "v3"
     ],
     "scopes": [],

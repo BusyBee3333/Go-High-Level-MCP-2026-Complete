@@ -9,19 +9,24 @@ Generated from official GHL docs commit: 0af86a4
 - Docs commit: `0af86a4cbd48c66a4071c7e509d1079f9f10ed17`
 - Docs tag/description: `0af86a4`
 - Official endpoint references parsed: 1221
-- Local endpoint references parsed: 1139
-- Local TypeScript files scanned: 60
+- Local endpoint references parsed: 1137
+- Registered tool modules discovered: 49
+- Local TypeScript files scanned: 55
 
 ## Coverage Summary
 
-- Unique official endpoints: 675
+- Current/default v3 unique official endpoints: 661
+- Legacy v2 compatibility unique official endpoints: 590
+- Dual-generation unique official endpoint union: 681
 - Unique local endpoints: 926
-- Official endpoints with an exact method/path match locally: 675
-- Exact-match coverage: 100%
-- Likely missing official endpoints: 0
-- Potential local-only/deprecated/private endpoints: 251
+- Current v3 exact-match coverage: 661 / 661 (100%)
+- Legacy v2 exact-match coverage: 590 / 590 (100%)
+- Dual-generation exact-match coverage: 681 / 681 (100%)
+- Likely missing current v3 official endpoints: 0
+- Potential current-v3 local-only/deprecated/private endpoints: 265
+- Potential dual-generation local-only/deprecated/private endpoints: 245
 
-Exact matching is intentionally conservative. Dynamic path generation, aliases, and compatibility wrappers may create false positives, but this gives us a repeatable first-pass map.
+Only files reachable from modules registered by `ToolRegistry` are counted as hand-written coverage. Exact matching is intentionally conservative. Dynamic path generation, aliases, and compatibility wrappers may create false positives, but this gives us a repeatable first-pass map.
 
 ## Changelog-Only Findings To Plan Around
 
@@ -41,12 +46,12 @@ Exact matching is intentionally conservative. Dynamic path generation, aliases, 
 | calendars | 59 | 59 | 0 |
 | social-planner | 45 | 45 | 0 |
 | invoices | 42 | 42 | 0 |
-| emails | 37 | 37 | 0 |
 | locations | 32 | 32 | 0 |
 | contacts | 31 | 31 | 0 |
 | conversations | 30 | 30 | 0 |
 | products | 27 | 27 | 0 |
 | saas | 25 | 25 | 0 |
+| emails | 23 | 23 | 0 |
 | payments | 23 | 23 | 0 |
 | social-media-posting | 20 | 20 | 0 |
 | store | 18 | 18 | 0 |
@@ -94,19 +99,33 @@ These deserve manual review because they may be legacy, private, renamed, or sim
 - `DELETE /campaigns/{param}` — src/tools/campaigns-tools.ts — makeRequest
 - `DELETE /contacts/{param}/campaigns` — src/clients/ghl-api-client.ts — axiosInstance
 - `DELETE /contacts/{contactId}/campaigns/removeAll` — src/tools/official-spec-endpoints.json — official-spec-generated
+- `DELETE /emails/public/v2/locations/{param}/campaigns/{param}` — src/tools/email-tools.ts — makeRequest
+- `DELETE /emails/public/v2/locations/{locationId}/templates/{templateId}` — src/tools/official-spec-endpoints.json — official-spec-generated
 - `GET /affiliates/campaigns` — src/tools/affiliates-tools.ts — makeRequest
 - `GET /affiliates/campaigns/{param}` — src/tools/affiliates-tools.ts — makeRequest
 - `GET /campaigns/scheduled-messages` — src/tools/campaigns-tools.ts — makeRequest
 - `GET /campaigns/{param}` — src/tools/campaigns-tools.ts — makeRequest
 - `GET /campaigns/{param}/recipients` — src/tools/campaigns-tools.ts — makeRequest
 - `GET /campaigns/{param}/stats` — src/tools/campaigns-tools.ts — makeRequest
+- `GET /emails/public/v2/locations/{param}/campaigns/bulk-actions` — src/tools/email-tools.ts — makeRequest
+- `GET /emails/public/v2/locations/{param}/campaigns/emails` — src/tools/email-tools.ts — makeRequest
+- `GET /emails/public/v2/locations/{locationId}/campaigns/stats/{source}/{sourceId}` — src/tools/official-spec-endpoints.json — official-spec-generated
+- `GET /emails/public/v2/locations/{param}/campaigns/workflows` — src/tools/email-tools.ts — makeRequest
+- `GET /emails/public/v2/locations/{locationId}/templates` — src/tools/official-spec-endpoints.json — official-spec-generated
 - `GET /reporting/emails` — src/tools/reporting-tools.ts — makeRequest
 - `GET /users/` — src/tools/official-spec-endpoints.json — official-spec-generated
+- `PATCH /emails/public/v2/locations/{param}/campaigns/{param}` — src/tools/email-tools.ts — makeRequest
+- `PATCH /emails/public/v2/locations/{locationId}/templates/{templateId}` — src/tools/official-spec-endpoints.json — official-spec-generated
 - `POST /affiliates/campaigns` — src/tools/affiliates-tools.ts — makeRequest
 - `POST /campaigns/` — src/tools/campaigns-tools.ts — makeRequest
 - `POST /campaigns/{param}/pause` — src/tools/campaigns-tools.ts — makeRequest
 - `POST /campaigns/{param}/resume` — src/tools/campaigns-tools.ts — makeRequest
 - `POST /campaigns/{param}/start` — src/tools/campaigns-tools.ts — makeRequest
+- `POST /emails/public/v2/locations/{param}/campaigns/email-campaign` — src/tools/email-tools.ts — makeRequest
+- `POST /emails/public/v2/locations/{param}/campaigns/{param}/schedule` — src/tools/email-tools.ts — makeRequest
+- `POST /emails/public/v2/locations/{locationId}/templates` — src/tools/official-spec-endpoints.json — official-spec-generated
+- `POST /emails/public/v2/locations/{locationId}/templates/folders` — src/tools/official-spec-endpoints.json — official-spec-generated
+- `POST /emails/public/v2/locations/{locationId}/templates/import` — src/tools/official-spec-endpoints.json — official-spec-generated
 - `PUT /affiliates/campaigns/{param}` — src/tools/affiliates-tools.ts — makeRequest
 - `PUT /campaigns/{param}` — src/tools/campaigns-tools.ts — makeRequest
 
@@ -114,12 +133,12 @@ These deserve manual review because they may be legacy, private, renamed, or sim
 
 1. The scanner now reads both the v2 (`apps/*.json`) and v3 (`apps/v3/*-v3.json`) OpenAPI fragments. v3 endpoints (named `v3` version header) are the source of truth; superseded v2 entries are retained for legacy/v2-mode visibility.
 2. Ad-publishing stays on the legacy `2021-07-28` version header for 94 of 95 endpoints (only the publishing-progress endpoint uses `v3`). The per-endpoint version router in `src/clients/version-router.ts` handles this automatically.
-3. Conversations remain on `2021-04-15` — unchanged in v3.
+3. Core Conversations and Messages routes use named `v3` in the current generation and `2021-04-15` only in legacy v2 mode.
 4. `GET /contacts/` and `GET /users/` are removed in v3; callers must use `POST /contacts/search` and the users search endpoints instead. The hand-written contact/user tools route accordingly in v3 mode.
 5. OAuth migrated to camelCase (`clientId`, `accessToken`, ...) and new kebab-case paths (`/oauth/installed-locations`, `/oauth/location-token`). The old camelCase paths were removed without deprecation.
 6. New modules covered: top-level `/notes/`, opportunities pipelines CRUD, `/saas/allow-attach-rebilling/{locationId}`, brand-boards v3 brand-voices, and the full `/emails/locations/{locationId}/...` v3 email suite.
 7. Two new security schemes (`Agency-Access-Only`, `Location-Access-Only`) are captured per endpoint as `securitySchemes` and drive the access-level preflight in `OfficialSpecTools`.
-8. Email Campaign V2 supplemental endpoints are retained but marked deprecated (superseded by the v3 email suite).
+8. Removed Email Campaign V2 supplemental endpoints are retained as deprecated v2-only coverage and hidden from the v3 surface.
 
 ## Full Machine-Readable Output
 

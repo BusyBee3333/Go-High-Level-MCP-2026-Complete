@@ -17,6 +17,7 @@ import * as dotenv from 'dotenv';
 import { GHLApiClient } from './clients/ghl-api-client.js';
 import { ToolRegistry } from './tool-registry.js';
 import { GHLConfig } from './types/ghl-types.js';
+import { resolveVersion } from './clients/version-router.js';
 
 dotenv.config();
 
@@ -54,11 +55,16 @@ class GHLMCPHttpServer {
   }
 
   private initializeGHLClient(): GHLApiClient {
+    const apiGeneration = process.env.GHL_API_GENERATION === 'v2' ? 'v2' : 'v3';
     const config: GHLConfig = {
       accessToken: process.env.GHL_API_KEY || '',
       baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-      version: process.env.GHL_API_VERSION || '2023-02-21',
-      locationId: process.env.GHL_LOCATION_ID || ''
+      version: resolveVersion([], apiGeneration, process.env.GHL_API_VERSION),
+      locationId: process.env.GHL_LOCATION_ID || '',
+      apiGeneration,
+      userType: process.env.GHL_USER_TYPE === 'Company' || process.env.GHL_USER_TYPE === 'Location'
+        ? process.env.GHL_USER_TYPE
+        : undefined,
     };
 
     if (!config.accessToken) throw new Error('GHL_API_KEY environment variable is required');

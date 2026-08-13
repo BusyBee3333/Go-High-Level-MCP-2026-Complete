@@ -262,7 +262,7 @@ const APP_DEFINITIONS: AppDefinition[] = [
     ],
     readTools: ['get_campaigns', 'get_campaign', 'get_campaign_stats', 'get_campaign_recipients', 'get_scheduled_messages', 'ghl_get_workflows', 'ghl_get_workflow', 'ghl_get_workflow_executions'],
     writeTools: ['start_campaign', 'pause_campaign', 'resume_campaign', 'add_contact_to_campaign', 'remove_contact_from_campaign', 'add_contact_to_workflow', 'remove_contact_from_workflow', 'ghl_trigger_workflow', 'ghl_update_workflow_status'],
-    destructiveTools: ['delete_campaign', 'ghl_delete_workflow', 'cancel_scheduled_campaign_message'],
+    destructiveTools: ['delete_campaign', 'ghl_delete_workflow', 'ghl_delete_workflow_internal', 'cancel_scheduled_campaign_message'],
     sections: [
       { id: 'launch', title: 'Launch Form', kind: 'form', description: 'Pick contact, campaign, workflow, and confirm the launch intent.' },
       { id: 'campaigns', title: 'Campaigns', kind: 'records', sampleRecords: sampleCampaigns() },
@@ -702,11 +702,18 @@ async function createRegistry(): Promise<any> {
     import(pathToFileURL(join(repoRoot, 'dist', 'enhanced-ghl-client.js')).href),
     import(pathToFileURL(join(repoRoot, 'dist', 'tool-registry.js')).href),
   ]);
+  const apiGeneration = process.env.GHL_API_GENERATION === 'v2' ? 'v2' : 'v3';
   const client = new EnhancedGHLClient({
     accessToken: process.env.GHL_API_KEY,
     locationId: process.env.GHL_LOCATION_ID,
     baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-    version: process.env.GHL_API_VERSION || '2023-02-21',
+    version: apiGeneration === 'v2'
+      ? (process.env.GHL_API_VERSION === 'v3' ? '2023-02-21' : process.env.GHL_API_VERSION || '2023-02-21')
+      : process.env.GHL_API_VERSION || 'v3',
+    apiGeneration,
+    userType: process.env.GHL_USER_TYPE === 'Company' || process.env.GHL_USER_TYPE === 'Location'
+      ? process.env.GHL_USER_TYPE
+      : undefined,
   });
   return new ToolRegistry(client);
 }

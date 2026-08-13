@@ -57,6 +57,7 @@ import { CustomMenusTools } from './tools/custom-menus-tools.js';
 import { MarketplaceTools } from './tools/marketplace-tools.js';
 import { AgentStudioTools } from './tools/agent-studio-tools.js';
 import { NotesTools } from './tools/notes-tools.js';
+import { OAuthTools } from './tools/oauth-tools.js';
 import { OfficialSpecTools } from './tools/official-spec-tools.js';
 import { WorkflowInsightsTools } from './tools/workflow-insights-tools.js';
 import { AgentWorkspaceTools } from './tools/agent-workspace-tools.js';
@@ -224,8 +225,13 @@ export class ToolRegistry {
   private toolToModule = new Map<string, ToolModule>();
   private allToolDefs: Tool[] = [];
   private profile: ToolProfile = readToolProfile();
+  private generation: 'v3' | 'v2';
 
   constructor(ghlClient: GHLApiClient) {
+    const configuredGeneration = ghlClient.getConfig?.().apiGeneration;
+    this.generation = configuredGeneration === 'v2' || configuredGeneration === 'v3'
+      ? configuredGeneration
+      : process.env.GHL_API_GENERATION === 'v2' ? 'v2' : 'v3';
     this.initModules(ghlClient);
   }
 
@@ -279,6 +285,7 @@ export class ToolRegistry {
     const marketplaceTools = new MarketplaceTools(ghl);
     const agentStudioTools = new AgentStudioTools(ghl);
     const notesTools = new NotesTools(ghl);
+    const oauthTools = new OAuthTools(ghl);
     const officialSpecTools = new OfficialSpecTools(ghl);
     const workflowInsightsTools = new WorkflowInsightsTools(ghl);
     const agentWorkspaceTools = new AgentWorkspaceTools(ghl);
@@ -332,6 +339,7 @@ export class ToolRegistry {
     this.addModule('marketplace', marketplaceTools, 'getToolDefinitions', 'handleToolCall');
     this.addModule('agentStudio', agentStudioTools, 'getToolDefinitions', 'handleToolCall');
     this.addModule('notes', notesTools, 'getToolDefinitions', 'handleToolCall');
+    this.addModule('oauth', oauthTools, 'getToolDefinitions', 'handleToolCall');
     this.addModule('officialSpec', officialSpecTools, 'getToolDefinitions', 'handleToolCall');
     this.addModule('workflowInsights', workflowInsightsTools, 'getToolDefinitions', 'handleToolCall');
     this.addModule('agentWorkspace', agentWorkspaceTools, 'getToolDefinitions', 'handleToolCall');
@@ -351,18 +359,28 @@ export class ToolRegistry {
     const executeTool = (toolName: string, args: Record<string, unknown>) =>
       instance[executeMethod](toolName, args);
 
-    const mod: ToolModule = { name, instance, getTools, executeTool };
-    this.modules.push(mod);
-
-    // Index tools by name
+    let tools: Tool[];
     try {
-      const tools = getTools();
-      for (const tool of tools) {
-        this.toolToModule.set(tool.name, mod);
-        this.allToolDefs.push(tool);
-      }
+      tools = getTools();
     } catch (err: any) {
       process.stderr.write(`[Registry] Warning: Failed to load tools from ${name}: ${err.message}\n`);
+      return;
+    }
+
+    const duplicate = tools.find((tool) => this.toolToModule.has(tool.name));
+    if (duplicate) {
+      const existingModule = this.toolToModule.get(duplicate.name)?.name || 'unknown';
+      throw new Error(
+        `[Registry] Duplicate tool name "${duplicate.name}" in modules ` +
+        `"${existingModule}" and "${name}". Tool dispatch must be unambiguous.`
+      );
+    }
+
+    const mod: ToolModule = { name, instance, getTools, executeTool };
+    this.modules.push(mod);
+    for (const tool of tools) {
+      this.toolToModule.set(tool.name, mod);
+      this.allToolDefs.push(tool);
     }
   }
 
@@ -501,12 +519,22 @@ export class ToolRegistry {
     // v3 equivalent are hidden (they're still registered, just not exposed).
     // In v2 mode, v3-only endpoints are hidden. This implements the
     // "v3 default, v2 behind a flag" behavior.
-    const generation = (process.env.GHL_API_GENERATION === 'v2' ? 'v2' : 'v3');
     const official = (tool as any)._meta?.official || {};
     const specTier = official.specTier;
     const superseded = official.supersededBy === 'v3';
-    if (generation === 'v3' && superseded) return false;
-    if (generation === 'v2' && specTier === 'v3' && !this.isV3EndpointAlsoInV2(name)) return false;
+    const apiGenerations = Array.isArray(official.apiGenerations)
+      ? official.apiGenerations.map(String)
+      : undefined;
+    const moduleName = this.toolToModule.get(name)?.name;
+    if (apiGenerations && !apiGenerations.includes(this.generation)) return false;
+    if (this.generation === 'v3' && superseded) return false;
+    // A v3 definition must never be exposed in legacy mode, even when a v2
+    // definition has the same route. Exposing both was the source of duplicate
+    // route inventory and allowed the v3 copy to send a named v3 header.
+    if (!apiGenerations && this.generation === 'v2' && specTier === 'v3') return false;
+    // Top-level Notes was introduced as an unconditional named-v3 surface and
+    // has no pre-v3 counterpart in the locked official specifications.
+    if (this.generation === 'v2' && moduleName === 'notes') return false;
 
     if (this.profile === 'curated') return isCurated;
     if (this.profile === 'raw') return !isCurated;
@@ -515,26 +543,6 @@ export class ToolRegistry {
     return true;
   }
 
-  /**
-   * Whether a v3-spec-tier endpoint also has a v2 counterpart registered (i.e.
-   * it existed before v3 and is safe to call in v2 mode). v3-only endpoints
-   * (e.g. brand-boards brand-voices, the v3 email suite) have no v2 form and
-   * are hidden in v2/legacy mode.
-   */
-  private isV3EndpointAlsoInV2(name: string): boolean {
-    const tool = this.allToolDefs.find((item) => item.name === name);
-    if (!tool) return false;
-    const official = (tool as any)._meta?.official || {};
-    const path = String(official.path || '');
-    const method = String(official.method || '').toUpperCase();
-    // An endpoint is "also in v2" if any other registered tool shares its
-    // method+path AND has specTier v2 (i.e. the v2 spec also declared it).
-    return this.allToolDefs.some((other) => {
-      if (other.name === name) return false;
-      const o = (other as any)._meta?.official || {};
-      return o.specTier === 'v2' && o.path === path && String(o.method || '').toUpperCase() === method;
-    });
-  }
 }
 
 // All tool registration is handled via the ToolRegistry class above.

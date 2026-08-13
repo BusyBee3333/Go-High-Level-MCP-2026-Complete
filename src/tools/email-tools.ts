@@ -363,6 +363,28 @@ export class EmailTools {
         (tool as any)._meta.official.specTier = 'live-docs';
       }
     }
+
+    // These original email tools target the legacy /emails/schedule and
+    // /emails/builder routes. They only exist in the locked v2 spec and must
+    // not inherit the global named-v3 header or leak into the v3 surface.
+    const legacyEmailRoutes: Record<string, { method: string; path: string }> = {
+      get_email_campaigns: { method: 'GET', path: '/emails/schedule' },
+      create_email_template: { method: 'POST', path: '/emails/builder' },
+      get_email_templates: { method: 'GET', path: '/emails/builder' },
+      update_email_template: { method: 'POST', path: '/emails/builder/data' },
+      delete_email_template: { method: 'DELETE', path: '/emails/builder/{locationId}/{templateId}' },
+    };
+    for (const tool of tools) {
+      const route = legacyEmailRoutes[tool.name];
+      if (!route) continue;
+      ((tool as any)._meta ??= {}).official = {
+        ...route,
+        specTier: 'v2',
+        apiGenerations: ['v2'],
+        versions: ['2021-07-28'],
+        supersededBy: 'v3',
+      };
+    }
     return tools;
   }
 

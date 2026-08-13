@@ -1,16 +1,16 @@
 /**
  * TypeScript interfaces for GoHighLevel API integration
  * Based on official OpenAPI specifications: v3 (named) for most modules,
- * 2021-07-28 (ad-publishing) and 2021-04-15 (Conversations) legacy versions.
+ * dated endpoint-specific legacy versions where the locked specs require them.
  */
 
 /**
  * Which generation of the GHL API the client should target.
  * - `v3` (default): prefers the named `v3` Version header for modules that
  *   support it (contacts, opportunities, oauth, emails, brand-boards, saas,
- *   email-isv), while still using legacy dates for modules that have not been
- *   version-bumped (e.g. ad-publishing stays on 2021-07-28, Conversations on
- *   2021-04-15).
+ *   email-isv), while still using legacy dates for endpoints that have not been
+ *   version-bumped (for example, most ad-publishing routes stay on 2021-07-28).
+ *   Conversation routes use v3 where declared by the current spec.
  * - `v2`: legacy behavior. Uses dated Version headers only and surfaces the
  *   pre-v3 endpoint set (used as an opt-in compatibility mode).
  */
@@ -221,7 +221,7 @@ export interface GHLContactTagsResponse {
   tags: string[];
 }
 
-// CONVERSATION INTERFACES - Based on Conversations API v2021-04-15
+// Conversation interfaces remain compatible with the legacy 2021-04-15 DTOs.
 
 // Message Types Enum
 export type GHLMessageType = 

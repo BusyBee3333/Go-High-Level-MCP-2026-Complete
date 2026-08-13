@@ -46,7 +46,7 @@ The package also exposes `ghl-mcp` as a bin command after install or publish.
 
 ## Live Smoke Command
 
-`npm run smoke:ghl-live` runs read-only checks against the configured GHL account, including current Email V2 list endpoints. It exits cleanly without credentials, so it can be wired into local preflight without leaking secrets into CI logs.
+`npm run smoke:ghl-live` runs representative read-only checks against the configured GHL account, including Email v3 campaign/template lists and opportunity search. It exits cleanly without credentials, so it can be wired into local preflight without leaking secrets into CI logs.
 
 Required variables:
 
@@ -59,8 +59,9 @@ Optional variables:
 
 ```sh
 GHL_BASE_URL=https://services.leadconnectorhq.com
-GHL_API_VERSION=2023-02-21
+GHL_API_VERSION=v3
+GHL_API_GENERATION=v3
 GHL_LIVE_SMOKE_TIMEOUT_MS=15000
 ```
 
-Optional POST-based smoke checks stay disabled unless `GHL_LIVE_WRITE_SMOKE=1` is set. These are limited to non-mutating search-style calls unless a future check explicitly documents a create/delete cleanup pair.
+The optional `GHL_LIVE_WRITE_SMOKE=1` path currently adds only the non-mutating `POST /notes/search` check and requires `GHL_LIVE_SMOKE_CONTACT_ID`. It does not validate create, update, delete, send, publish, charge, enroll, or trigger behavior.

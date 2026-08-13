@@ -1,7 +1,10 @@
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { GHLApiClient } from '../clients/ghl-api-client.js';
+import { resolveRequestVersion } from '../clients/endpoint-version-resolver.js';
 
 type JsonRecord = Record<string, unknown>;
+type ApiGeneration = 'v3' | 'v2';
+type WorkspaceReadTool = string | ((generation: ApiGeneration) => string);
 
 type WorkflowAction = {
   label: string;
@@ -22,9 +25,9 @@ type WorkspaceToolSpec = {
   buildActions?: (args: JsonRecord, locationId: string) => WorkflowAction[];
   readPlan?: Array<{
     label: string;
-    tool: string;
+    tool: WorkspaceReadTool;
     method: 'GET' | 'POST';
-    path: (args: JsonRecord, locationId: string) => string | undefined;
+    path: (args: JsonRecord, locationId: string, generation: ApiGeneration) => string | undefined;
     body?: (args: JsonRecord, locationId: string) => JsonRecord;
   }>;
 };
@@ -77,7 +80,14 @@ const WORKSPACE_SPECS: WorkspaceToolSpec[] = [
       { label: 'Pipelines', tool: 'get_pipelines', method: 'GET', path: (_args, locationId) => `/opportunities/pipelines?locationId=${enc(locationId)}` },
       { label: 'Calendars', tool: 'get_calendars', method: 'GET', path: (_args, locationId) => `/calendars/?locationId=${enc(locationId)}` },
       { label: 'Products', tool: 'list_products', method: 'GET', path: (_args, locationId) => `/products/?locationId=${enc(locationId)}&limit=5` },
-      { label: 'Email campaigns', tool: 'official_emails_list_campaign_emails_v2', method: 'GET', path: (_args, locationId) => `/emails/public/v2/locations/${enc(locationId)}/campaigns/emails?limit=5` },
+      {
+        label: 'Email campaigns',
+        tool: (generation) => generation === 'v3' ? 'official_emails_list_email_campaigns' : 'official_emails_list_campaign_emails_v2',
+        method: 'GET',
+        path: (_args, locationId, generation) => generation === 'v3'
+          ? `/emails/locations/${enc(locationId)}/campaigns/emails?limit=5`
+          : `/emails/public/v2/locations/${enc(locationId)}/campaigns/emails?limit=5`,
+      },
     ],
   },
   {
@@ -89,7 +99,7 @@ const WORKSPACE_SPECS: WorkspaceToolSpec[] = [
     inputProperties: { focus: { type: 'string' }, limit: { type: 'number' } },
     readPlan: [
       { label: 'Recent contacts', tool: 'search_contacts', method: 'POST', path: () => '/contacts/search', body: (args, locationId) => ({ locationId, pageLimit: numberArg(args.limit) || 5 }) },
-      { label: 'Open opportunities', tool: 'search_opportunities', method: 'GET', path: (_args, locationId) => `/opportunities/search?location_id=${enc(locationId)}&status=open` },
+      { label: 'Open opportunities', tool: 'search_opportunities', method: 'GET', path: (_args, locationId, generation) => opportunitySearchPath(locationId, generation, { status: 'open' }) },
       { label: 'Calendars', tool: 'get_calendars', method: 'GET', path: (_args, locationId) => `/calendars/?locationId=${enc(locationId)}` },
       { label: 'Reviews', tool: 'get_reviews', method: 'GET', path: (_args, locationId) => `/reputation/reviews?locationId=${enc(locationId)}` },
     ],
@@ -104,7 +114,7 @@ const WORKSPACE_SPECS: WorkspaceToolSpec[] = [
     readPlan: [
       { label: 'Contacts', tool: 'search_contacts', method: 'POST', path: () => '/contacts/search', body: (args, locationId) => ({ locationId, pageLimit: numberArg(args.limit) || 5, query: args.query }) },
       { label: 'Conversations', tool: 'search_conversations', method: 'GET', path: (args, locationId) => `/conversations/search?locationId=${enc(locationId)}${stringArg(args.query) ? `&query=${enc(stringArg(args.query))}` : ''}` },
-      { label: 'Opportunities', tool: 'search_opportunities', method: 'GET', path: (_args, locationId) => `/opportunities/search?location_id=${enc(locationId)}` },
+      { label: 'Opportunities', tool: 'search_opportunities', method: 'GET', path: (_args, locationId, generation) => opportunitySearchPath(locationId, generation) },
       { label: 'Calendars', tool: 'get_calendars', method: 'GET', path: (_args, locationId) => `/calendars/?locationId=${enc(locationId)}` },
       { label: 'Products', tool: 'list_products', method: 'GET', path: (_args, locationId) => `/products/?locationId=${enc(locationId)}&limit=5` },
     ],
@@ -339,7 +349,7 @@ const WORKSPACE_SPECS: WorkspaceToolSpec[] = [
     inputProperties: { pipelineId: { type: 'string' }, status: { type: 'string' } },
     readPlan: [
       { label: 'Pipelines', tool: 'get_pipelines', method: 'GET', path: (_args, locationId) => `/opportunities/pipelines?locationId=${enc(locationId)}` },
-      { label: 'Opportunities', tool: 'search_opportunities', method: 'GET', path: (args, locationId) => `/opportunities/search?location_id=${enc(locationId)}${stringArg(args.pipelineId) ? `&pipeline_id=${enc(stringArg(args.pipelineId))}` : ''}` },
+      { label: 'Opportunities', tool: 'search_opportunities', method: 'GET', path: (args, locationId, generation) => opportunitySearchPath(locationId, generation, { pipelineId: stringArg(args.pipelineId) }) },
     ],
   },
   {
@@ -688,9 +698,11 @@ export class AgentWorkspaceTools {
     if (!spec) throw new Error(`Unknown agent workspace tool: ${name}`);
     if (name === 'crm_list_workspaces') return this.listWorkspaces();
 
-    const locationId = locationArg(args, this.ghlClient.getConfig().locationId);
-    const proposedActions = compactActions(spec.buildActions?.(args, locationId) || actionsFromReadPlan(spec, args, locationId));
-    const readResults = spec.readPlan ? await this.runReadPlan(spec, args, locationId) : [];
+    const config = this.ghlClient.getConfig();
+    const generation: ApiGeneration = config.apiGeneration === 'v2' ? 'v2' : 'v3';
+    const locationId = locationArg(args, config.locationId);
+    const proposedActions = compactActions(spec.buildActions?.(args, locationId) || actionsFromReadPlan(spec, args, locationId, generation));
+    const readResults = spec.readPlan ? await this.runReadPlan(spec, args, locationId, generation) : [];
 
     return {
       workflow: {
@@ -731,16 +743,27 @@ export class AgentWorkspaceTools {
     };
   }
 
-  private async runReadPlan(spec: WorkspaceToolSpec, args: JsonRecord, locationId: string): Promise<unknown[]> {
+  private async runReadPlan(
+    spec: WorkspaceToolSpec,
+    args: JsonRecord,
+    locationId: string,
+    generation: ApiGeneration,
+  ): Promise<unknown[]> {
     const plan = spec.readPlan || [];
     const results = await Promise.all(plan.map(async (item) => {
-      const path = item.path(args, locationId);
+      const path = item.path(args, locationId, generation);
       if (!path) return undefined;
       try {
-        const response = await this.ghlClient.makeRequest(item.method, path, item.body?.(args, locationId));
+        const config = this.ghlClient.getConfig();
+        const response = await this.ghlClient.makeRequest(
+          item.method,
+          path,
+          item.body?.(args, locationId),
+          { version: resolveRequestVersion(item.method, path, generation, config.version) },
+        );
         return {
           label: item.label,
-          tool: item.tool,
+          tool: workspaceToolName(item.tool, generation),
           path,
           success: response.success,
           data: response.success ? summarizeData(response.data) : undefined,
@@ -749,7 +772,7 @@ export class AgentWorkspaceTools {
       } catch (error) {
         return {
           label: item.label,
-          tool: item.tool,
+          tool: workspaceToolName(item.tool, generation),
           path,
           success: false,
           error: error instanceof Error ? error.message : String(error),
@@ -764,8 +787,35 @@ function action(label: string, tool: string, args: JsonRecord, risk: WorkflowAct
   return { label, tool, arguments: compact(args), risk, requiresConfirmation };
 }
 
-function actionsFromReadPlan(spec: WorkspaceToolSpec, args: JsonRecord, locationId: string): WorkflowAction[] {
-  return (spec.readPlan || []).map((item) => action(item.label, item.tool, { path: item.path(args, locationId) }, 'read', false));
+function actionsFromReadPlan(
+  spec: WorkspaceToolSpec,
+  args: JsonRecord,
+  locationId: string,
+  generation: ApiGeneration,
+): WorkflowAction[] {
+  return (spec.readPlan || []).map((item) => action(
+    item.label,
+    workspaceToolName(item.tool, generation),
+    { path: item.path(args, locationId, generation) },
+    'read',
+    false,
+  ));
+}
+
+function workspaceToolName(tool: WorkspaceReadTool, generation: ApiGeneration): string {
+  return typeof tool === 'function' ? tool(generation) : tool;
+}
+
+function opportunitySearchPath(
+  locationId: string,
+  generation: ApiGeneration,
+  filters: { pipelineId?: string; status?: string } = {},
+): string {
+  const params = new URLSearchParams();
+  params.set(generation === 'v3' ? 'locationId' : 'location_id', locationId);
+  if (filters.pipelineId) params.set(generation === 'v3' ? 'pipelineId' : 'pipeline_id', filters.pipelineId);
+  if (filters.status) params.set('status', filters.status);
+  return `/opportunities/search?${params.toString()}`;
 }
 
 function compactActions(actions: WorkflowAction[]): WorkflowAction[] {

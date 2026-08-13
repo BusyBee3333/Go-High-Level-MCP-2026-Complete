@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "verifiedDate": "2026-08-07",
+  "verifiedDate": "2026-08-12",
   "primaryApiVersion": "v3",
   "apiGenerationDefault": "v3",
   "officialDocs": {
@@ -9,9 +9,9 @@
     "commit": "0af86a4cbd48c66a4071c7e509d1079f9f10ed17",
     "tag": "0af86a4",
     "expectedEndpointReferences": 1221,
-    "expectedUniqueEndpoints": 675,
+    "expectedUniqueEndpoints": 661,
     "v3Endpoints": 627,
-    "v2Endpoints": 576
+    "v2Endpoints": 590
   },
   "liveDocsSupplemental": {
     "expectedEndpointReferences": 18,
@@ -22,8 +22,8 @@
         "app": "emails",
         "operationId": "delete-email-campaign-v2",
         "source": "live-docs:ghl/emails/delete-campaign-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "DELETE",
@@ -31,8 +31,8 @@
         "app": "emails",
         "operationId": "delete-email-template-v2",
         "source": "live-docs:ghl/emails/delete-email-template-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "DELETE",
@@ -41,7 +41,7 @@
         "operationId": "delete-pipeline",
         "source": "live-docs:ghl/opportunities/delete-pipeline",
         "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "GET",
@@ -49,8 +49,8 @@
         "app": "emails",
         "operationId": "list-bulk-action-campaigns-v2",
         "source": "live-docs:ghl/emails/list-bulk-action-campaigns-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "GET",
@@ -58,8 +58,8 @@
         "app": "emails",
         "operationId": "list-email-campaigns-v2",
         "source": "live-docs:ghl/emails/list-email-campaigns-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "GET",
@@ -67,8 +67,8 @@
         "app": "emails",
         "operationId": "get-campaign-stats-v2",
         "source": "live-docs:ghl/emails/get-campaign-stats-under-campaigns-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "GET",
@@ -76,8 +76,8 @@
         "app": "emails",
         "operationId": "list-workflow-campaigns-v2",
         "source": "live-docs:ghl/emails/list-workflow-campaigns-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "GET",
@@ -85,8 +85,8 @@
         "app": "emails",
         "operationId": "list-email-templates-v2",
         "source": "live-docs:ghl/emails/list-email-templates-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "GET",
@@ -95,7 +95,7 @@
         "operationId": "get-pipeline",
         "source": "live-docs:ghl/opportunities/get-pipeline",
         "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "PATCH",
@@ -103,8 +103,8 @@
         "app": "emails",
         "operationId": "update-email-campaign-v2",
         "source": "live-docs:ghl/emails/update-email-campaign-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "PATCH",
@@ -112,8 +112,8 @@
         "app": "emails",
         "operationId": "update-email-template-v2",
         "source": "live-docs:ghl/emails/update-email-template-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "POST",
@@ -121,8 +121,8 @@
         "app": "emails",
         "operationId": "schedule-email-campaign-v2",
         "source": "live-docs:ghl/emails/schedule-campaign-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "POST",
@@ -130,8 +130,8 @@
         "app": "emails",
         "operationId": "create-email-campaign-v2",
         "source": "live-docs:ghl/emails/create-email-campaign-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "POST",
@@ -139,8 +139,8 @@
         "app": "emails",
         "operationId": "create-email-template-v2",
         "source": "live-docs:ghl/emails/create-email-template-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "POST",
@@ -148,8 +148,8 @@
         "app": "emails",
         "operationId": "create-template-folder-v2",
         "source": "live-docs:ghl/emails/create-template-folder-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "POST",
@@ -157,8 +157,8 @@
         "app": "emails",
         "operationId": "import-email-template-v2",
         "source": "live-docs:ghl/emails/import-email-template-v-2",
-        "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "version": "2023-02-21",
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "POST",
@@ -167,7 +167,7 @@
         "operationId": "create-pipeline",
         "source": "live-docs:ghl/opportunities/create-pipeline",
         "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "verifiedDate": "2026-08-12"
       },
       {
         "method": "PUT",
@@ -176,9 +176,37 @@
         "operationId": "update-pipeline",
         "source": "live-docs:ghl/opportunities/update-pipeline",
         "version": "v3",
-        "verifiedDate": "2026-08-07"
+        "verifiedDate": "2026-08-12"
       }
     ]
+  },
+  "officialSpecCorrections": [
+    {
+      "method": "GET",
+      "path": "/saas/locations",
+      "source": "apps/v3/saas-v3.json",
+      "evidence": "apps/v3/saas-v3.json GET /saas-api/public-api/locations",
+      "reason": "The equivalent route in the same locked v3 spec reflects the corrected optional Stripe identifier contract.",
+      "queryParamRequired": {
+        "customerId": false,
+        "subscriptionId": false,
+        "companyId": true
+      }
+    }
+  ],
+  "coverageSurfaces": {
+    "currentV3": {
+      "expectedUniqueEndpoints": 661,
+      "expectedCoveredEndpoints": 661
+    },
+    "legacyV2": {
+      "expectedUniqueEndpoints": 590,
+      "expectedCoveredEndpoints": 590
+    },
+    "dualGenerationUnion": {
+      "expectedUniqueEndpoints": 681,
+      "expectedCoveredEndpoints": 681
+    }
   },
   "acceptance": {
     "expectedMissingOfficialEndpoints": 0,

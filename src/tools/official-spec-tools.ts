@@ -23,6 +23,7 @@ interface OfficialEndpoint {
   summary: string;
   operationId: string;
   versions: string[];
+  apiGenerations: Array<'v2' | 'v3'>;
   scopes: string[];
   securitySchemes?: string[];
   accessLevel?: 'agency-only' | 'location-only' | 'any';
@@ -39,8 +40,10 @@ interface OfficialEndpoint {
     required?: boolean;
     schema?: Record<string, unknown>;
     description?: string;
+    arrayFormat?: 'repeat' | 'comma' | 'space' | 'pipe' | 'tab';
   }>;
   requestBodySchema?: Record<string, unknown>;
+  requestContentType?: 'application/json' | 'application/x-www-form-urlencoded';
 }
 
 const ENDPOINTS = JSON.parse(readFileSync(resolveEndpointDataPath(), 'utf8')) as OfficialEndpoint[];
@@ -79,12 +82,15 @@ export class OfficialSpecTools {
             method: endpoint.method,
             path: endpoint.path,
             versions: endpoint.versions,
+            apiGenerations: endpoint.apiGenerations,
             scopes: endpoint.scopes,
             accessLevel,
             specTier: endpoint.specTier,
             deprecated: endpoint.deprecated || undefined,
             supersededBy: endpoint.supersededBy,
             removedInV3: endpoint.removedInV3 || undefined,
+            pathParams: endpoint.pathParams,
+            requestContentType: endpoint.requestContentType,
           },
         },
       };
@@ -102,9 +108,16 @@ export class OfficialSpecTools {
 
     const path = this.buildPath(endpoint, args, config.locationId);
     const body = this.buildBody(endpoint, args);
+    const requestBody = endpoint.requestContentType === 'application/x-www-form-urlencoded' && body
+      ? encodeFormBody(body)
+      : body;
 
     const version = resolveVersion(endpoint.versions, config.apiGeneration, config.version);
-    return this.ghlClient.makeRequest(endpoint.method, path, body, { version, app: endpoint.app });
+    return this.ghlClient.makeRequest(endpoint.method, path, requestBody, {
+      version,
+      app: endpoint.app,
+      contentType: endpoint.requestContentType,
+    });
   }
 
   private buildInputSchema(endpoint: OfficialEndpoint) {
@@ -121,7 +134,7 @@ export class OfficialSpecTools {
       if (param.required && param.name !== 'locationId') required.push(param.name);
     }
 
-    if (endpoint.method !== 'GET' && endpoint.method !== 'DELETE') {
+    if (endpoint.method !== 'GET' && (endpoint.method !== 'DELETE' || endpoint.requestBodySchema)) {
       properties.body = {
         type: 'object',
         description: 'Request body. When omitted, non-path and non-query arguments are sent as the JSON body.',
@@ -153,7 +166,7 @@ export class OfficialSpecTools {
     for (const param of endpoint.queryParams) {
       const value = args[param.name] ?? (param.name === 'locationId' ? defaultLocationId : undefined);
       if (value === undefined || value === null || value === '') continue;
-      appendQueryParam(query, param.name, value);
+      appendQueryParam(query, param, value);
     }
 
     const queryString = query.toString();
@@ -161,7 +174,8 @@ export class OfficialSpecTools {
   }
 
   private buildBody(endpoint: OfficialEndpoint, args: Record<string, unknown>): Record<string, unknown> | undefined {
-    if (endpoint.method === 'GET' || endpoint.method === 'DELETE') return undefined;
+    if (endpoint.method === 'GET') return undefined;
+    if (endpoint.method === 'DELETE' && !endpoint.requestBodySchema) return undefined;
     if (isRecord(args.body)) return args.body;
 
     const excluded = new Set([...endpoint.pathParams, ...endpoint.queryParams.map((param) => param.name), 'body']);
@@ -182,16 +196,39 @@ export class OfficialSpecTools {
   }
 }
 
-function appendQueryParam(query: URLSearchParams, name: string, value: unknown): void {
+function appendQueryParam(
+  query: URLSearchParams,
+  param: OfficialEndpoint['queryParams'][number],
+  value: unknown,
+): void {
   if (Array.isArray(value)) {
-    for (const item of value) query.append(name, String(item));
+    if ((param.arrayFormat || 'repeat') === 'repeat') {
+      for (const item of value) query.append(param.name, String(item));
+      return;
+    }
+    const delimiters = { comma: ',', space: ' ', pipe: '|', tab: '\t' } as const;
+    const delimiter = delimiters[param.arrayFormat as keyof typeof delimiters] || ',';
+    query.append(param.name, value.map(String).join(delimiter));
     return;
   }
-  query.append(name, String(value));
+  query.append(param.name, String(value));
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function encodeFormBody(body: Record<string, unknown>): string {
+  const form = new URLSearchParams();
+  for (const [name, value] of Object.entries(body)) {
+    if (value === undefined || value === null) continue;
+    if (Array.isArray(value)) {
+      for (const item of value) form.append(name, isRecord(item) ? JSON.stringify(item) : String(item));
+      continue;
+    }
+    form.append(name, isRecord(value) ? JSON.stringify(value) : String(value));
+  }
+  return form.toString();
 }
 
 function escapeRegExp(value: string): string {

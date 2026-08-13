@@ -106,6 +106,12 @@ async function doctor() {
 function getDoctorResult() {
   const pkg = readJson('package.json');
   const coverage = readCoverage();
+  const apiGeneration = getApiGeneration();
+  const apiVersion = getApiVersion(apiGeneration);
+  const generatedToolsPath = [
+    'src/tools/official-spec-endpoints.json',
+    'dist/tools/official-spec-endpoints.json',
+  ].find((path) => existsSync(join(repoRoot, path)));
   const checks = [
     check('Node >= 20', Number(process.versions.node.split('.')[0]) >= 20, process.version, 'Install Node 20 or newer, then rerun npm install.'),
     check('package.json', Boolean(pkg.name), pkg.name || 'missing'),
@@ -114,13 +120,13 @@ function getDoctorResult() {
     check('coverage report', Boolean(coverage), 'docs/ghl-api-coverage.json', 'Run npm run scan:ghl-api only if generated coverage artifacts are missing or intentionally refreshed.'),
     check('GHL_API_KEY', Boolean(process.env.GHL_API_KEY), mask(process.env.GHL_API_KEY), 'Add GHL_API_KEY to .env. Use a HighLevel private integration or OAuth access token.'),
     check('GHL_LOCATION_ID', Boolean(process.env.GHL_LOCATION_ID), process.env.GHL_LOCATION_ID || 'missing', 'Add GHL_LOCATION_ID to .env. In HighLevel this is the sub-account Location ID.'),
-    check('GHL_API_VERSION', Boolean(process.env.GHL_API_VERSION || 'v3'), process.env.GHL_API_VERSION || 'v3', 'v3 is the current HighLevel API version. Most modules use "v3"; ad-publishing and Conversations keep their own dated headers, routed automatically.'),
+    check('GHL_API_VERSION', Boolean(apiVersion), apiVersion, 'The default is v3 in current mode and 2023-02-21 in legacy v2 mode. Endpoint-specific routing may override it.'),
   ];
 
   if (coverage) {
     checks.push(
       check('official endpoint coverage', coverage.comparison?.coveragePercent === 100, `${coverage.comparison?.coveredCount || 0}/${coverage.comparison?.officialUniqueCount || 0}`, 'Run npm run scan:ghl-api if official API coverage intentionally changed.'),
-      check('generated official tools data', existsSync(join(repoRoot, 'src/tools/official-spec-endpoints.json')), 'src/tools/official-spec-endpoints.json', 'Run npm run scan:ghl-api to regenerate official endpoint tool data.')
+      check('generated official tools data', Boolean(generatedToolsPath), generatedToolsPath || 'missing', 'Run npm run build or npm run scan:ghl-api to restore generated official endpoint tool data.')
     );
   }
 
@@ -135,7 +141,7 @@ function getDoctorResult() {
       needsHumanAction: checks.filter((item) => ['GHL_API_KEY', 'GHL_LOCATION_ID'].includes(item.name) && !item.ok).length,
     },
     checks,
-    apiVersionNote: 'GHL_API_VERSION=v3 is the HighLevel API Version header (a named version released 2026-06-11, not a date). Most modules use "v3"; ad-publishing keeps 2021-07-28 and Conversations keep 2021-04-15, routed automatically per endpoint. Set GHL_API_GENERATION=v2 to opt into the legacy pre-v3 surface.',
+    apiVersionNote: apiVersionNote(),
   };
 }
 
@@ -315,7 +321,7 @@ async function authCheck() {
   const apiKey = requireEnv('GHL_API_KEY');
   const locationId = requireEnv('GHL_LOCATION_ID');
   const baseUrl = process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com';
-  const version = process.env.GHL_API_VERSION || 'v3';
+  const version = getApiVersion(getApiGeneration());
   const response = await fetch(`${baseUrl}/locations/${encodeURIComponent(locationId)}`, {
     method: 'GET',
     headers: {
@@ -383,6 +389,8 @@ function envTemplate() {
 GHL_LOCATION_ID=your_location_id
 GHL_BASE_URL=https://services.leadconnectorhq.com
 GHL_API_VERSION=v3
+GHL_API_GENERATION=v3
+# GHL_USER_TYPE=Location
 MCP_SERVER_PORT=8000
 NODE_ENV=development`);
 }
@@ -442,7 +450,10 @@ async function report() {
   const generatedFrom = {
     officialDocsCommit: officialCommit,
     officialDocsTag: shortCommit,
-    coveragePercent: coverage.comparison?.coveragePercent || 0,
+    coveragePercent: coverage.comparison?.currentV3?.coveragePercent ?? coverage.comparison?.coveragePercent ?? 0,
+    currentV3: coverage.comparison?.currentV3,
+    legacyV2: coverage.comparison?.v2Compatibility,
+    dualGenerationUnion: coverage.comparison?.dualGeneration,
   };
 
   mkdirSync(join(repoRoot, 'docs'), { recursive: true });
@@ -462,14 +473,16 @@ Generated from official GHL docs commit: ${shortCommit}
 
 - Official GHL docs source: ${coverage.official?.repo || 'unknown'}
 - Official docs commit: ${shortCommit}
-- Official endpoints parsed: ${coverage.comparison?.officialUniqueCount || 0}
-- Official endpoints covered: ${coverage.comparison?.coveredCount || 0}
-- Coverage: ${coverage.comparison?.coveragePercent || 0}%
+- Current/default v3 official endpoints: ${coverage.comparison?.currentV3?.coveredCount ?? coverage.comparison?.coveredCount ?? 0} / ${coverage.comparison?.currentV3?.officialUniqueCount ?? coverage.comparison?.officialUniqueCount ?? 0}
+- Current/default v3 coverage: ${coverage.comparison?.currentV3?.coveragePercent ?? coverage.comparison?.coveragePercent ?? 0}%
+- Legacy v2 compatibility endpoints: ${coverage.comparison?.v2Compatibility?.coveredCount ?? 0} / ${coverage.comparison?.v2Compatibility?.officialUniqueCount ?? 0}
+- Dual-generation endpoint union: ${coverage.comparison?.dualGeneration?.coveredCount ?? 0} / ${coverage.comparison?.dualGeneration?.officialUniqueCount ?? 0}
 - MCP tools in registry: ${inventory.length}
 - Read tools: ${byAccess.read || 0}
 - Write tools: ${(byAccess.write || 0)}
 - Delete/destructive tools: ${(byAccess.delete || 0)}
-- Local-only endpoint references tracked: ${coverage.comparison?.localOnly?.length || 0}
+- Current-v3 local-only endpoint references tracked: ${coverage.comparison?.currentV3?.localOnlyCount ?? coverage.comparison?.localOnly?.length ?? 0}
+- Dual-generation local-only endpoint references tracked: ${coverage.comparison?.dualGeneration?.localOnlyCount ?? 0}
 
 ## Stability Tiers
 
@@ -506,11 +519,14 @@ async function getInventory() {
   ensureBuilt();
   const { ToolRegistry } = await importBuilt('tool-registry.js');
   const { EnhancedGHLClient } = await importBuilt('enhanced-ghl-client.js');
+  const apiGeneration = getApiGeneration();
   const client = new EnhancedGHLClient({
     accessToken: process.env.GHL_API_KEY || 'tooling-token',
     baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-    version: process.env.GHL_API_VERSION || 'v3',
+    version: getApiVersion(apiGeneration),
     locationId: process.env.GHL_LOCATION_ID || 'tooling-location',
+    apiGeneration,
+    userType: getUserType(),
   });
   return new ToolRegistry(client).getToolInventory();
 }
@@ -527,11 +543,14 @@ function importBuilt(file) {
 }
 
 function readGhlConfig() {
+  const apiGeneration = getApiGeneration();
   return {
     accessToken: requireEnv('GHL_API_KEY'),
     baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-    version: process.env.GHL_API_VERSION || 'v3',
+    version: getApiVersion(apiGeneration),
     locationId: requireEnv('GHL_LOCATION_ID'),
+    apiGeneration,
+    userType: getUserType(),
   };
 }
 
@@ -635,12 +654,30 @@ function cliPath() {
 }
 
 function apiVersionNote() {
-  return 'GHL_API_VERSION=v3 is the HighLevel API Version header (a named version released 2026-06-11, not a date). Most modules use "v3"; ad-publishing keeps 2021-07-28 and Conversations keep 2021-04-15, routed automatically. Set GHL_API_GENERATION=v2 for the legacy pre-v3 surface.';
+  return 'GHL_API_VERSION=v3 is the current named HighLevel Version header, not a date. Routing is per endpoint: ad-publishing remains mostly on 2021-07-28; Conversations use v3 in current mode and 2021-04-15 in legacy v2 mode. Set GHL_API_GENERATION=v2 for the legacy surface; v2 mode replaces an unset or starter v3 value with the 2023-02-21 fallback.';
+}
+
+function getApiGeneration() {
+  return process.env.GHL_API_GENERATION === 'v2' ? 'v2' : 'v3';
+}
+
+function getApiVersion(apiGeneration = getApiGeneration()) {
+  const configured = process.env.GHL_API_VERSION;
+  if (apiGeneration === 'v2' && (!configured || configured === 'v3')) return '2023-02-21';
+  return configured || 'v3';
+}
+
+function getUserType() {
+  return process.env.GHL_USER_TYPE === 'Company' || process.env.GHL_USER_TYPE === 'Location'
+    ? process.env.GHL_USER_TYPE
+    : undefined;
 }
 
 function buildConfig(client, profile, buildOptions = {}) {
   if (!['codex', 'claude', 'cursor', 'windsurf'].includes(client)) fail('Supported clients: codex, claude, cursor, windsurf');
   if (!['curated', 'stable', 'full', 'official', 'raw'].includes(profile)) fail('Supported profiles: curated, stable, full, official, raw');
+  const apiGeneration = getApiGeneration();
+  const userType = getUserType();
   return {
     mcpServers: {
       ghl: {
@@ -650,7 +687,9 @@ function buildConfig(client, profile, buildOptions = {}) {
           GHL_API_KEY: '${GHL_API_KEY}',
           GHL_LOCATION_ID: buildOptions.inlineEnv ? (process.env.GHL_LOCATION_ID || '${GHL_LOCATION_ID}') : '${GHL_LOCATION_ID}',
           GHL_BASE_URL: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-          GHL_API_VERSION: process.env.GHL_API_VERSION || 'v3',
+          GHL_API_VERSION: getApiVersion(apiGeneration),
+          GHL_API_GENERATION: apiGeneration,
+          ...(userType ? { GHL_USER_TYPE: userType } : {}),
           GHL_TOOL_PROFILE: profile,
         },
       },

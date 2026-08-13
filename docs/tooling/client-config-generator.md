@@ -16,7 +16,9 @@ Use environment variables already understood by the server:
 | `GHL_API_KEY` | Yes | Bearer token used by the MCP server when calling GHL. |
 | `GHL_LOCATION_ID` | Yes | Default location ID supplied to tools that accept `locationId`. |
 | `GHL_BASE_URL` | No | Defaults to `https://services.leadconnectorhq.com`. |
-| `GHL_API_VERSION` | No | Defaults to `2023-02-21`. |
+| `GHL_API_VERSION` | No | Defaults to `v3` in current mode and `2023-02-21` in legacy v2 mode. |
+| `GHL_API_GENERATION` | No | `v3` by default; set `v2` to expose the legacy surface. |
+| `GHL_USER_TYPE` | No | `Location` or `Company`; enables access-level preflight when known. |
 
 ## Recommended Outputs
 
@@ -32,7 +34,9 @@ Use environment variables already understood by the server:
         "GHL_API_KEY": "${GHL_API_KEY}",
         "GHL_LOCATION_ID": "${GHL_LOCATION_ID}",
         "GHL_BASE_URL": "${GHL_BASE_URL}",
-        "GHL_API_VERSION": "${GHL_API_VERSION}"
+        "GHL_API_VERSION": "${GHL_API_VERSION}",
+        "GHL_API_GENERATION": "${GHL_API_GENERATION}",
+        "GHL_USER_TYPE": "${GHL_USER_TYPE}"
       }
     }
   }
@@ -60,6 +64,7 @@ Use environment variables already understood by the server:
 - Never write secrets into committed files.
 - Prefer absolute paths in generated stdio configs.
 - Preserve `GHL_API_VERSION` even when using the default so client behavior is explicit.
+- Preserve `GHL_API_GENERATION` and a valid configured `GHL_USER_TYPE`.
 - Emit one named server entry, `ghl`, unless the caller asks for multiple locations.
 - For multiple locations, generate one MCP server entry per location and suffix names predictably, such as `ghl-main` and `ghl-client-a`.
 

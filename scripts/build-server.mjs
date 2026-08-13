@@ -60,7 +60,10 @@ function transpileTypeScript(file, rel) {
 
   const outFile = join(distRoot, rel.replace(/\.ts$/, '.js'));
   mkdirSync(dirname(outFile), { recursive: true });
-  writeFileSync(outFile, result.outputText);
+  const executableOutput = rel === 'server.ts'
+    ? `#!/usr/bin/env node\n${result.outputText}`
+    : result.outputText;
+  writeFileSync(outFile, executableOutput);
 }
 
 function copyAsset(from, to) {

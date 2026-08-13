@@ -19,10 +19,20 @@ Add the HighLevel sub-account Location ID to `.env`.
 Keep:
 
 ```bash
+GHL_API_GENERATION=v3
 GHL_API_VERSION=v3
 ```
 
-This is the HighLevel API `Version` header — a named version released 2026-06-11, not a date. Most modules use `v3`; ad-publishing and Conversations keep their own dated headers, routed automatically.
+This selects the current named HighLevel API version. The MCP still routes endpoint-specific exceptions: ad-publishing remains mostly on `2021-07-28`; Conversations use `v3` in current mode and `2021-04-15` in legacy v2 mode.
+
+For the legacy surface, use:
+
+```bash
+GHL_API_GENERATION=v2
+GHL_API_VERSION=2023-02-21
+```
+
+Setting only `GHL_API_GENERATION=v2` is also sufficient: v2 mode replaces the starter `GHL_API_VERSION=v3` value with the `2023-02-21` fallback.
 
 ## Build Output Missing
 
@@ -57,4 +67,3 @@ GHL_MCP_APPS_PORT=3002
 ## Repo Path With Spaces
 
 Generated MCP config uses absolute paths. If manually running shell commands, quote paths.
-

@@ -6,22 +6,24 @@ Generated from official GHL docs commit: 0af86a4
 
 - Official GHL docs source: https://github.com/GoHighLevel/highlevel-api-docs.git
 - Official docs commit: 0af86a4
-- Official endpoints parsed: 675
-- Official endpoints covered: 675
-- Coverage: 100%
-- MCP tools in registry: 937
-- Read tools: 448
-- Write tools: 371
-- Delete/destructive tools: 118
-- Local-only endpoint references tracked: 251
+- Current/default v3 official endpoints: 661 / 661
+- Current/default v3 coverage: 100%
+- Legacy v2 compatibility endpoints: 590 / 590
+- Dual-generation endpoint union: 681 / 681
+- MCP tools in registry: 926
+- Read tools: 445
+- Write tools: 365
+- Delete/destructive tools: 116
+- Current-v3 local-only endpoint references tracked: 265
+- Dual-generation local-only endpoint references tracked: 245
 
 ## Stability Tiers
 
-- Official OpenAPI tools: 300
-- Live-docs supplemental tools: 11
-- Legacy-compatible tools: 497
-- Private/internal unstable tools: 87
-- Deprecated/compatibility tools: 42
+- Official OpenAPI tools: 301
+- Live-docs supplemental tools: 4
+- Legacy-compatible tools: 492
+- Private/internal unstable tools: 88
+- Deprecated/compatibility tools: 41
 
 ## Largest Tool Categories
 
@@ -35,7 +37,6 @@ Generated from official GHL docs commit: 0af86a4
 | contacts | 31 |
 | official-social-planner | 29 |
 | locations | 27 |
-| official-emails | 25 |
 | official-saas | 24 |
 | payments | 22 |
 | conversations | 20 |
@@ -44,6 +45,7 @@ Generated from official GHL docs commit: 0af86a4
 | social-media | 19 |
 | invoices | 18 |
 | templates | 18 |
+| official-emails | 18 |
 | stores | 17 |
 | affiliates | 17 |
 | reputation | 15 |

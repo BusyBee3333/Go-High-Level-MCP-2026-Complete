@@ -13,6 +13,9 @@ function runCli(args: string[], env: NodeJS.ProcessEnv = {}) {
       ...process.env,
       GHL_API_KEY: '',
       GHL_LOCATION_ID: '',
+      GHL_API_VERSION: '',
+      GHL_API_GENERATION: '',
+      GHL_USER_TYPE: '',
       ...env,
     },
     encoding: 'utf8',
@@ -54,7 +57,25 @@ describe('ghl-mcp onboarding CLI', () => {
     expect(server.args[0]).toBe(join(repoRoot, 'dist', 'server.js'));
     expect(server.env).toMatchObject({
       GHL_API_VERSION: 'v3',
+      GHL_API_GENERATION: 'v3',
       GHL_TOOL_PROFILE: 'curated',
+    });
+  });
+
+  it('preserves legacy generation and token type in generated client config', () => {
+    const result = runCli(['configure', 'codex', '--profile', 'stable', '--json'], {
+      GHL_API_VERSION: 'v3',
+      GHL_API_GENERATION: 'v2',
+      GHL_USER_TYPE: 'Company',
+    });
+
+    expect(result.status).toBe(0);
+    const server = JSON.parse(result.stdout).config.mcpServers.ghl;
+    expect(server.env).toMatchObject({
+      GHL_API_VERSION: '2023-02-21',
+      GHL_API_GENERATION: 'v2',
+      GHL_USER_TYPE: 'Company',
+      GHL_TOOL_PROFILE: 'stable',
     });
   });
 

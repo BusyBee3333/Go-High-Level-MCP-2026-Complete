@@ -16,6 +16,8 @@ import { EnhancedGHLClient } from './enhanced-ghl-client.js';
 import { ToolRegistry } from './tool-registry.js';
 import { GHLConfig } from './types/ghl-types.js';
 import { registerExecuteRoutes } from './execute-route.js';
+import { resolveVersion } from './clients/version-router.js';
+import { createPerRequestConfig } from './request-config.js';
 
 dotenv.config();
 
@@ -34,7 +36,7 @@ function readConfig(): GHLConfig {
   const config: GHLConfig = {
     accessToken: process.env.GHL_API_KEY || '',
     baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-    version: process.env.GHL_API_VERSION || 'v3',
+    version: resolveVersion([], apiGeneration, process.env.GHL_API_VERSION),
     locationId: process.env.GHL_LOCATION_ID || '',
     apiGeneration,
     userType: process.env.GHL_USER_TYPE === 'Company' || process.env.GHL_USER_TYPE === 'Location'
@@ -85,7 +87,7 @@ async function main() {
       callback(new Error('CORS not allowed'));
     },
     methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'mcp-session-id', 'x-ghl-access-token', 'x-ghl-location-id'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'mcp-session-id', 'x-ghl-access-token', 'x-ghl-location-id', 'x-ghl-user-type'],
     credentials: true,
   }));
   app.use(express.json());
@@ -99,7 +101,12 @@ async function main() {
       const reqAccessToken = req.headers['x-ghl-access-token'] as string | undefined;
       const reqLocationId = req.headers['x-ghl-location-id'] as string | undefined;
       const client = reqAccessToken && reqLocationId
-        ? new EnhancedGHLClient({ ...config, accessToken: reqAccessToken, locationId: reqLocationId })
+        ? new EnhancedGHLClient(createPerRequestConfig(
+            config,
+            reqAccessToken,
+            reqLocationId,
+            req.headers['x-ghl-user-type'],
+          ))
         : ghlClient;
       const requestServer = createMcpServer(client);
       const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });

@@ -11,7 +11,7 @@ Install, build, validate, and generate MCP client config for the GoHighLevel MCP
 - Do not commit `.env`.
 - Do not print full API keys.
 - Do not run write/destructive GHL tools unless the human explicitly approves.
-- Do not change `GHL_API_VERSION=v3` to a year. It is the HighLevel API `Version` header — a named version released 2026-06-11. Most modules use `v3`; ad-publishing and Conversations keep their own dated headers, routed automatically. Set `GHL_API_GENERATION=v2` for the legacy pre-v3 surface.
+- Keep `GHL_API_VERSION=v3` for the current surface. Routing is per endpoint: ad-publishing remains mostly dated; Conversations use `v3` in current mode and `2021-04-15` in legacy v2 mode. Set `GHL_API_GENERATION=v2` for the legacy surface; the starter `v3` value is then replaced by the `2023-02-21` fallback.
 - Use `GHL_TOOL_PROFILE=curated` by default.
 - Stop and ask the human for missing `GHL_API_KEY`, missing `GHL_LOCATION_ID`, invalid auth, or an unsupported MCP client.
 
@@ -98,4 +98,3 @@ Report:
 ```text
 Follow AGENT_SETUP.md and set this repo up for my MCP client using the curated tool profile. Ask me for GHL_API_KEY and GHL_LOCATION_ID if missing. Do not run write or destructive tools. Do not commit secrets. Finish with a short setup report and the MCP config I should use.
 ```
-

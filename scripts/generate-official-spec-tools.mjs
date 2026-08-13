@@ -10,6 +10,7 @@ const repoRoot = join(__dirname, '..');
 const coveragePath = join(repoRoot, 'docs', 'ghl-api-coverage.json');
 const outputPath = join(repoRoot, 'src', 'tools', 'official-spec-tools.ts');
 const dataPath = join(repoRoot, 'src', 'tools', 'official-spec-endpoints.json');
+const routeVersionsPath = join(repoRoot, 'src', 'tools', 'official-route-versions.json');
 
 const coverage = JSON.parse(readFileSync(coveragePath, 'utf8'));
 const handWrittenLocalKeys = new Set(
@@ -23,6 +24,7 @@ const missingWithoutGenerated = coverage.official.endpoints.filter((endpoint) =>
 const endpoints = missingWithoutGenerated.map((endpoint) => {
   const securitySchemes = endpoint.securitySchemes || [];
   const accessLevel = deriveAccessLevel(securitySchemes);
+  const requestBody = getRequestBody(endpoint);
   return {
     name: makeToolName(endpoint),
     method: endpoint.method,
@@ -31,23 +33,39 @@ const endpoints = missingWithoutGenerated.map((endpoint) => {
     summary: endpoint.summary || endpoint.operationId || `${endpoint.method} ${endpoint.path}`,
     operationId: endpoint.operationId || '',
     versions: endpoint.versions || [],
+    apiGenerations: getApiGenerations(endpoint),
     scopes: endpoint.scopes || [],
     securitySchemes,
     accessLevel,
     specTier: endpoint.specTier || (endpoint.sourceFile?.startsWith('live-docs:') ? 'live-docs' : 'v2'),
     sourceFile: endpoint.sourceFile || '',
     source: endpoint.sourceFile?.startsWith('live-docs:') ? 'live-ghl-docs' : 'official-ghl-openapi',
-    stability: endpoint.sourceFile?.startsWith('live-docs:') ? 'live-docs-supplemental' : endpoint.deprecated ? 'deprecated' : 'official',
+    stability: endpoint.deprecated ? 'deprecated' : endpoint.sourceFile?.startsWith('live-docs:') ? 'live-docs-supplemental' : 'official',
     deprecated: Boolean(endpoint.deprecated),
     supersededBy: endpoint.supersededByV3 ? 'v3' : undefined,
     removedInV3: Boolean(endpoint.removedInV3),
     pathParams: getPathParams(endpoint.path),
     queryParams: getParams(endpoint, 'query'),
-    requestBodySchema: getRequestBodySchema(endpoint),
+    requestBodySchema: requestBody?.schema,
+    requestContentType: requestBody?.contentType,
   };
 });
 
 dedupeToolNames(endpoints);
+
+// Keep a compact routing table for every locked official route, including
+// endpoints already implemented by hand-written/composed tools. The runtime
+// client uses this table to prevent those callers from inheriting one global
+// Version header when the official surface mixes named and dated versions.
+const routeVersions = coverage.official.endpoints
+  .map((endpoint) => ({
+    method: endpoint.method,
+    path: endpoint.path,
+    versions: endpoint.versions || [],
+    apiGenerations: getApiGenerations(endpoint),
+  }))
+  .sort((a, b) => `${a.method} ${a.path} ${a.apiGenerations.join(',')}`
+    .localeCompare(`${b.method} ${b.path} ${b.apiGenerations.join(',')}`));
 
 const source = `/**
  * Generated Official GHL Spec Tools
@@ -74,6 +92,7 @@ interface OfficialEndpoint {
   summary: string;
   operationId: string;
   versions: string[];
+  apiGenerations: Array<'v2' | 'v3'>;
   scopes: string[];
   securitySchemes?: string[];
   accessLevel?: 'agency-only' | 'location-only' | 'any';
@@ -90,8 +109,10 @@ interface OfficialEndpoint {
     required?: boolean;
     schema?: Record<string, unknown>;
     description?: string;
+    arrayFormat?: 'repeat' | 'comma' | 'space' | 'pipe' | 'tab';
   }>;
   requestBodySchema?: Record<string, unknown>;
+  requestContentType?: 'application/json' | 'application/x-www-form-urlencoded';
 }
 
 const ENDPOINTS = JSON.parse(readFileSync(resolveEndpointDataPath(), 'utf8')) as OfficialEndpoint[];
@@ -130,12 +151,15 @@ export class OfficialSpecTools {
             method: endpoint.method,
             path: endpoint.path,
             versions: endpoint.versions,
+            apiGenerations: endpoint.apiGenerations,
             scopes: endpoint.scopes,
             accessLevel,
             specTier: endpoint.specTier,
             deprecated: endpoint.deprecated || undefined,
             supersededBy: endpoint.supersededBy,
             removedInV3: endpoint.removedInV3 || undefined,
+            pathParams: endpoint.pathParams,
+            requestContentType: endpoint.requestContentType,
           },
         },
       };
@@ -153,9 +177,16 @@ export class OfficialSpecTools {
 
     const path = this.buildPath(endpoint, args, config.locationId);
     const body = this.buildBody(endpoint, args);
+    const requestBody = endpoint.requestContentType === 'application/x-www-form-urlencoded' && body
+      ? encodeFormBody(body)
+      : body;
 
     const version = resolveVersion(endpoint.versions, config.apiGeneration, config.version);
-    return this.ghlClient.makeRequest(endpoint.method, path, body, { version, app: endpoint.app });
+    return this.ghlClient.makeRequest(endpoint.method, path, requestBody, {
+      version,
+      app: endpoint.app,
+      contentType: endpoint.requestContentType,
+    });
   }
 
   private buildInputSchema(endpoint: OfficialEndpoint) {
@@ -172,7 +203,7 @@ export class OfficialSpecTools {
       if (param.required && param.name !== 'locationId') required.push(param.name);
     }
 
-    if (endpoint.method !== 'GET' && endpoint.method !== 'DELETE') {
+    if (endpoint.method !== 'GET' && (endpoint.method !== 'DELETE' || endpoint.requestBodySchema)) {
       properties.body = {
         type: 'object',
         description: 'Request body. When omitted, non-path and non-query arguments are sent as the JSON body.',
@@ -204,7 +235,7 @@ export class OfficialSpecTools {
     for (const param of endpoint.queryParams) {
       const value = args[param.name] ?? (param.name === 'locationId' ? defaultLocationId : undefined);
       if (value === undefined || value === null || value === '') continue;
-      appendQueryParam(query, param.name, value);
+      appendQueryParam(query, param, value);
     }
 
     const queryString = query.toString();
@@ -212,7 +243,8 @@ export class OfficialSpecTools {
   }
 
   private buildBody(endpoint: OfficialEndpoint, args: Record<string, unknown>): Record<string, unknown> | undefined {
-    if (endpoint.method === 'GET' || endpoint.method === 'DELETE') return undefined;
+    if (endpoint.method === 'GET') return undefined;
+    if (endpoint.method === 'DELETE' && !endpoint.requestBodySchema) return undefined;
     if (isRecord(args.body)) return args.body;
 
     const excluded = new Set([...endpoint.pathParams, ...endpoint.queryParams.map((param) => param.name), 'body']);
@@ -233,16 +265,39 @@ export class OfficialSpecTools {
   }
 }
 
-function appendQueryParam(query: URLSearchParams, name: string, value: unknown): void {
+function appendQueryParam(
+  query: URLSearchParams,
+  param: OfficialEndpoint['queryParams'][number],
+  value: unknown,
+): void {
   if (Array.isArray(value)) {
-    for (const item of value) query.append(name, String(item));
+    if ((param.arrayFormat || 'repeat') === 'repeat') {
+      for (const item of value) query.append(param.name, String(item));
+      return;
+    }
+    const delimiters = { comma: ',', space: ' ', pipe: '|', tab: '\\t' } as const;
+    const delimiter = delimiters[param.arrayFormat as keyof typeof delimiters] || ',';
+    query.append(param.name, value.map(String).join(delimiter));
     return;
   }
-  query.append(name, String(value));
+  query.append(param.name, String(value));
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function encodeFormBody(body: Record<string, unknown>): string {
+  const form = new URLSearchParams();
+  for (const [name, value] of Object.entries(body)) {
+    if (value === undefined || value === null) continue;
+    if (Array.isArray(value)) {
+      for (const item of value) form.append(name, isRecord(item) ? JSON.stringify(item) : String(item));
+      continue;
+    }
+    form.append(name, isRecord(value) ? JSON.stringify(value) : String(value));
+  }
+  return form.toString();
 }
 
 function escapeRegExp(value: string): string {
@@ -282,8 +337,10 @@ function resolveEndpointDataPath(): string {
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, source);
 writeFileSync(dataPath, JSON.stringify(endpoints, null, 2));
+writeFileSync(routeVersionsPath, JSON.stringify(routeVersions, null, 2));
 console.log(`Wrote ${outputPath}`);
 console.log(`Wrote ${dataPath}`);
+console.log(`Wrote ${routeVersionsPath}`);
 
 function makeToolName(endpoint) {
   const base = endpoint.operationId || `${endpoint.method}-${endpoint.path}`;
@@ -338,6 +395,15 @@ function getPathParams(path) {
   return [...path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1]);
 }
 
+function getApiGenerations(endpoint) {
+  if (endpoint.specTier === 'v3') return ['v3'];
+  if (endpoint.specTier === 'live-docs') {
+    return endpoint.versions?.includes('v3') ? ['v3'] : ['v2'];
+  }
+  if (endpoint.supersededByV3 || endpoint.removedInV3) return ['v2'];
+  return ['v2', 'v3'];
+}
+
 function getOperation(endpoint) {
   if (!endpoint.sourceFile || !endpoint.sourceFile.endsWith('.json')) return undefined;
   // sourceFile is relative to the docs repo root, e.g. "apps/contacts.json"
@@ -358,16 +424,45 @@ function getParams(endpoint, paramLocation) {
     .filter((param) => param.in === paramLocation && param.name !== 'Version')
     .map((param) => ({
       name: param.name,
-      required: Boolean(param.required),
+      required: endpoint.queryParamRequiredOverrides?.[param.name] ?? Boolean(param.required),
       schema: param.schema ? sanitizeGeneratorSchema(param.schema) : undefined,
       description: param.description || undefined,
+      arrayFormat: getArrayFormat(param),
     }));
 }
 
-function getRequestBodySchema(endpoint) {
+function getArrayFormat(param) {
+  if (param.schema?.type !== 'array') return undefined;
+  if (param.collectionFormat === 'multi') return 'repeat';
+  if (param.collectionFormat === 'ssv' || param.style === 'spaceDelimited') return 'space';
+  if (param.collectionFormat === 'pipes' || param.style === 'pipeDelimited') return 'pipe';
+  if (param.collectionFormat === 'tsv') return 'tab';
+  if (param.collectionFormat === 'csv' || param.explode === false) return 'comma';
+
+  // A few locked GHL v3 specs describe comma-separated arrays but omit the
+  // OpenAPI explode flag. Preserve that documented wire contract generally.
+  const description = `${param.description || ''} ${param.schema?.description || ''}`;
+  if (/comma[ -]?separated/i.test(description)) return 'comma';
+  if (typeof param.schema?.example === 'string' && param.schema.example.includes(',')) return 'comma';
+  return 'repeat';
+}
+
+function getRequestBody(endpoint) {
   const operation = getOperation(endpoint);
-  const schema = operation?.requestBody?.content?.['application/json']?.schema;
-  return schema ? sanitizeGeneratorSchema(schema) : undefined;
+  const content = operation?.requestBody?.content || {};
+  // Prefer JSON when the operation supports both formats; it preserves nested
+  // payloads. Use form encoding only for endpoints whose locked spec requires it.
+  const contentType = content['application/json']
+    ? 'application/json'
+    : content['application/x-www-form-urlencoded']
+      ? 'application/x-www-form-urlencoded'
+      : undefined;
+  if (!contentType) return undefined;
+  const schema = content[contentType]?.schema;
+  return {
+    contentType,
+    schema: schema ? sanitizeGeneratorSchema(schema) : undefined,
+  };
 }
 
 function sanitizeGeneratorSchema(schema) {

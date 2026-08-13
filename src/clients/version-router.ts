@@ -8,13 +8,20 @@
  *   - Contacts, Opportunities, OAuth, Emails, Brand Boards, SaaS, Email-ISV
  *     use the named value `v3`.
  *   - Ad-publishing (94 of 95 endpoints) still requires `2021-07-28`.
- *   - Conversations is pinned to `2021-04-15` (unchanged in v3).
+ *   - Core Conversation/message endpoints use `v3` in the current generation
+ *     and `2021-04-15` in legacy mode; remaining Conversation endpoints route
+ *     from the exact versions declared by their specs.
  *
  * The router picks the right header from an endpoint's declared `versions[]`
  * based on the configured API generation, falling back to the client default.
  */
 
 import type { GHLApiGeneration } from '../types/ghl-types.js';
+
+/** The global fallback to use when an endpoint does not declare a version. */
+export function defaultVersionForGeneration(generation: GHLApiGeneration | undefined): string {
+  return generation === 'v2' ? '2023-02-21' : 'v3';
+}
 
 /**
  * Resolve the Version header value for a single request.
@@ -31,7 +38,10 @@ export function resolveVersion(
 ): string {
   const versions = endpointVersions ?? [];
   const gen: GHLApiGeneration = generation ?? 'v3';
-  const fallback = fallbackVersion || 'v3';
+  const configuredFallback = fallbackVersion || defaultVersionForGeneration(gen);
+  const fallback = gen === 'v2' && configuredFallback === 'v3'
+    ? defaultVersionForGeneration('v2')
+    : configuredFallback;
 
   if (versions.length === 0) return fallback;
 
@@ -52,6 +62,9 @@ export function resolveVersion(
   const newestDate = newestDateVersion(legacyDates);
   if (newestDate) return newestDate;
   if (legacyDates.length === 1) return legacyDates[0];
+  // A v3-only declaration has no legal legacy value. The caller should hide
+  // that endpoint in v2 mode; retain a dated fallback as a final fail-safe so
+  // compatibility mode can never accidentally emit the named `v3` header.
   return fallback;
 }
 
@@ -68,20 +81,22 @@ function newestDateVersion(versions: string[]): string | undefined {
 /**
  * Derive an access level from the security scheme names an endpoint requires.
  * Mirrors GHL v3's security components:
- *   - `Agency-Access-Only`   → requires an Agency/Company token
- *   - `Location-Access-Only` → requires a Location token
- *   - `Agency-Access` / `Location-Access` / `bearer` → accepts either
+ *   - agency-family only (`Agency-Access[-Only]`)     → Agency/Company token
+ *   - location-family only (`Location-Access[-Only]`) → Location token
+ *   - both families (flattened OpenAPI alternatives)  → either token
+ *   - `bearer` or no scoped scheme                     → either token
  */
 export type GHLAccessLevel = 'agency-only' | 'location-only' | 'any';
 
 export function deriveAccessLevel(securitySchemes: string[] | undefined): GHLAccessLevel {
   const schemes = securitySchemes ?? [];
-  const hasAgencyOnly = schemes.includes('Agency-Access-Only');
-  const hasLocationOnly = schemes.includes('Location-Access-Only');
-  // If an endpoint accepts BOTH -Only schemes, it accepts either token type.
-  if (hasAgencyOnly && hasLocationOnly) return 'any';
-  if (hasAgencyOnly) return 'agency-only';
-  if (hasLocationOnly) return 'location-only';
+  const hasAgency = schemes.includes('Agency-Access-Only') || schemes.includes('Agency-Access');
+  const hasLocation = schemes.includes('Location-Access-Only') || schemes.includes('Location-Access');
+  // Scanner metadata flattens OpenAPI security alternatives. Seeing both
+  // families therefore means the endpoint accepts either token type.
+  if (hasAgency && hasLocation) return 'any';
+  if (hasAgency) return 'agency-only';
+  if (hasLocation) return 'location-only';
   return 'any';
 }
 
@@ -102,7 +117,8 @@ export function assertAccess(
     throw new Error(
       `Endpoint ${endpointLabel} requires an Agency/Company access token, ` +
         `but the configured token is Location-scoped (userType="${userType}"). ` +
-        `Use POST /oauth/location-token to mint an Agency token, or set GHL_USER_TYPE correctly.`
+        `Authenticate the app at the agency/company level to obtain a Company token, ` +
+        `or set GHL_USER_TYPE correctly.`
     );
   }
   if (accessLevel === 'location-only' && userType !== 'Location') {

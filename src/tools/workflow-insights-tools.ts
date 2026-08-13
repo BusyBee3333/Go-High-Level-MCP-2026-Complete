@@ -1,5 +1,6 @@
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { GHLToolClient } from './ghl-tool-client.js';
+import { resolveRequestVersion } from '../clients/endpoint-version-resolver.js';
 
 type GHLResult<T = unknown> = {
   success?: boolean;
@@ -128,7 +129,7 @@ export class WorkflowInsightsTools {
       calendars: `/calendars/?locationId=${encodeURIComponent(locationId)}&showDrafted=true`,
       tags: `/locations/${encodeURIComponent(locationId)}/tags`,
       customFields: `/locations/${encodeURIComponent(locationId)}/customFields?model=contact`,
-      campaigns: `/emails/schedule?locationId=${encodeURIComponent(locationId)}&campaignsOnly=true&showStats=true&limit=${limit}`
+      campaigns: this.emailCampaignListEndpoint(locationId, limit)
     };
 
     const raw = await this.requestMap(endpoints);
@@ -171,20 +172,14 @@ export class WorkflowInsightsTools {
     const locationId = this.locationId(args);
     const limit = this.limit(args.limit, 25, 100);
     const includeRaw = args.includeRaw === true;
-    const params = new URLSearchParams({
-      locationId,
-      campaignsOnly: 'true',
-      showStats: 'true',
-      limit: String(limit)
-    });
-    this.appendOptional(params, args, ['status', 'startAt', 'endAt']);
-
-    const campaignList = await this.safeGet(`/emails/schedule?${params.toString()}`);
+    const campaignList = await this.safeGet(this.emailCampaignListEndpoint(locationId, limit, args));
     const campaigns = this.firstArray(campaignList.response?.data, ['campaigns', 'emails', 'schedules', 'data', 'items']).slice(0, limit);
     const stats = await Promise.all(campaigns.map(async campaign => {
       const id = this.idOf(campaign);
-      const statOutcome = id ? await this.safeGet(`/campaigns/${encodeURIComponent(id)}/stats?locationId=${encodeURIComponent(locationId)}`) : undefined;
-      const recipientOutcome = args.includeRecipients === true && id
+      const statOutcome = id ? await this.safeGet(this.emailCampaignStatsEndpoint(locationId, id)) : undefined;
+      // The legacy recipients endpoint has no v3 equivalent in the locked
+      // Email spec. Never leak it into the v3 workflow surface.
+      const recipientOutcome = !this.isV3() && args.includeRecipients === true && id
         ? await this.safeGet(`/campaigns/${encodeURIComponent(id)}/recipients?locationId=${encodeURIComponent(locationId)}&limit=100`)
         : undefined;
       return this.campaignSummary(campaign, statOutcome?.response?.data, recipientOutcome?.response?.data);
@@ -319,7 +314,7 @@ export class WorkflowInsightsTools {
 
   private async safeGet(endpoint: string): Promise<RequestOutcome> {
     try {
-      const response = await this.ghlClient.makeRequest('GET', endpoint);
+      const response = await this.ghlClient.makeRequest('GET', endpoint, undefined, this.requestOptions('GET', endpoint));
       return { ok: response.success !== false, endpoint, response };
     } catch (error) {
       return { ok: false, endpoint, error: error instanceof Error ? error.message : String(error) };
@@ -328,7 +323,7 @@ export class WorkflowInsightsTools {
 
   private async safePost(endpoint: string, body: Record<string, unknown>): Promise<RequestOutcome> {
     try {
-      const response = await this.ghlClient.makeRequest('POST', endpoint, body);
+      const response = await this.ghlClient.makeRequest('POST', endpoint, body, this.requestOptions('POST', endpoint));
       return { ok: response.success !== false, endpoint, response };
     } catch (error) {
       return { ok: false, endpoint, error: error instanceof Error ? error.message : String(error) };
@@ -345,6 +340,44 @@ export class WorkflowInsightsTools {
     if (groupId) params.append('groupId', groupId);
     const calendars = await this.safeGet(`/calendars/?${params.toString()}`);
     return this.firstArray(calendars.response?.data, ['calendars', 'data', 'items']).slice(0, limit);
+  }
+
+  private isV3(): boolean {
+    return this.ghlClient.getConfig().apiGeneration !== 'v2';
+  }
+
+  private emailCampaignListEndpoint(
+    locationId: string,
+    limit: number,
+    args: Record<string, unknown> = {},
+  ): string {
+    if (this.isV3()) {
+      const params = new URLSearchParams({ limit: String(Math.min(limit, 20)) });
+      if (args.status) params.append('status', String(args.status));
+      return `/emails/locations/${encodeURIComponent(locationId)}/campaigns/emails?${params.toString()}`;
+    }
+
+    const params = new URLSearchParams({
+      locationId,
+      campaignsOnly: 'true',
+      showStats: 'true',
+      limit: String(limit),
+    });
+    this.appendOptional(params, args, ['status', 'startAt', 'endAt']);
+    return `/emails/schedule?${params.toString()}`;
+  }
+
+  private emailCampaignStatsEndpoint(locationId: string, campaignId: string): string {
+    return this.isV3()
+      ? `/emails/locations/${encodeURIComponent(locationId)}/campaigns/stats/email-campaigns/${encodeURIComponent(campaignId)}`
+      : `/campaigns/${encodeURIComponent(campaignId)}/stats?locationId=${encodeURIComponent(locationId)}`;
+  }
+
+  private requestOptions(method: string, endpoint: string): { version: string } {
+    const config = this.ghlClient.getConfig();
+    return {
+      version: resolveRequestVersion(method, endpoint, config.apiGeneration, config.version),
+    };
   }
 
   private campaignSummary(campaign: unknown, statsData: unknown, recipientData: unknown): CampaignSummary {

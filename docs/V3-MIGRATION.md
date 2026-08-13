@@ -8,12 +8,13 @@ need it.
 
 - The MCP now targets **v3** by default. Set `GHL_API_VERSION=v3` (a named
   version, not a date).
-- v3 is **not** a single global header. Most modules send `v3`, but
-  **ad-publishing keeps `2021-07-28`** and **Conversations keep
-  `2021-04-15`**. The MCP routes the correct header per endpoint automatically.
-- To fall back to the pre-v3 surface, set `GHL_API_GENERATION=v2`. Removed
-  endpoints (`GET /contacts/`, `GET /users/`, old email/brand-board routes)
-  become available again.
+- v3 is **not** a single global header. Ad-publishing remains mostly on
+  `2021-07-28`. Conversations use `v3` in current mode and `2021-04-15` in
+  legacy v2 mode. The MCP routes the correct header per endpoint automatically.
+- To fall back to the pre-v3 surface, set `GHL_API_GENERATION=v2`. The starter
+  `GHL_API_VERSION=v3` value is then replaced by the `2023-02-21` fallback.
+  Removed endpoints (`GET /contacts/`, `GET /users/`, old email/brand-board
+  routes) become available again.
 - Set `GHL_USER_TYPE=Location` or `Company` to enable the access-level
   preflight, which rejects calls to endpoints whose security scheme requires the
   other token type before the API does.
@@ -32,7 +33,7 @@ reads those declarations and routes accordingly:
 | Contacts, Opportunities, OAuth, Emails, Brand Boards, SaaS, Email-ISV | `v3` |
 | Ad-publishing (94 of 95 endpoints) | `2021-07-28` |
 | Ad-publishing `publishing-progress` (1 endpoint) | `v3` |
-| Conversations | `2021-04-15` (unchanged) |
+| Conversations | `v3` current; `2021-04-15` in legacy v2 mode |
 
 The router lives in `src/clients/version-router.ts`.
 
@@ -111,6 +112,7 @@ GHL_API_GENERATION=v3
 
 # Opt into the legacy pre-v3 surface
 # GHL_API_GENERATION=v2
+# GHL_API_VERSION=2023-02-21
 
 # Enable access-level preflight (optional)
 # GHL_USER_TYPE=Location   # or Company
@@ -143,8 +145,9 @@ The v3 routing was validated against the live GHL API:
 The Private Integration Token used for validation had **no scopes granted**,
 so every read returned 401 "not authorized for this scope." Before deploying,
 run `npm run smoke:ghl-live` with a token that has real scopes (contacts,
-calendars, opportunities, etc.) against a location the token owns, to confirm
-the full read/write paths return actual data.
+calendars, opportunities, etc.) against a location the token owns. The command
+validates representative read-only paths. Validate writes separately with a
+scoped test plan, explicit approval, and cleanup appropriate to each resource.
 
 ## For MCP maintainers
 

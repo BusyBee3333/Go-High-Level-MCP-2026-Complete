@@ -33,13 +33,13 @@ const report = `# GHL Local-Only Endpoint Classification
 
 Generated from \`docs/ghl-api-coverage.json\`.
 
-Every local-only endpoint is classified into one of the implementation-plan categories. Local-only does not automatically mean wrong; it means the endpoint was not matched by the official GitHub OpenAPI fragments plus the live-docs supplemental endpoint list.
+This report heuristically groups every endpoint reference in \`comparison.localOnly\`, which is relative to the current/default v3 surface. A current-v3 local-only reference is not automatically wrong or unofficial: it may be a known legacy v2 endpoint, a live-docs compatibility supplement, a wrapper, or a private/internal route. Treat these categories as triage signals, not verification or removal decisions.
 
 ## Summary
 
-- Total local-only endpoint references: ${coverage.comparison.localOnly.length}
+- Current-v3 local-only endpoint references: ${coverage.comparison.localOnly.length}
 - Official but scanner-missed candidates: ${buckets.officialScannerMissed.length}
-- Live-docs supplemental candidates: ${buckets.liveDocsSupplemental.length}
+- Known legacy v2 live-docs supplements: ${buckets.liveDocsSupplemental.length}
 - Legacy but still useful: ${buckets.legacyStillUseful.length}
 - Private/internal and unstable: ${buckets.privateInternalUnstable.length}
 - Deprecated or compatibility aliases: ${buckets.deprecatedOrAliased.length}
@@ -47,19 +47,19 @@ Every local-only endpoint is classified into one of the implementation-plan cate
 
 ## Official But Scanner-Missed Candidates
 
-These should be checked against current live docs and promoted into the supplemental official list if confirmed.
+These are pattern-based candidates only. Check them against current live docs before treating them as official or promoting them into the current-v3 supplemental list.
 
 ${format(buckets.officialScannerMissed)}
 
-## Live-Docs Supplemental Candidates
+## Known Legacy V2 Live-Docs Supplements
 
-These are expected to disappear from local-only once their paths are added to the supplemental official list or published in HighLevel's GitHub OpenAPI fragments.
+These Email V2 routes are already tracked as legacy live-docs supplements for \`GHL_API_GENERATION=v2\`. They remain local-only relative to the current-v3 surface by design; their presence here does not mean the scanner missed them.
 
 ${format(buckets.liveDocsSupplemental)}
 
 ## Legacy But Still Useful
 
-These should remain available for compatibility, but their descriptions should make the stability profile clear.
+These are heuristic compatibility candidates. Verify actual availability and usage before retaining them, and make the stability profile clear for any route that remains exposed.
 
 ${format(buckets.legacyStillUseful)}
 

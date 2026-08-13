@@ -4,12 +4,13 @@ The repo tracks official HighLevel API coverage and generated MCP tools.
 
 Current summary:
 
-- Official endpoints parsed: `1221` (v3: 627, v2: 576, live-docs: 18)
-- Unique official endpoints (v3 + non-superseded v2): `681`
-- Official endpoint coverage: `681 / 681` (100%)
-- Generated official endpoint tools: `545`
-- MCP tools in registry: `943`
-- Local-only endpoint references tracked: `253`
+- Official endpoint references parsed: `1221` (v3 repo: `627`, v2 repo: `590`, current live-docs v3: `4`)
+- Current/default v3 coverage: `661 / 661` (100%)
+- Legacy v2 compatibility coverage: `590 / 590` (100%)
+- Dual-generation union coverage: `681 / 681` (100%)
+- Generated official endpoint tools: `543`
+- MCP tools in the full registry: `926`
+- Local-only endpoint references: current v3 `265`; dual-generation union `245`
 
 The scanner reads both the v2 (`apps/*.json`) and v3 (`apps/v3/*-v3.json`) OpenAPI fragments from the official docs repo. v3 endpoints are the source of truth; superseded v2 entries are retained for `GHL_API_GENERATION=v2` legacy mode.
 
@@ -27,4 +28,3 @@ Refresh only when intentionally updating API coverage:
 ```bash
 npm run scan:ghl-api
 ```
-

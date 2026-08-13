@@ -109,16 +109,17 @@ export class EnhancedGHLClient extends GHLApiClient {
 
   constructor(config: GHLConfig) {
     super(config);
+    const normalizedConfig = this.getConfig();
 
     // Create enhanced axios instance with connection pooling
     const httpAgent = new http.Agent({ keepAlive: true, maxSockets: 10, keepAliveMsecs: 30_000 });
     const httpsAgent = new https.Agent({ keepAlive: true, maxSockets: 10, keepAliveMsecs: 30_000 });
 
     this.enhancedAxios = axios.create({
-      baseURL: config.baseUrl,
+      baseURL: normalizedConfig.baseUrl,
       headers: {
-        'Authorization': `Bearer ${config.accessToken}`,
-        'Version': config.version,
+        'Authorization': `Bearer ${normalizedConfig.accessToken}`,
+        'Version': normalizedConfig.version,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
@@ -159,8 +160,12 @@ export class EnhancedGHLClient extends GHLApiClient {
   async makeRequest<T = any>(
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     path: string,
-    body?: Record<string, unknown>,
-    options?: { version?: string; app?: string }
+    body?: Record<string, unknown> | string,
+    options?: {
+      version?: string;
+      app?: string;
+      contentType?: 'application/json' | 'application/x-www-form-urlencoded';
+    }
   ): Promise<GHLApiResponse<T>> {
     // Cache GET requests (include version in key so v2/v3 responses never collide)
     if (method === 'GET') {
@@ -188,8 +193,12 @@ export class EnhancedGHLClient extends GHLApiClient {
   private async makeRequestWithRetry<T>(
     method: string,
     path: string,
-    body?: Record<string, unknown>,
-    options?: { version?: string; app?: string },
+    body?: Record<string, unknown> | string,
+    options?: {
+      version?: string;
+      app?: string;
+      contentType?: 'application/json' | 'application/x-www-form-urlencoded';
+    },
     attempt = 0
   ): Promise<GHLApiResponse<T>> {
     const MAX_RETRIES = 3;

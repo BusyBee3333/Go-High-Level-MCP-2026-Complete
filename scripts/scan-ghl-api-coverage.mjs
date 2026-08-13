@@ -12,7 +12,7 @@ const defaultDocsDir = join(repoRoot, 'tmp', 'highlevel-api-docs');
 const defaultReportPath = join(repoRoot, 'docs', 'GHL-API-COVERAGE-REPORT.md');
 const defaultJsonPath = join(repoRoot, 'docs', 'ghl-api-coverage.json');
 const defaultLockPath = join(repoRoot, 'docs', 'api-sources.lock.json');
-const sourceVerifiedDate = '2026-08-07';
+const sourceVerifiedDate = '2026-08-12';
 /** The current canonical GHL API version (named, released 2026-06-11). */
 const PRIMARY_API_VERSION = 'v3';
 const httpMethods = new Set(['get', 'post', 'put', 'patch', 'delete']);
@@ -57,125 +57,65 @@ const V3_RENAMED_PATHS = [
   ['PUT', '/ad-publishing/facebook/ads-v2', '/ad-publishing/facebook/ads'],
 ];
 
+/**
+ * Corrections backed by evidence elsewhere in the same locked official docs
+ * snapshot. Keep these explicit and machine-readable instead of silently
+ * mutating generated schemas.
+ *
+ * The canonical v3 SaaS route accidentally marks all three query parameters
+ * required, while its deprecated alias in the same spec contains the corrected
+ * contract: companyId is required and the two Stripe identifiers are optional.
+ */
+const OFFICIAL_SPEC_CORRECTIONS = new Map([
+  [
+    'apps/v3/saas-v3.json GET /saas/locations',
+    {
+      queryParamRequired: {
+        customerId: false,
+        subscriptionId: false,
+        companyId: true,
+      },
+      evidence: 'apps/v3/saas-v3.json GET /saas-api/public-api/locations',
+      reason: 'The equivalent route in the same locked v3 spec reflects the corrected optional Stripe identifier contract.',
+    },
+  ],
+]);
+
 // Live-docs supplemental endpoints: these are documented on the GHL docs site
 // but have not yet been published into the OpenAPI spec files in the docs repo.
-// The Email Campaign V2 endpoints below are DEPRECATED in v3 (superseded by
-// the /emails/locations/{locationId}/... suite in apps/v3/emails-v3.json) but
-// are retained here for v2/legacy compatibility. They are all marked
-// deprecated=true and pinned to the v2 version header at the merge site below.
+// Removed Email Campaign V2 routes remain part of the promised v2 compatibility
+// surface. They are modeled explicitly as v2-only below so they can never leak
+// into the generated v3 registry.
+const legacyEmailV2SupplementalEndpoints = [
+  ['POST', '/emails/public/v2/locations/{locationId}/campaigns/email-campaign', 'create-email-campaign-v2', 'Create Email Campaign V2', 'create-email-campaign-v-2'],
+  ['GET', '/emails/public/v2/locations/{locationId}/campaigns/emails', 'list-email-campaigns-v2', 'List Email Campaigns V2', 'list-email-campaigns-v-2'],
+  ['PATCH', '/emails/public/v2/locations/{locationId}/campaigns/{campaignId}', 'update-email-campaign-v2', 'Update Email Campaign V2', 'update-email-campaign-v-2'],
+  ['DELETE', '/emails/public/v2/locations/{locationId}/campaigns/{campaignId}', 'delete-email-campaign-v2', 'Delete Email Campaign V2', 'delete-campaign-v-2'],
+  ['GET', '/emails/public/v2/locations/{locationId}/campaigns/workflows', 'list-workflow-campaigns-v2', 'List Workflow Campaigns V2', 'list-workflow-campaigns-v-2'],
+  ['GET', '/emails/public/v2/locations/{locationId}/campaigns/bulk-actions', 'list-bulk-action-campaigns-v2', 'List Bulk Action Campaigns V2', 'list-bulk-action-campaigns-v-2'],
+  ['POST', '/emails/public/v2/locations/{locationId}/campaigns/{campaignId}/schedule', 'schedule-email-campaign-v2', 'Schedule Campaign V2', 'schedule-campaign-v-2'],
+  ['POST', '/emails/public/v2/locations/{locationId}/templates', 'create-email-template-v2', 'Create Email Template V2', 'create-email-template-v-2'],
+  ['GET', '/emails/public/v2/locations/{locationId}/templates', 'list-email-templates-v2', 'List Email Templates V2', 'list-email-templates-v-2'],
+  ['POST', '/emails/public/v2/locations/{locationId}/templates/import', 'import-email-template-v2', 'Import Email Template V2', 'import-email-template-v-2'],
+  ['POST', '/emails/public/v2/locations/{locationId}/templates/folders', 'create-template-folder-v2', 'Create Email Template Folder V2', 'create-template-folder-v-2'],
+  ['DELETE', '/emails/public/v2/locations/{locationId}/templates/{templateId}', 'delete-email-template-v2', 'Delete Email Template V2', 'delete-email-template-v-2'],
+  ['PATCH', '/emails/public/v2/locations/{locationId}/templates/{templateId}', 'update-email-template-v2', 'Update Email Template V2', 'update-email-template-v-2'],
+  ['GET', '/emails/public/v2/locations/{locationId}/campaigns/stats/{source}/{sourceId}', 'get-campaign-stats-v2', 'Get Campaign Statistics V2', 'get-campaign-stats-under-campaigns-v-2'],
+].map(([method, path, operationId, summary, slug]) => ({
+  method,
+  path,
+  app: 'emails',
+  operationId,
+  summary,
+  sourceFile: `live-docs:ghl/emails/${slug}`,
+  versions: ['2023-02-21'],
+  specTier: 'v2',
+  deprecated: true,
+  supersededByV3: true,
+}));
+
 const supplementalOfficialEndpoints = [
-  {
-    method: 'POST',
-    path: '/emails/public/v2/locations/{locationId}/campaigns/email-campaign',
-    app: 'emails',
-    operationId: 'create-email-campaign-v2',
-    summary: 'Create Email Campaign V2',
-    sourceFile: 'live-docs:ghl/emails/create-email-campaign-v-2',
-  },
-  {
-    method: 'GET',
-    path: '/emails/public/v2/locations/{locationId}/campaigns/emails',
-    app: 'emails',
-    operationId: 'list-email-campaigns-v2',
-    summary: 'List Email Campaigns V2',
-    sourceFile: 'live-docs:ghl/emails/list-email-campaigns-v-2',
-  },
-  {
-    method: 'PATCH',
-    path: '/emails/public/v2/locations/{locationId}/campaigns/{campaignId}',
-    app: 'emails',
-    operationId: 'update-email-campaign-v2',
-    summary: 'Update Email Campaign V2',
-    sourceFile: 'live-docs:ghl/emails/update-email-campaign-v-2',
-  },
-  {
-    method: 'DELETE',
-    path: '/emails/public/v2/locations/{locationId}/campaigns/{campaignId}',
-    app: 'emails',
-    operationId: 'delete-email-campaign-v2',
-    summary: 'Delete Email Campaign V2',
-    sourceFile: 'live-docs:ghl/emails/delete-campaign-v-2',
-  },
-  {
-    method: 'GET',
-    path: '/emails/public/v2/locations/{locationId}/campaigns/workflows',
-    app: 'emails',
-    operationId: 'list-workflow-campaigns-v2',
-    summary: 'List Workflow Campaigns V2',
-    sourceFile: 'live-docs:ghl/emails/list-workflow-campaigns-v-2',
-  },
-  {
-    method: 'GET',
-    path: '/emails/public/v2/locations/{locationId}/campaigns/bulk-actions',
-    app: 'emails',
-    operationId: 'list-bulk-action-campaigns-v2',
-    summary: 'List Bulk Action Campaigns V2',
-    sourceFile: 'live-docs:ghl/emails/list-bulk-action-campaigns-v-2',
-  },
-  {
-    method: 'POST',
-    path: '/emails/public/v2/locations/{locationId}/campaigns/{campaignId}/schedule',
-    app: 'emails',
-    operationId: 'schedule-email-campaign-v2',
-    summary: 'Schedule Campaign V2',
-    sourceFile: 'live-docs:ghl/emails/schedule-campaign-v-2',
-  },
-  {
-    method: 'POST',
-    path: '/emails/public/v2/locations/{locationId}/templates',
-    app: 'emails',
-    operationId: 'create-email-template-v2',
-    summary: 'Create Email Template V2',
-    sourceFile: 'live-docs:ghl/emails/create-email-template-v-2',
-  },
-  {
-    method: 'GET',
-    path: '/emails/public/v2/locations/{locationId}/templates',
-    app: 'emails',
-    operationId: 'list-email-templates-v2',
-    summary: 'List Email Templates V2',
-    sourceFile: 'live-docs:ghl/emails/list-email-templates-v-2',
-  },
-  {
-    method: 'POST',
-    path: '/emails/public/v2/locations/{locationId}/templates/import',
-    app: 'emails',
-    operationId: 'import-email-template-v2',
-    summary: 'Import Email Template V2',
-    sourceFile: 'live-docs:ghl/emails/import-email-template-v-2',
-  },
-  {
-    method: 'POST',
-    path: '/emails/public/v2/locations/{locationId}/templates/folders',
-    app: 'emails',
-    operationId: 'create-template-folder-v2',
-    summary: 'Create Email Template Folder V2',
-    sourceFile: 'live-docs:ghl/emails/create-template-folder-v-2',
-  },
-  {
-    method: 'DELETE',
-    path: '/emails/public/v2/locations/{locationId}/templates/{templateId}',
-    app: 'emails',
-    operationId: 'delete-email-template-v2',
-    summary: 'Delete Email Template V2',
-    sourceFile: 'live-docs:ghl/emails/delete-email-template-v-2',
-  },
-  {
-    method: 'PATCH',
-    path: '/emails/public/v2/locations/{locationId}/templates/{templateId}',
-    app: 'emails',
-    operationId: 'update-email-template-v2',
-    summary: 'Update Email Template V2',
-    sourceFile: 'live-docs:ghl/emails/update-email-template-v-2',
-  },
-  {
-    method: 'GET',
-    path: '/emails/public/v2/locations/{locationId}/campaigns/stats/{source}/{sourceId}',
-    app: 'emails',
-    operationId: 'get-campaign-stats-v2',
-    summary: 'Get Campaign Statistics V2',
-    sourceFile: 'live-docs:ghl/emails/get-campaign-stats-under-campaigns-v-2',
-  },
+  ...legacyEmailV2SupplementalEndpoints,
   // ── Opportunities pipelines CRUD (2026-06-26 changelog) ─────────────────
   // Live on the docs site (sitemap confirms create/get/update/delete-pipeline
   // pages) but not yet in apps/v3/opportunities-v3.json. Modeled from the live
@@ -365,6 +305,8 @@ function extractOfficialEndpoints(dir) {
         for (const [method, operation] of Object.entries(operations ?? {})) {
           if (!httpMethods.has(method.toLowerCase())) continue;
           const key = makeKey(method, path);
+          const sourceFile = `apps/v3/${file}`;
+          const correction = OFFICIAL_SPEC_CORRECTIONS.get(`${sourceFile} ${method.toUpperCase()} ${path}`);
           seenV3Keys.add(key);
           endpoints.push({
             key,
@@ -379,7 +321,12 @@ function extractOfficialEndpoints(dir) {
             securitySchemes: extractSecuritySchemes(operation),
             deprecated: Boolean(operation.deprecated),
             specTier: 'v3',
-            sourceFile: `apps/v3/${file}`,
+            sourceFile,
+            queryParamRequiredOverrides: correction?.queryParamRequired,
+            correctionEvidence: correction ? {
+              evidence: correction.evidence,
+              reason: correction.reason,
+            } : undefined,
           });
         }
       }
@@ -439,7 +386,8 @@ function extractOfficialEndpoints(dir) {
     scopes: [],
     securitySchemes: [],
     deprecated: endpoint.deprecated ?? false,
-    specTier: 'live-docs',
+    supersededByV3: endpoint.supersededByV3 ?? false,
+    specTier: endpoint.specTier ?? 'live-docs',
     sourceFile: endpoint.sourceFile,
   })));
 
@@ -492,7 +440,9 @@ function extractSecuritySchemes(operation) {
 }
 
 function extractLocalEndpoints(srcDir) {
-  const files = listFiles(srcDir).filter((file) => file.endsWith('.ts') && !file.includes('/ui/'));
+  const registration = findRegisteredToolSources(srcDir);
+  const files = registration.reachableFiles
+    .filter((file) => file.endsWith('.ts') && !file.includes('/ui/'));
   const endpoints = [];
 
   const makeRequestRegex = /makeRequest\(\s*['"`](GET|POST|PUT|PATCH|DELETE)['"`]\s*,\s*(`[^`]+`|'[^']+'|"[^"]+")/g;
@@ -513,7 +463,85 @@ function extractLocalEndpoints(srcDir) {
   return {
     endpoints,
     filesScanned: files.length,
+    registeredToolModules: registration.registeredToolModules.map((file) => relative(repoRoot, file)),
+    reachableSourceFiles: files.map((file) => relative(repoRoot, file)),
   };
+}
+
+/**
+ * Resolve the concrete modules registered by ToolRegistry, then walk their
+ * relative imports. Scanning every TypeScript file lets dead or abandoned tool
+ * classes claim API coverage even though no MCP caller can reach them.
+ */
+function findRegisteredToolSources(srcDir) {
+  const registryFile = join(srcDir, 'tool-registry.ts');
+  const registrySource = readFileSync(registryFile, 'utf8');
+  const importedSymbols = new Map();
+
+  const namedImportRegex = /import\s+(?:type\s+)?\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/g;
+  for (const match of registrySource.matchAll(namedImportRegex)) {
+    const resolved = resolveRelativeModule(registryFile, match[2]);
+    if (!resolved) continue;
+    for (const item of match[1].split(',')) {
+      const parts = item.trim().split(/\s+as\s+/);
+      const localName = parts[1] || parts[0];
+      if (localName) importedSymbols.set(localName.trim(), resolved);
+    }
+  }
+
+  const instanceClasses = new Map();
+  for (const match of registrySource.matchAll(/const\s+(\w+)\s*=\s*new\s+(\w+)\s*\(/g)) {
+    instanceClasses.set(match[1], match[2]);
+  }
+
+  const registeredToolModules = [];
+  for (const match of registrySource.matchAll(/this\.addModule\(\s*[^,]+,\s*(\w+)\s*,/g)) {
+    const className = instanceClasses.get(match[1]);
+    const file = className ? importedSymbols.get(className) : undefined;
+    if (file) registeredToolModules.push(file);
+  }
+
+  if (registeredToolModules.length === 0) {
+    throw new Error('Could not resolve any registered tool modules from src/tool-registry.ts');
+  }
+
+  const reachable = new Set();
+  const queue = [...new Set(registeredToolModules)];
+  while (queue.length > 0) {
+    const file = queue.shift();
+    if (!file || reachable.has(file)) continue;
+    reachable.add(file);
+    const source = readFileSync(file, 'utf8');
+    for (const specifier of extractRelativeImports(source)) {
+      const imported = resolveRelativeModule(file, specifier);
+      if (imported && !reachable.has(imported)) queue.push(imported);
+    }
+  }
+
+  return {
+    registeredToolModules: [...new Set(registeredToolModules)].sort(),
+    reachableFiles: [...reachable].sort(),
+  };
+}
+
+function extractRelativeImports(source) {
+  const imports = new Set();
+  const fromRegex = /(?:import|export)\s+(?:type\s+)?(?:[\s\S]*?\s+from\s+)?['"](\.[^'"]+)['"]/g;
+  for (const match of source.matchAll(fromRegex)) imports.add(match[1]);
+  const dynamicRegex = /import\(\s*['"](\.[^'"]+)['"]\s*\)/g;
+  for (const match of source.matchAll(dynamicRegex)) imports.add(match[1]);
+  return imports;
+}
+
+function resolveRelativeModule(fromFile, specifier) {
+  if (!specifier.startsWith('.')) return undefined;
+  const base = join(dirname(fromFile), specifier);
+  const candidates = specifier.endsWith('.js')
+    ? [base.slice(0, -3) + '.ts']
+    : specifier.endsWith('.ts')
+      ? [base]
+      : [base + '.ts', join(base, 'index.ts')];
+  return candidates.find((candidate) => existsSync(candidate));
 }
 
 function extractGeneratedOfficialSpecEndpoints(file) {
@@ -589,13 +617,13 @@ function compareEndpoints(officialEndpoints, localEndpoints) {
   // entry is the source of truth in v3 mode. The v2 entry is still emitted
   // to the registry so it can be surfaced in v2/legacy mode.
   const countedOfficial = officialEndpoints.filter((endpoint) => !endpoint.supersededByV3);
+  const v2CompatibilityOfficial = officialEndpoints.filter((endpoint) => endpoint.specTier === 'v2');
 
   const officialByKey = groupBy(countedOfficial, (endpoint) => endpoint.key);
   const localByKey = groupBy(localEndpoints, (endpoint) => endpoint.key);
   const officialKeys = new Set(officialByKey.keys());
   const localKeys = new Set(localByKey.keys());
 
-  const covered = [...officialKeys].filter((key) => localKeys.has(key)).sort();
   const missingOfficial = [...officialKeys]
     .filter((key) => !localKeys.has(key))
     .sort()
@@ -613,14 +641,46 @@ function compareEndpoints(officialEndpoints, localEndpoints) {
     else byApp[endpoint.app].missing += 1;
   }
 
+  const currentV3 = summarizeCoverageSurface(countedOfficial, localByKey);
+  const v2Compatibility = summarizeCoverageSurface(v2CompatibilityOfficial, localByKey);
+  const dualGeneration = summarizeCoverageSurface(officialEndpoints, localByKey);
+
   return {
-    coveredCount: covered.length,
-    officialUniqueCount: officialKeys.size,
+    // Backward-compatible aliases describe the current/default v3 surface.
+    coveredCount: currentV3.coveredCount,
+    officialUniqueCount: currentV3.officialUniqueCount,
     localUniqueCount: localKeys.size,
-    coveragePercent: officialKeys.size === 0 ? 0 : Math.round((covered.length / officialKeys.size) * 1000) / 10,
+    coveragePercent: currentV3.coveragePercent,
     missingOfficial,
     localOnly,
     byApp,
+    currentV3,
+    v2Compatibility,
+    dualGeneration,
+  };
+}
+
+function summarizeCoverageSurface(officialEndpoints, localByKey) {
+  const officialByKey = groupBy(officialEndpoints, (endpoint) => endpoint.key);
+  const officialKeys = new Set(officialByKey.keys());
+  const coveredKeys = [...officialKeys].filter((key) => localByKey.has(key));
+  const missingOfficial = [...officialKeys]
+    .filter((key) => !localByKey.has(key))
+    .sort()
+    .map((key) => officialByKey.get(key)[0]);
+  const localOnly = [...localByKey.keys()]
+    .filter((key) => !officialKeys.has(key))
+    .sort()
+    .map((key) => localByKey.get(key)[0]);
+
+  return {
+    officialUniqueCount: officialKeys.size,
+    coveredCount: coveredKeys.length,
+    coveragePercent: officialKeys.size === 0
+      ? 0
+      : Math.round((coveredKeys.length / officialKeys.size) * 1000) / 10,
+    missingOfficial,
+    localOnlyCount: localOnly.length,
   };
 }
 
@@ -640,6 +700,16 @@ function buildSourceLock({ official, comparison }) {
 
   const v3EndpointCount = official.endpoints.filter((e) => e.specTier === 'v3').length;
   const v2EndpointCount = official.endpoints.filter((e) => e.specTier === 'v2').length;
+  const corrections = official.endpoints
+    .filter((endpoint) => endpoint.correctionEvidence)
+    .map((endpoint) => ({
+      method: endpoint.method,
+      path: endpoint.path,
+      source: endpoint.sourceFile,
+      ...endpoint.correctionEvidence,
+      queryParamRequired: endpoint.queryParamRequiredOverrides,
+    }))
+    .sort((a, b) => `${a.method} ${a.path}`.localeCompare(`${b.method} ${b.path}`));
 
   return {
     schemaVersion: 2,
@@ -659,6 +729,21 @@ function buildSourceLock({ official, comparison }) {
     liveDocsSupplemental: {
       expectedEndpointReferences: supplemental.length,
       endpoints: supplemental,
+    },
+    officialSpecCorrections: corrections,
+    coverageSurfaces: {
+      currentV3: {
+        expectedUniqueEndpoints: comparison.currentV3.officialUniqueCount,
+        expectedCoveredEndpoints: comparison.currentV3.coveredCount,
+      },
+      legacyV2: {
+        expectedUniqueEndpoints: comparison.v2Compatibility.officialUniqueCount,
+        expectedCoveredEndpoints: comparison.v2Compatibility.coveredCount,
+      },
+      dualGenerationUnion: {
+        expectedUniqueEndpoints: comparison.dualGeneration.officialUniqueCount,
+        expectedCoveredEndpoints: comparison.dualGeneration.coveredCount,
+      },
     },
     acceptance: {
       expectedMissingOfficialEndpoints: 0,
@@ -711,18 +796,23 @@ Generated from official GHL docs commit: ${official.tag}
 - Docs tag/description: \`${official.tag}\`
 - Official endpoint references parsed: ${official.endpoints.length}
 - Local endpoint references parsed: ${local.endpoints.length}
+- Registered tool modules discovered: ${local.registeredToolModules.length}
 - Local TypeScript files scanned: ${local.filesScanned}
 
 ## Coverage Summary
 
-- Unique official endpoints: ${comparison.officialUniqueCount}
+- Current/default v3 unique official endpoints: ${comparison.currentV3.officialUniqueCount}
+- Legacy v2 compatibility unique official endpoints: ${comparison.v2Compatibility.officialUniqueCount}
+- Dual-generation unique official endpoint union: ${comparison.dualGeneration.officialUniqueCount}
 - Unique local endpoints: ${comparison.localUniqueCount}
-- Official endpoints with an exact method/path match locally: ${comparison.coveredCount}
-- Exact-match coverage: ${comparison.coveragePercent}%
-- Likely missing official endpoints: ${comparison.missingOfficial.length}
-- Potential local-only/deprecated/private endpoints: ${comparison.localOnly.length}
+- Current v3 exact-match coverage: ${comparison.currentV3.coveredCount} / ${comparison.currentV3.officialUniqueCount} (${comparison.currentV3.coveragePercent}%)
+- Legacy v2 exact-match coverage: ${comparison.v2Compatibility.coveredCount} / ${comparison.v2Compatibility.officialUniqueCount} (${comparison.v2Compatibility.coveragePercent}%)
+- Dual-generation exact-match coverage: ${comparison.dualGeneration.coveredCount} / ${comparison.dualGeneration.officialUniqueCount} (${comparison.dualGeneration.coveragePercent}%)
+- Likely missing current v3 official endpoints: ${comparison.currentV3.missingOfficial.length}
+- Potential current-v3 local-only/deprecated/private endpoints: ${comparison.currentV3.localOnlyCount}
+- Potential dual-generation local-only/deprecated/private endpoints: ${comparison.dualGeneration.localOnlyCount}
 
-Exact matching is intentionally conservative. Dynamic path generation, aliases, and compatibility wrappers may create false positives, but this gives us a repeatable first-pass map.
+Only files reachable from modules registered by \`ToolRegistry\` are counted as hand-written coverage. Exact matching is intentionally conservative. Dynamic path generation, aliases, and compatibility wrappers may create false positives, but this gives us a repeatable first-pass map.
 
 ## Changelog-Only Findings To Plan Around
 
@@ -748,12 +838,12 @@ ${formatEndpointList(localOnlyHighRisk)}
 
 1. The scanner now reads both the v2 (\`apps/*.json\`) and v3 (\`apps/v3/*-v3.json\`) OpenAPI fragments. v3 endpoints (named \`v3\` version header) are the source of truth; superseded v2 entries are retained for legacy/v2-mode visibility.
 2. Ad-publishing stays on the legacy \`2021-07-28\` version header for 94 of 95 endpoints (only the publishing-progress endpoint uses \`v3\`). The per-endpoint version router in \`src/clients/version-router.ts\` handles this automatically.
-3. Conversations remain on \`2021-04-15\` — unchanged in v3.
+3. Core Conversations and Messages routes use named \`v3\` in the current generation and \`2021-04-15\` only in legacy v2 mode.
 4. \`GET /contacts/\` and \`GET /users/\` are removed in v3; callers must use \`POST /contacts/search\` and the users search endpoints instead. The hand-written contact/user tools route accordingly in v3 mode.
 5. OAuth migrated to camelCase (\`clientId\`, \`accessToken\`, ...) and new kebab-case paths (\`/oauth/installed-locations\`, \`/oauth/location-token\`). The old camelCase paths were removed without deprecation.
 6. New modules covered: top-level \`/notes/\`, opportunities pipelines CRUD, \`/saas/allow-attach-rebilling/{locationId}\`, brand-boards v3 brand-voices, and the full \`/emails/locations/{locationId}/...\` v3 email suite.
 7. Two new security schemes (\`Agency-Access-Only\`, \`Location-Access-Only\`) are captured per endpoint as \`securitySchemes\` and drive the access-level preflight in \`OfficialSpecTools\`.
-8. Email Campaign V2 supplemental endpoints are retained but marked deprecated (superseded by the v3 email suite).
+8. Removed Email Campaign V2 supplemental endpoints are retained as deprecated v2-only coverage and hidden from the v3 surface.
 
 ## Full Machine-Readable Output
 

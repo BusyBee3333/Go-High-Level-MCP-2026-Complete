@@ -223,9 +223,9 @@ export class WorkflowBuilderTools {
 
       // ─── DELETE ─────────────────────────────────────────
       {
-        name: 'ghl_delete_workflow',
+        name: 'ghl_delete_workflow_internal',
         description:
-          'Permanently delete a workflow by ID. This cannot be undone. ' +
+          'Permanently delete a workflow by ID through the internal workflow-builder API. This cannot be undone. ' +
           'Returns confirmation of deletion.',
         inputSchema: {
           type: 'object',
@@ -310,7 +310,7 @@ export class WorkflowBuilderTools {
           return await this.getWorkflowFull(params);
         case 'ghl_update_workflow_actions':
           return await this.updateWorkflowActions(params);
-        case 'ghl_delete_workflow':
+        case 'ghl_delete_workflow_internal':
           return await this.deleteWorkflow(params);
         case 'ghl_publish_workflow':
           return await this.publishWorkflow(params);
@@ -495,7 +495,7 @@ export function isWorkflowBuilderTool(toolName: string): boolean {
     'ghl_list_workflows_full',
     'ghl_get_workflow_full',
     'ghl_update_workflow_actions',
-    'ghl_delete_workflow',
+    'ghl_delete_workflow_internal',
     'ghl_publish_workflow',
     'ghl_clone_workflow',
   ].includes(toolName);

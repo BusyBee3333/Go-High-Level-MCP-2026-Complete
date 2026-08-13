@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { resolveVersion, deriveAccessLevel, assertAccess } from '../../src/clients/version-router.js';
+import { resolveVersion, defaultVersionForGeneration, deriveAccessLevel, assertAccess } from '../../src/clients/version-router.js';
 
 describe('resolveVersion', () => {
   it('prefers v3 in v3 generation mode', () => {
@@ -19,6 +19,7 @@ describe('resolveVersion', () => {
   it('never sends v3 in v2/legacy mode', () => {
     expect(resolveVersion(['v3', '2021-07-28'], 'v2', '2023-02-21')).toBe('2021-07-28');
     expect(resolveVersion(['v3'], 'v2', '2023-02-21')).toBe('2023-02-21');
+    expect(resolveVersion(['v3'], 'v2', 'v3')).toBe('2023-02-21');
   });
 
   it('falls back to the default when no versions are declared', () => {
@@ -31,19 +32,30 @@ describe('resolveVersion', () => {
   });
 });
 
+describe('defaultVersionForGeneration', () => {
+  it('uses a dated fallback for v2 and the named version for v3', () => {
+    expect(defaultVersionForGeneration('v2')).toBe('2023-02-21');
+    expect(defaultVersionForGeneration('v3')).toBe('v3');
+    expect(defaultVersionForGeneration(undefined)).toBe('v3');
+  });
+});
+
 describe('deriveAccessLevel', () => {
   it('detects agency-only schemes', () => {
     expect(deriveAccessLevel(['Agency-Access-Only'])).toBe('agency-only');
     expect(deriveAccessLevel(['bearer', 'Agency-Access-Only'])).toBe('agency-only');
+    expect(deriveAccessLevel(['Agency-Access'])).toBe('agency-only');
   });
 
   it('detects location-only schemes', () => {
     expect(deriveAccessLevel(['Location-Access-Only'])).toBe('location-only');
+    expect(deriveAccessLevel(['Location-Access'])).toBe('location-only');
+    expect(deriveAccessLevel(['Location-Access', 'Location-Access-Only'])).toBe('location-only');
   });
 
   it('treats everything else as any', () => {
-    expect(deriveAccessLevel(['Agency-Access'])).toBe('any');
-    expect(deriveAccessLevel(['Location-Access'])).toBe('any');
+    expect(deriveAccessLevel(['Location-Access-Only', 'Agency-Access'])).toBe('any');
+    expect(deriveAccessLevel(['Agency-Access-Only', 'Location-Access'])).toBe('any');
     expect(deriveAccessLevel(['bearer'])).toBe('any');
     expect(deriveAccessLevel([])).toBe('any');
     expect(deriveAccessLevel(undefined)).toBe('any');
@@ -63,7 +75,7 @@ describe('assertAccess', () => {
   });
 
   it('throws when an agency-only endpoint is called with a Location token', () => {
-    expect(() => assertAccess('agency-only', 'Location', 'GET /oauth/installed-locations')).toThrow(/Agency/);
+    expect(() => assertAccess('agency-only', 'Location', 'GET /oauth/installed-locations')).toThrow(/Authenticate the app at the agency/);
   });
 
   it('throws when a location-only endpoint is called with a Company token', () => {

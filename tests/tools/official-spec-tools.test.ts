@@ -11,18 +11,26 @@ class MockToolClient implements GHLToolClient {
   public lastApp: string | undefined;
   public lastPath: string | undefined;
   public lastMethod: HttpMethod | undefined;
+  public lastBody: Record<string, unknown> | string | undefined;
+  public lastContentType: 'application/json' | 'application/x-www-form-urlencoded' | undefined;
   constructor(private cfg: GHLToolConfig) {}
   getConfig(): Readonly<GHLToolConfig> { return this.cfg; }
   async makeRequest<T = any>(
     method: HttpMethod,
     path: string,
-    _body?: Record<string, unknown>,
-    options?: { version?: string; app?: string }
+    body?: Record<string, unknown> | string,
+    options?: {
+      version?: string;
+      app?: string;
+      contentType?: 'application/json' | 'application/x-www-form-urlencoded';
+    }
   ): Promise<GHLToolResponse<T>> {
     this.lastMethod = method;
     this.lastPath = path;
+    this.lastBody = body;
     this.lastVersion = options?.version;
     this.lastApp = options?.app;
+    this.lastContentType = options?.contentType;
     return { success: true, data: { ok: true } as any };
   }
 }
@@ -121,5 +129,73 @@ describe('OfficialSpecTools v3 routing + access preflight', () => {
     if (restricted) {
       expect(restricted.description).toContain('agency-only');
     }
+  });
+
+  it('exposes and sends request bodies for DELETE operations that declare one', async () => {
+    const client = new MockToolClient({ locationId: 'loc', apiGeneration: 'v3', version: 'v3' });
+    const tools = new OfficialSpecTools(client);
+    const endpoint = tools.getToolDefinitions().find((tool: any) =>
+      tool.name === 'official_calendars_delete_event'
+    ) as any;
+
+    expect(endpoint).toBeDefined();
+    expect(endpoint.inputSchema.properties.body).toBeDefined();
+
+    await tools.handleToolCall(endpoint.name, {
+      eventId: 'event/123',
+      body: { notify: true, reason: 'duplicate' },
+    });
+
+    expect(client.lastMethod).toBe('DELETE');
+    expect(client.lastPath).toBe('/calendars/events/event%2F123');
+    expect(client.lastBody).toEqual({ notify: true, reason: 'duplicate' });
+  });
+
+  it('serializes comma-delimited OpenAPI array query parameters as one value', async () => {
+    const client = new MockToolClient({ locationId: 'loc', apiGeneration: 'v3', version: 'v3' });
+    const tools = new OfficialSpecTools(client);
+
+    await tools.handleToolCall('official_ad_publishing_fb_get_reporting', {
+      locationId: 'loc',
+      fields: ['impressions', 'clicks'],
+      groupBy: 'day',
+      startDate: '2026-08-01',
+      endDate: '2026-08-12',
+      type: 'AD_MANAGER',
+    });
+
+    const url = new URL(client.lastPath!, 'https://services.leadconnectorhq.com');
+    expect(url.searchParams.getAll('fields')).toEqual(['impressions,clicks']);
+  });
+
+  it('form-encodes generated v2 OAuth bodies from the locked content type', async () => {
+    const client = new MockToolClient({ locationId: 'loc', apiGeneration: 'v2', version: '2023-02-21' });
+    const tools = new OfficialSpecTools(client);
+    const endpoint = tools.getToolDefinitions().find((tool: any) => {
+      const official = tool._meta?.official || {};
+      return official.path === '/oauth/token' && official.specTier === 'v2';
+    }) as any;
+
+    expect(endpoint).toBeDefined();
+    expect(endpoint._meta.official.requestContentType).toBe('application/x-www-form-urlencoded');
+
+    await tools.handleToolCall(endpoint.name, {
+      body: {
+        grant_type: 'authorization_code',
+        client_id: 'client id',
+        client_secret: 'secret',
+        code: 'code/123',
+      },
+    });
+
+    expect(client.lastContentType).toBe('application/x-www-form-urlencoded');
+    expect(typeof client.lastBody).toBe('string');
+    const form = new URLSearchParams(client.lastBody as string);
+    expect(Object.fromEntries(form)).toEqual({
+      grant_type: 'authorization_code',
+      client_id: 'client id',
+      client_secret: 'secret',
+      code: 'code/123',
+    });
   });
 });

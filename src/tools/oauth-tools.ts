@@ -29,16 +29,30 @@ export class OAuthTools {
           properties: {
             appId: { type: 'string', description: 'OAuth/Marketplace App ID' },
             companyId: { type: 'string', description: 'Company/Agency ID' },
-            skip: { type: 'number', description: 'Records to skip for pagination' },
-            limit: { type: 'number', description: 'Maximum results to return' },
+            pageSize: { type: 'number', minimum: 1, maximum: 100, description: 'Maximum items per page (1-100)' },
+            pageToken: { type: 'string', description: 'Opaque next-page token returned by the previous response' },
             query: { type: 'string', description: 'Search query' },
-            isInstalled: { type: 'boolean', description: 'Filter by installation status' }
+            isInstalled: { type: 'boolean', description: 'Filter by installation status' },
+            restrictToUserLocations: { type: 'boolean', description: 'Restrict results to locations accessible by the current user' },
+            versionId: { type: 'string', description: 'Marketplace app version ID' },
+            onTrial: { type: 'boolean', description: 'Filter locations by trial status' },
+            planId: { type: 'string', description: 'Filter by Marketplace plan ID' },
+            locationId: { type: 'string', description: 'Filter by a specific location ID' }
           },
           required: ['appId', 'companyId']
         },
         _meta: {
           labels: { category: 'oauth', access: 'read', complexity: 'simple' },
-          official: { method: 'GET', path: '/oauth/installed-locations', specTier: 'v3' }
+          official: {
+            method: 'GET',
+            path: '/oauth/installed-locations',
+            operationId: 'get-installed-location',
+            specTier: 'v3',
+            apiGenerations: ['v3'],
+            versions: ['v3'],
+            scopes: ['oauth.readonly'],
+            securitySchemes: ['Agency-Access-Only']
+          }
         }
       },
       {
@@ -54,7 +68,16 @@ export class OAuthTools {
         },
         _meta: {
           labels: { category: 'oauth', access: 'write', complexity: 'simple' },
-          official: { method: 'POST', path: '/oauth/location-token', specTier: 'v3' }
+          official: {
+            method: 'POST',
+            path: '/oauth/location-token',
+            operationId: 'get-location-access-token',
+            specTier: 'v3',
+            apiGenerations: ['v3'],
+            versions: ['v3'],
+            scopes: ['oauth.write'],
+            securitySchemes: ['Agency-Access-Only']
+          }
         }
       }
     ];
@@ -70,10 +93,15 @@ export class OAuthTools {
         const params = new URLSearchParams();
         params.append('appId', String(args.appId));
         params.append('companyId', String(args.companyId));
-        if (args.skip) params.append('skip', String(args.skip));
-        if (args.limit) params.append('limit', String(args.limit));
+        if (args.pageSize !== undefined) params.append('pageSize', String(args.pageSize));
+        if (args.pageToken) params.append('pageToken', String(args.pageToken));
         if (args.query) params.append('query', String(args.query));
         if (args.isInstalled !== undefined) params.append('isInstalled', String(args.isInstalled));
+        if (args.restrictToUserLocations !== undefined) params.append('restrictToUserLocations', String(args.restrictToUserLocations));
+        if (args.versionId) params.append('versionId', String(args.versionId));
+        if (args.onTrial !== undefined) params.append('onTrial', String(args.onTrial));
+        if (args.planId) params.append('planId', String(args.planId));
+        if (args.locationId) params.append('locationId', String(args.locationId));
         // v3 (2026-06-11): kebab-case path; old camelCase /oauth/installedLocations was removed.
         return this.ghlClient.makeRequest('GET', `/oauth/installed-locations?${params.toString()}`, undefined, { version: 'v3' });
       }
@@ -81,10 +109,14 @@ export class OAuthTools {
         // Agency endpoint: mints a Location token from an Agency token.
         assertAccess('agency-only', config.userType, 'POST /oauth/location-token');
         // v3 (2026-06-11): kebab-case path; old POST /oauth/locationToken was removed.
-        return this.ghlClient.makeRequest('POST', `/oauth/location-token`, {
-          companyId: args.companyId,
-          locationId: args.locationId
-        }, { version: 'v3' });
+        const form = new URLSearchParams({
+          companyId: String(args.companyId),
+          locationId: String(args.locationId)
+        });
+        return this.ghlClient.makeRequest('POST', '/oauth/location-token', form.toString(), {
+          version: 'v3',
+          contentType: 'application/x-www-form-urlencoded'
+        });
       }
       default:
         throw new Error(`Unknown tool: ${toolName}`);
