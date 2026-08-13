@@ -128,8 +128,12 @@ describe('ToolRegistry profiles', () => {
     const names = inventory.map((tool) => tool.name);
 
     expect(registry.getToolProfile()).toBe('official');
-    expect(names).toContain('official_ad_manager_fb_get_reporting');
-    expect(names).toContain('create_email_campaign_v2');
+    expect(names).toContain('official_ad_publishing_fb_get_reporting');
+    // In v3 mode the deprecated Email Campaign V2 tools are hidden (superseded
+    // by the v3 /emails/locations/{locationId}/... suite). A current v3 email
+    // tool should be visible instead.
+    expect(names).not.toContain('create_email_campaign_v2');
+    expect(names.some((n) => n.startsWith('official_emails_'))).toBe(true);
     expect(names).not.toContain('search_contacts');
     expect(inventory.every((tool) => ['official', 'live-docs-supplemental'].includes(tool.stability))).toBe(true);
   });
@@ -142,7 +146,7 @@ describe('ToolRegistry profiles', () => {
 
     expect(registry.getToolProfile()).toBe('stable');
     expect(names).toContain('search_contacts');
-    expect(names).toContain('official_ad_manager_fb_get_reporting');
+    expect(names).toContain('official_ad_publishing_fb_get_reporting');
     expect(names).toContain('crm_prepare_lead_intake');
     expect(inventory.some((tool) => tool.stability === 'deprecated')).toBe(false);
     expect(inventory.some((tool) => tool.stability === 'private-or-unstable')).toBe(false);

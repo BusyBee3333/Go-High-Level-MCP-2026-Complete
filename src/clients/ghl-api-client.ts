@@ -469,12 +469,25 @@ export class GHLApiClient {
   }
 
   /**
+   * Returns an axios request config that sends the named `v3` Version header
+   * when the client is in v3 generation mode. In v2/legacy mode it returns
+   * undefined so the client default (a dated version) is used instead.
+   *
+   * Used by hand-written methods for modules that migrated to v3
+   * (contacts, opportunities, oauth, emails, brand-boards, saas, email-isv).
+   */
+  private v3Config(): { headers: { Version: string } } | undefined {
+    const gen = this.config.apiGeneration ?? 'v3';
+    return gen === 'v3' ? { headers: { Version: 'v3' } } : undefined;
+  }
+
+  /**
    * CONTACTS API METHODS
    */
 
   /**
    * Create a new contact
-   * POST /contacts/
+   * POST /contacts/  (v3 uses the named `v3` Version header)
    */
   async createContact(contactData: GHLCreateContactRequest): Promise<GHLApiResponse<GHLContact>> {
     try {
@@ -486,7 +499,8 @@ export class GHLApiClient {
 
       const response: AxiosResponse<{ contact: GHLContact }> = await this.axiosInstance.post(
         '/contacts/',
-        payload
+        payload,
+        this.v3Config()
       );
 
       return this.wrapResponse(response.data.contact);
@@ -497,12 +511,13 @@ export class GHLApiClient {
 
   /**
    * Get contact by ID
-   * GET /contacts/{contactId}
+   * GET /contacts/{contactId}  (v3)
    */
   async getContact(contactId: string): Promise<GHLApiResponse<GHLContact>> {
     try {
       const response: AxiosResponse<{ contact: GHLContact }> = await this.axiosInstance.get(
-        `/contacts/${contactId}`
+        `/contacts/${contactId}`,
+        this.v3Config()
       );
 
       return this.wrapResponse(response.data.contact);
@@ -513,13 +528,14 @@ export class GHLApiClient {
 
   /**
    * Update existing contact
-   * PUT /contacts/{contactId}
+   * PUT /contacts/{contactId}  (v3)
    */
   async updateContact(contactId: string, updates: Partial<GHLCreateContactRequest>): Promise<GHLApiResponse<GHLContact>> {
     try {
       const response: AxiosResponse<{ contact: GHLContact; succeded: boolean }> = await this.axiosInstance.put(
         `/contacts/${contactId}`,
-        updates
+        updates,
+        this.v3Config()
       );
 
       return this.wrapResponse(response.data.contact);
@@ -530,12 +546,13 @@ export class GHLApiClient {
 
   /**
    * Delete contact
-   * DELETE /contacts/{contactId}
+   * DELETE /contacts/{contactId}  (v3)
    */
   async deleteContact(contactId: string): Promise<GHLApiResponse<{ succeded: boolean }>> {
     try {
       const response: AxiosResponse<{ succeded: boolean }> = await this.axiosInstance.delete(
-        `/contacts/${contactId}`
+        `/contacts/${contactId}`,
+        this.v3Config()
       );
 
       return this.wrapResponse(response.data);
@@ -1566,7 +1583,7 @@ export class GHLApiClient {
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     path: string,
     body?: Record<string, unknown>,
-    options?: { version?: string }
+    options?: { version?: string; app?: string }
   ): Promise<GHLApiResponse<T>> {
     try {
       const requestConfig = options?.version ? { headers: { Version: options.version } } : undefined;
@@ -1601,96 +1618,63 @@ export class GHLApiClient {
   /**
    * Search opportunities with advanced filters
    * GET /opportunities/search
+   *
+   * v3 (2026-06-11): locationId is REQUIRED and params are camelCase
+   * (pipelineId, pipelineStageId, contactId, assignedTo). v2 used snake_case.
    */
   async searchOpportunities(searchParams: GHLSearchOpportunitiesRequest): Promise<GHLApiResponse<GHLSearchOpportunitiesResponse>> {
     try {
-      // Build query parameters with exact API naming (underscores)
-      const params: any = {
-        location_id: searchParams.location_id || this.config.locationId
-      };
+      const gen = this.config.apiGeneration ?? 'v3';
+      const isV3 = gen === 'v3';
 
-      // Add optional search parameters only if they have values
-      if (searchParams.q && searchParams.q.trim()) {
-        params.q = searchParams.q.trim();
-      }
+      // v3 requires locationId; v2 falls back to config.locationId.
+      const locationId = isV3
+        ? (searchParams.locationId || searchParams.location_id || this.config.locationId)
+        : (searchParams.location_id || this.config.locationId);
 
-      if (searchParams.pipeline_id) {
-        params.pipeline_id = searchParams.pipeline_id;
-      }
+      const params: any = isV3
+        ? { locationId }
+        : { location_id: locationId };
 
-      if (searchParams.pipeline_stage_id) {
-        params.pipeline_stage_id = searchParams.pipeline_stage_id;
-      }
+      // Add optional search parameters only if they have values.
+      // Accept both v3 (camelCase) and v2 (snake_case) inputs for graceful migration.
+      const q = searchParams.q;
+      if (q && String(q).trim()) params.q = String(q).trim();
 
-      if (searchParams.contact_id) {
-        params.contact_id = searchParams.contact_id;
-      }
+      const pipelineId = searchParams.pipelineId ?? searchParams.pipeline_id;
+      if (pipelineId) params[isV3 ? 'pipelineId' : 'pipeline_id'] = pipelineId;
 
-      if (searchParams.status) {
-        params.status = searchParams.status;
-      }
+      const pipelineStageId = searchParams.pipelineStageId ?? searchParams.pipeline_stage_id;
+      if (pipelineStageId) params[isV3 ? 'pipelineStageId' : 'pipeline_stage_id'] = pipelineStageId;
 
-      if (searchParams.assigned_to) {
-        params.assigned_to = searchParams.assigned_to;
-      }
+      const contactId = searchParams.contactId ?? searchParams.contact_id;
+      if (contactId) params[isV3 ? 'contactId' : 'contact_id'] = contactId;
 
-      if (searchParams.campaignId) {
-        params.campaignId = searchParams.campaignId;
-      }
+      const assignedTo = searchParams.assignedTo ?? searchParams.assigned_to;
+      if (assignedTo) params[isV3 ? 'assignedTo' : 'assigned_to'] = assignedTo;
 
-      if (searchParams.id) {
-        params.id = searchParams.id;
-      }
+      if (searchParams.status) params.status = searchParams.status;
+      if (searchParams.campaignId) params.campaignId = searchParams.campaignId;
+      if (searchParams.id) params.id = searchParams.id;
+      if (searchParams.order) params.order = searchParams.order;
+      if (searchParams.endDate) params.endDate = searchParams.endDate;
+      if (searchParams.startAfter) params.startAfter = searchParams.startAfter;
+      if (searchParams.startAfterId) params.startAfterId = searchParams.startAfterId;
+      if (searchParams.date) params.date = searchParams.date;
+      if (searchParams.country) params.country = searchParams.country;
+      if (searchParams.page) params.page = searchParams.page;
+      if (searchParams.limit) params.limit = searchParams.limit;
+      if (searchParams.getTasks !== undefined) params.getTasks = searchParams.getTasks;
+      if (searchParams.getNotes !== undefined) params.getNotes = searchParams.getNotes;
+      if (searchParams.getCalendarEvents !== undefined) params.getCalendarEvents = searchParams.getCalendarEvents;
 
-      if (searchParams.order) {
-        params.order = searchParams.order;
-      }
+      process.stderr.write(`[GHL API] Search opportunities params (${gen}): ${JSON.stringify(params, null, 2)}\n`);
 
-      if (searchParams.endDate) {
-        params.endDate = searchParams.endDate;
-      }
-
-      if (searchParams.startAfter) {
-        params.startAfter = searchParams.startAfter;
-      }
-
-      if (searchParams.startAfterId) {
-        params.startAfterId = searchParams.startAfterId;
-      }
-
-      if (searchParams.date) {
-        params.date = searchParams.date;
-      }
-
-      if (searchParams.country) {
-        params.country = searchParams.country;
-      }
-
-      if (searchParams.page) {
-        params.page = searchParams.page;
-      }
-
-      if (searchParams.limit) {
-        params.limit = searchParams.limit;
-      }
-
-      if (searchParams.getTasks !== undefined) {
-        params.getTasks = searchParams.getTasks;
-      }
-
-      if (searchParams.getNotes !== undefined) {
-        params.getNotes = searchParams.getNotes;
-      }
-
-      if (searchParams.getCalendarEvents !== undefined) {
-        params.getCalendarEvents = searchParams.getCalendarEvents;
-      }
-
-      process.stderr.write(`[GHL API] Search opportunities params: ${JSON.stringify(params, null, 2)}\n`);
-
+      // v3 sends the named version header; v2 uses the client default.
+      const requestConfig = isV3 ? { headers: { Version: 'v3' }, params } : { params };
       const response: AxiosResponse<GHLSearchOpportunitiesResponse> = await this.axiosInstance.get(
         '/opportunities/search',
-        { params }
+        requestConfig
       );
 
       return this.wrapResponse(response.data);
@@ -1702,7 +1686,7 @@ export class GHLApiClient {
         data: axiosError.response?.data,
         message: axiosError.message
       }, null, 2)}\n`);
-      
+
       throw this.handleApiError(axiosError);
     }
   }

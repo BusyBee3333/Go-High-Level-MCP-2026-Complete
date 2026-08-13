@@ -50,13 +50,15 @@ describe('onboarding documentation and scripts', () => {
       'mcp-apps/README.md',
     ];
 
+    // v3 (named version, released 2026-06-11) is the current default.
     for (const file of files) {
       const contents = read(file);
-      expect(contents).toContain('GHL_API_VERSION=2023-02-21');
+      expect(contents).toContain('GHL_API_VERSION=v3');
     }
 
-    expect(read('README.md')).toContain('not the project year');
-    expect(read('scripts/ghl-mcp.mjs')).toContain('not the project year');
+    // The docs explain that the version is a named identifier, not a year/date.
+    expect(read('README.md')).toContain('not a date');
+    expect(read('scripts/ghl-mcp.mjs')).toContain('not a date');
   });
 
   it('keeps .env.example aligned with setup environment variables', () => {

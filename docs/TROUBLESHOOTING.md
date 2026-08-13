@@ -19,10 +19,10 @@ Add the HighLevel sub-account Location ID to `.env`.
 Keep:
 
 ```bash
-GHL_API_VERSION=2023-02-21
+GHL_API_VERSION=v3
 ```
 
-This is the HighLevel API `Version` header, not the project year.
+This is the HighLevel API `Version` header — a named version released 2026-06-11, not a date. Most modules use `v3`; ad-publishing and Conversations keep their own dated headers, routed automatically.
 
 ## Build Output Missing
 

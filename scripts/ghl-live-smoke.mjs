@@ -3,7 +3,9 @@
 const baseUrl = process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com';
 const apiKey = process.env.GHL_API_KEY;
 const locationId = process.env.GHL_LOCATION_ID;
-const version = process.env.GHL_API_VERSION || '2023-02-21';
+// v3 is the current named API version. Ad-publishing and Conversations keep
+// their own dated headers, but the smoke checks below only hit v3 modules.
+const version = process.env.GHL_API_VERSION || 'v3';
 const timeoutMs = Number(process.env.GHL_LIVE_SMOKE_TIMEOUT_MS || 15000);
 const runWrites = process.env.GHL_LIVE_WRITE_SMOKE === '1';
 
@@ -23,16 +25,17 @@ const areaStats = new Map();
 trackArea(locationCheck.area, locationResult.ok);
 const companyId = process.env.GHL_COMPANY_ID || locationResult.data?.location?.companyId || locationResult.data?.companyId;
 
+// Read checks target v3 endpoints. The v2 /emails/public/v2/* paths are
+// deprecated/removed in v3 and are no longer smoked.
 const readChecks = [
   { name: 'contacts-search', method: 'POST', path: '/contacts/search', area: 'contacts', body: { locationId, pageLimit: 1 } },
   { name: 'users-search', method: 'GET', path: `/users/search?companyId=${encodeURIComponent(companyId || '')}&locationId=${encodeURIComponent(locationId)}&limit=1`, area: 'users' },
-  { name: 'email-v2-campaigns', method: 'GET', path: `/emails/public/v2/locations/${encodeURIComponent(locationId)}/campaigns/emails?limit=1`, area: 'emails-v2' },
-  { name: 'email-v2-workflow-campaigns', method: 'GET', path: `/emails/public/v2/locations/${encodeURIComponent(locationId)}/campaigns/workflows?limit=1`, area: 'emails-v2' },
-  { name: 'email-v2-bulk-action-campaigns', method: 'GET', path: `/emails/public/v2/locations/${encodeURIComponent(locationId)}/campaigns/bulk-actions?limit=1`, area: 'emails-v2' },
-  { name: 'email-v2-templates', method: 'GET', path: `/emails/public/v2/locations/${encodeURIComponent(locationId)}/templates?limit=1`, area: 'emails-v2' },
+  { name: 'email-v3-campaigns', method: 'GET', path: `/emails/locations/${encodeURIComponent(locationId)}/campaigns/emails?limit=1`, area: 'emails-v3' },
+  { name: 'email-v3-templates', method: 'GET', path: `/emails/locations/${encodeURIComponent(locationId)}/templates?limit=1`, area: 'emails-v3' },
   { name: 'calendars', method: 'GET', path: `/calendars/?locationId=${encodeURIComponent(locationId)}`, area: 'calendars' },
   { name: 'products', method: 'GET', path: `/products/?locationId=${encodeURIComponent(locationId)}&limit=1`, area: 'products' },
   { name: 'opportunities-pipelines', method: 'GET', path: `/opportunities/pipelines?locationId=${encodeURIComponent(locationId)}`, area: 'opportunities' },
+  { name: 'opportunities-search-v3', method: 'GET', path: `/opportunities/search?locationId=${encodeURIComponent(locationId)}&limit=1`, area: 'opportunities' },
 ];
 
 const writeChecks = [];

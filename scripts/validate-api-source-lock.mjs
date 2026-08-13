@@ -14,8 +14,11 @@ const lock = JSON.parse(readFileSync(lockPath, 'utf8'));
 const coverage = JSON.parse(readFileSync(coveragePath, 'utf8'));
 const failures = [];
 
-check(lock.schemaVersion === 1, 'api source lock schemaVersion must be 1');
-check(lock.primaryApiVersion === '2023-02-21', 'primary API version must stay pinned to 2023-02-21');
+// schemaVersion 1 = v2-only lock (pre-v3). schemaVersion 2 = v3-aware lock.
+check(lock.schemaVersion === 2, 'api source lock schemaVersion must be 2 (v3-aware)');
+// v3 is the canonical named version; v2-mode still works via GHL_API_GENERATION=v2.
+check(lock.primaryApiVersion === 'v3', 'primary API version must be the named v3 version');
+check(lock.apiGenerationDefault === 'v3', 'api generation default must be v3');
 check(lock.officialDocs?.repo === coverage.official?.repo, 'official docs repo mismatch');
 check(lock.officialDocs?.commit === coverage.official?.commit, 'official docs commit mismatch');
 check(lock.officialDocs?.tag === coverage.official?.tag, 'official docs tag mismatch');

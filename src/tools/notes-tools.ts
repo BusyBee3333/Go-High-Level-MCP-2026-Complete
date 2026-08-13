@@ -1,6 +1,12 @@
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { GHLToolClient } from './ghl-tool-client.js';
 
+/**
+ * The top-level Notes module (2026-04-21 changelog) is a v3 API surface, so
+ * every call carries the named `v3` Version header.
+ */
+const NOTES_VERSION = 'v3';
+
 const NOTE_TOOLS: Tool[] = [
   {
     name: 'create_note',
@@ -114,21 +120,21 @@ export class NotesTools {
   async handleToolCall(toolName: string, args: Record<string, unknown>): Promise<unknown> {
     switch (toolName) {
       case 'create_note':
-        return this.ghlClient.makeRequest('POST', '/notes/', this.body(args));
+        return this.ghlClient.makeRequest('POST', '/notes/', this.body(args), { version: NOTES_VERSION });
       case 'search_notes':
-        return this.ghlClient.makeRequest('POST', '/notes/search', this.body(args));
+        return this.ghlClient.makeRequest('POST', '/notes/search', this.body(args), { version: NOTES_VERSION });
       case 'get_note':
-        return this.ghlClient.makeRequest('GET', `/notes/${this.id(args)}`);
+        return this.ghlClient.makeRequest('GET', `/notes/${this.id(args)}`, undefined, { version: NOTES_VERSION });
       case 'update_note':
-        return this.ghlClient.makeRequest('PUT', `/notes/${this.id(args)}`, this.body(args));
+        return this.ghlClient.makeRequest('PUT', `/notes/${this.id(args)}`, this.body(args), { version: NOTES_VERSION });
       case 'delete_note':
-        return this.ghlClient.makeRequest('DELETE', `/notes/${this.id(args)}`);
+        return this.ghlClient.makeRequest('DELETE', `/notes/${this.id(args)}`, undefined, { version: NOTES_VERSION });
       case 'update_note_attachments':
-        return this.ghlClient.makeRequest('PATCH', `/notes/${this.id(args)}/attachments`, this.body(args));
+        return this.ghlClient.makeRequest('PATCH', `/notes/${this.id(args)}/attachments`, this.body(args), { version: NOTES_VERSION });
       case 'update_note_relations':
-        return this.ghlClient.makeRequest('PUT', `/notes/${this.id(args)}/relations`, this.body(args));
+        return this.ghlClient.makeRequest('PUT', `/notes/${this.id(args)}/relations`, this.body(args), { version: NOTES_VERSION });
       case 'restore_note':
-        return this.ghlClient.makeRequest('POST', `/notes/${this.id(args)}/restore`, this.body(args));
+        return this.ghlClient.makeRequest('POST', `/notes/${this.id(args)}/restore`, this.body(args), { version: NOTES_VERSION });
       default:
         throw new Error(`Unknown notes tool: ${toolName}`);
     }

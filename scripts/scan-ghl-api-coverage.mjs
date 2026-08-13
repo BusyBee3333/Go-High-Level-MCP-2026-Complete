@@ -12,8 +12,57 @@ const defaultDocsDir = join(repoRoot, 'tmp', 'highlevel-api-docs');
 const defaultReportPath = join(repoRoot, 'docs', 'GHL-API-COVERAGE-REPORT.md');
 const defaultJsonPath = join(repoRoot, 'docs', 'ghl-api-coverage.json');
 const defaultLockPath = join(repoRoot, 'docs', 'api-sources.lock.json');
-const sourceVerifiedDate = '2026-06-10';
+const sourceVerifiedDate = '2026-08-07';
+/** The current canonical GHL API version (named, released 2026-06-11). */
+const PRIMARY_API_VERSION = 'v3';
 const httpMethods = new Set(['get', 'post', 'put', 'patch', 'delete']);
+
+/**
+ * Canonical app-name aliases. The v2 and v3 OpenAPI specs sometimes use
+ * different app names for the same product (e.g. `ad-manager` in apps/ vs
+ * `ad-publishing` in apps/v3/; `social-media-posting` vs `social-planner`;
+ * `saas-api` vs `saas`). Mapping these to a single canonical name lets the
+ * supersession logic recognize that a v2 endpoint and a v3 endpoint describe
+ * the same operation, so the v2 duplicate can be hidden in v3 mode.
+ */
+const APP_NAME_ALIASES = {
+  'ad-manager': 'ad-publishing',
+  'saas-api': 'saas',
+  // NOTE: social-media-posting is NOT aliased to social-planner. The v3 spec
+  // keeps the /social-media-posting/oauth/* paths unchanged, so those are
+  // genuinely current endpoints, not renames.
+};
+function canonicalApp(app) {
+  return APP_NAME_ALIASES[app] || app;
+}
+
+/**
+ * Endpoints removed in v3 (per the 2026-06-11 changelog) that have NO v3
+ * replacement at the same path. These are flagged removedInV3 so the registry
+ * hides them in v3 mode (they're retained for v2/legacy compatibility).
+ * Path renames are expressed as [from, to] pairs so the old path is treated
+ * as superseded by the new path.
+ */
+const V3_REMOVED_PATHS = new Set([
+  'GET /contacts/',
+  'GET /users/',
+]);
+const V3_RENAMED_PATHS = [
+  // [method, oldPath, newPath] — old path is superseded by the new one in v3.
+  ['DELETE', '/contacts/{contactId}/campaigns/removeAll', '/contacts/{contactId}/campaigns/remove-all'],
+  ['POST', '/oauth/locationToken', '/oauth/location-token'],
+  ['GET', '/oauth/locationToken', '/oauth/location-token'],
+  ['GET', '/oauth/installedLocations', '/oauth/installed-locations'],
+  // v3 dropped the -v2 suffix on the facebook ads upsert endpoint.
+  ['PUT', '/ad-publishing/facebook/ads-v2', '/ad-publishing/facebook/ads'],
+];
+
+// Live-docs supplemental endpoints: these are documented on the GHL docs site
+// but have not yet been published into the OpenAPI spec files in the docs repo.
+// The Email Campaign V2 endpoints below are DEPRECATED in v3 (superseded by
+// the /emails/locations/{locationId}/... suite in apps/v3/emails-v3.json) but
+// are retained here for v2/legacy compatibility. They are all marked
+// deprecated=true and pinned to the v2 version header at the merge site below.
 const supplementalOfficialEndpoints = [
   {
     method: 'POST',
@@ -127,6 +176,48 @@ const supplementalOfficialEndpoints = [
     summary: 'Get Campaign Statistics V2',
     sourceFile: 'live-docs:ghl/emails/get-campaign-stats-under-campaigns-v-2',
   },
+  // ── Opportunities pipelines CRUD (2026-06-26 changelog) ─────────────────
+  // Live on the docs site (sitemap confirms create/get/update/delete-pipeline
+  // pages) but not yet in apps/v3/opportunities-v3.json. Modeled from the live
+  // docs; will be reconciled when the spec catches up.
+  {
+    method: 'POST',
+    path: '/opportunities/pipelines/',
+    app: 'opportunities',
+    operationId: 'create-pipeline',
+    summary: 'Create a pipeline (v3, live-docs)',
+    sourceFile: 'live-docs:ghl/opportunities/create-pipeline',
+    versions: ['v3'],
+  },
+  {
+    method: 'GET',
+    path: '/opportunities/pipelines/{pipelineId}',
+    app: 'opportunities',
+    operationId: 'get-pipeline',
+    summary: 'Get a pipeline by ID (v3, live-docs)',
+    sourceFile: 'live-docs:ghl/opportunities/get-pipeline',
+    versions: ['v3'],
+  },
+  {
+    method: 'PUT',
+    path: '/opportunities/pipelines/{pipelineId}',
+    app: 'opportunities',
+    operationId: 'update-pipeline',
+    summary: 'Update a pipeline by ID (v3, live-docs)',
+    sourceFile: 'live-docs:ghl/opportunities/update-pipeline',
+    versions: ['v3'],
+  },
+  {
+    method: 'DELETE',
+    path: '/opportunities/pipelines/{pipelineId}',
+    app: 'opportunities',
+    operationId: 'delete-pipeline',
+    summary: 'Delete a pipeline by ID (v3, live-docs)',
+    sourceFile: 'live-docs:ghl/opportunities/delete-pipeline',
+    versions: ['v3'],
+  },
+  // NOTE: /saas/allow-attach-rebilling/{locationId} is already in
+  // apps/v3/saas-v3.json, so it does not need a live-docs supplemental entry.
 ];
 
 const args = parseArgs(process.argv.slice(2));
@@ -141,9 +232,33 @@ const official = extractOfficialEndpoints(docsDir);
 const local = extractLocalEndpoints(join(repoRoot, 'src'));
 const changelogFindings = [
   {
+    date: '2026-06-11',
+    area: 'v3 release',
+    change: 'Major v3 migration: named "v3" Version header introduced for contacts, opportunities, oauth, emails, brand-boards, saas, email-isv. GET /contacts/ and GET /users/ removed. OAuth went camelCase. /oauth/installedLocations and /oauth/locationToken removed (replaced by kebab-case). New Agency-Access-Only and Location-Access-Only security schemes. Full emails v3 suite (/emails/locations/{locationId}/...) and brand-boards brand-voices suite added.',
+    source: 'https://marketplace.gohighlevel.com/docs/Changelog/index.html',
+  },
+  {
+    date: '2026-08-06',
+    area: 'SaaS',
+    change: 'GET /saas/locations now requires companyId query parameter; customerId and subscriptionId became optional.',
+    source: 'https://marketplace.gohighlevel.com/docs/Changelog/index.html',
+  },
+  {
+    date: '2026-06-26',
+    area: 'Opportunities',
+    change: 'Pipeline CRUD endpoints added: POST/DELETE/GET/PUT /opportunities/pipelines and /opportunities/pipelines/{pipelineId}.',
+    source: 'https://marketplace.gohighlevel.com/docs/Changelog/index.html',
+  },
+  {
+    date: '2026-06-18',
+    area: 'Ad Publishing / SaaS',
+    change: 'Added GET /ad-publishing/facebook/campaigns/{campaignId}/publishing-progress (the only ad-publishing endpoint on v3) and POST /saas/allow-attach-rebilling/{locationId}.',
+    source: 'https://marketplace.gohighlevel.com/docs/Changelog/index.html',
+  },
+  {
     date: '2026-04-28',
-    area: 'Users',
-    change: 'GET /users/ endpoint deprecated',
+    area: 'Users/Contacts',
+    change: 'GET /users/ and GET /contacts/ deprecated (removed in v3 on 2026-06-11).',
     source: 'https://marketplace.gohighlevel.com/docs/Changelog/index.html',
   },
   {
@@ -157,12 +272,6 @@ const changelogFindings = [
     area: 'Users/Scopes',
     change: 'New user scope enum values added for audit logs, location management, and payments settings',
     source: 'https://marketplace.gohighlevel.com/docs/Changelog/index.html',
-  },
-  {
-    date: 'Recent product changelog',
-    area: 'Emails',
-    change: 'Email Campaign V2 APIs introduced; future email campaign improvements focus on V2 endpoints',
-    source: 'https://ideas.gohighlevel.com/changelog/new-improved-email-marketing-public-apis',
   },
 ];
 
@@ -241,23 +350,77 @@ function normalizeGitUrl(url) {
 function extractOfficialEndpoints(dir) {
   const appsDir = join(dir, 'apps');
   const endpoints = [];
+  const seenV3Keys = new Set();
 
+  // ── v3 tier: apps/v3/*.json ────────────────────────────────────────────
+  // Read v3 first so we can mark the v2 counterparts as superseded when both
+  // exist for the same method+path. v3 specs declare `versions: ['v3']`.
+  const v3Dir = join(appsDir, 'v3');
+  if (existsSync(v3Dir)) {
+    for (const file of readdirSync(v3Dir).filter((name) => name.endsWith('.json')).sort()) {
+      const appName = file.replace(/-v3\.json$/, '').replace(/\.json$/, '');
+      const spec = readSpec(join(v3Dir, file));
+      if (!spec) continue;
+      for (const [path, operations] of Object.entries(spec.paths ?? {})) {
+        for (const [method, operation] of Object.entries(operations ?? {})) {
+          if (!httpMethods.has(method.toLowerCase())) continue;
+          const key = makeKey(method, path);
+          seenV3Keys.add(key);
+          endpoints.push({
+            key,
+            method: method.toUpperCase(),
+            path,
+            normalizedPath: normalizePath(path),
+            app: appName,
+            operationId: operation.operationId ?? '',
+            summary: operation.summary ?? '',
+            versions: extractVersions(operation),
+            scopes: extractScopes(operation),
+            securitySchemes: extractSecuritySchemes(operation),
+            deprecated: Boolean(operation.deprecated),
+            specTier: 'v3',
+            sourceFile: `apps/v3/${file}`,
+          });
+        }
+      }
+    }
+  }
+
+  // ── v2 tier: apps/*.json (top-level only; v3/ is handled above) ─────────
   for (const file of readdirSync(appsDir).filter((name) => name.endsWith('.json')).sort()) {
     const appName = file.replace(/\.json$/, '');
-    const spec = JSON.parse(readFileSync(join(appsDir, file), 'utf8'));
+    const spec = readSpec(join(appsDir, file));
+    if (!spec) continue;
     for (const [path, operations] of Object.entries(spec.paths ?? {})) {
       for (const [method, operation] of Object.entries(operations ?? {})) {
         if (!httpMethods.has(method.toLowerCase())) continue;
+        const key = makeKey(method, path);
+        const methodUpper = method.toUpperCase();
+        // A v2 endpoint is superseded in v3 if:
+        //  (a) a v3 spec covers the exact method+path, OR
+        //  (b) the path was renamed in v3 (old path → new path), OR
+        //  (c) the endpoint was removed outright in v3 (no replacement).
+        const exactMatch = seenV3Keys.has(key);
+        const rename = V3_RENAMED_PATHS.find(([m, from]) => m === methodUpper && from === path);
+        const removed = V3_REMOVED_PATHS.has(`${methodUpper} ${path}`);
+        const supersededByV3 = Boolean(exactMatch || rename || removed);
         endpoints.push({
-          key: makeKey(method, path),
-          method: method.toUpperCase(),
+          key,
+          method: methodUpper,
           path,
           normalizedPath: normalizePath(path),
           app: appName,
+          canonicalApp: canonicalApp(appName),
           operationId: operation.operationId ?? '',
           summary: operation.summary ?? '',
           versions: extractVersions(operation),
           scopes: extractScopes(operation),
+          securitySchemes: extractSecuritySchemes(operation),
+          // If superseded, the v2 entry is hidden in v3 mode by the registry.
+          deprecated: Boolean(operation.deprecated) || supersededByV3,
+          supersededByV3,
+          removedInV3: removed,
+          specTier: 'v2',
           sourceFile: `apps/${file}`,
         });
       }
@@ -272,14 +435,25 @@ function extractOfficialEndpoints(dir) {
     app: endpoint.app,
     operationId: endpoint.operationId,
     summary: endpoint.summary,
-    versions: ['2023-02-21'],
+    versions: endpoint.versions ?? [PRIMARY_API_VERSION],
     scopes: [],
+    securitySchemes: [],
+    deprecated: endpoint.deprecated ?? false,
+    specTier: 'live-docs',
     sourceFile: endpoint.sourceFile,
   })));
 
   const commit = runGit(['rev-parse', 'HEAD'], dir);
   const tag = safeGit(['describe', '--tags', '--always'], dir);
   return { repo: docsRepoUrl, commit, tag, endpoints };
+}
+
+function readSpec(file) {
+  try {
+    return JSON.parse(readFileSync(file, 'utf8'));
+  } catch {
+    return null;
+  }
 }
 
 function extractVersions(operation) {
@@ -301,6 +475,20 @@ function extractScopes(operation) {
     }
   }
   return [...scopes].sort();
+}
+
+/**
+ * Capture the security scheme *names* (the keys of each security requirement
+ * object), e.g. `Agency-Access-Only`, `Location-Access-Only`, `bearer`.
+ * These drive the v3 access-level preflight. Distinct from extractScopes,
+ * which only captures the scope strings inside each scheme.
+ */
+function extractSecuritySchemes(operation) {
+  const schemes = new Set();
+  for (const security of operation.security ?? []) {
+    for (const name of Object.keys(security)) schemes.add(name);
+  }
+  return [...schemes].sort();
 }
 
 function extractLocalEndpoints(srcDir) {
@@ -396,7 +584,13 @@ function listFiles(dir) {
 }
 
 function compareEndpoints(officialEndpoints, localEndpoints) {
-  const officialByKey = groupBy(officialEndpoints, (endpoint) => endpoint.key);
+  // For coverage purposes, a superseded v2 entry (same method+path exists in
+  // the v3 tier) is not counted as a separate official endpoint — the v3
+  // entry is the source of truth in v3 mode. The v2 entry is still emitted
+  // to the registry so it can be surfaced in v2/legacy mode.
+  const countedOfficial = officialEndpoints.filter((endpoint) => !endpoint.supersededByV3);
+
+  const officialByKey = groupBy(countedOfficial, (endpoint) => endpoint.key);
   const localByKey = groupBy(localEndpoints, (endpoint) => endpoint.key);
   const officialKeys = new Set(officialByKey.keys());
   const localKeys = new Set(localByKey.keys());
@@ -412,7 +606,7 @@ function compareEndpoints(officialEndpoints, localEndpoints) {
     .map((key) => localByKey.get(key)[0]);
 
   const byApp = {};
-  for (const endpoint of officialEndpoints) {
+  for (const endpoint of countedOfficial) {
     byApp[endpoint.app] ??= { official: 0, covered: 0, missing: 0 };
     byApp[endpoint.app].official += 1;
     if (localKeys.has(endpoint.key)) byApp[endpoint.app].covered += 1;
@@ -439,15 +633,19 @@ function buildSourceLock({ official, comparison }) {
       app: endpoint.app,
       operationId: endpoint.operationId,
       source: endpoint.sourceFile,
-      version: endpoint.versions?.[0] || '2023-02-21',
+      version: endpoint.versions?.[0] || PRIMARY_API_VERSION,
       verifiedDate: sourceVerifiedDate,
     }))
     .sort((a, b) => `${a.method} ${a.path}`.localeCompare(`${b.method} ${b.path}`));
 
+  const v3EndpointCount = official.endpoints.filter((e) => e.specTier === 'v3').length;
+  const v2EndpointCount = official.endpoints.filter((e) => e.specTier === 'v2').length;
+
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     verifiedDate: sourceVerifiedDate,
-    primaryApiVersion: '2023-02-21',
+    primaryApiVersion: PRIMARY_API_VERSION,
+    apiGenerationDefault: 'v3',
     officialDocs: {
       repo: official.repo,
       branch: 'main',
@@ -455,6 +653,8 @@ function buildSourceLock({ official, comparison }) {
       tag: official.tag,
       expectedEndpointReferences: official.endpoints.length,
       expectedUniqueEndpoints: comparison.officialUniqueCount,
+      v3Endpoints: v3EndpointCount,
+      v2Endpoints: v2EndpointCount,
     },
     liveDocsSupplemental: {
       expectedEndpointReferences: supplemental.length,
@@ -546,14 +746,14 @@ ${formatEndpointList(localOnlyHighRisk)}
 
 ## Recommended Update Plan
 
-1. Keep the scanner pointed at both the official GitHub OpenAPI fragments and live-docs supplemental endpoints that have not landed in the GitHub repo yet.
-2. Make \`GHL_API_VERSION\` configurable in all server entry points and keep endpoint-specific overrides for APIs that still require older version headers.
-3. Mark deprecated \`GET /users/\` behavior clearly in user-facing docs/tool descriptions while preserving compatibility as long as the official spec still lists it.
-4. Keep the first-class top-level Notes module in place for the 2026-04-21 changelog endpoints, and reconcile it against the official spec once those endpoints land in the docs repo.
-5. Keep Email Campaign V2 tools under \`/emails/public/v2/*\` as live-docs supplemental coverage until HighLevel publishes them in \`apps/emails.json\`.
-6. Update OAuth/private-integration scope documentation for new audit-log, location-management, and payment-settings scopes.
-7. Manually inspect local-only campaign, workflow, OAuth, and trigger endpoints. If they are internal/private APIs, mark them clearly in tool descriptions and README so users know their stability profile.
-8. Add targeted tests for live-docs supplemental modules using the current official path, method, version header, and required query/body fields.
+1. The scanner now reads both the v2 (\`apps/*.json\`) and v3 (\`apps/v3/*-v3.json\`) OpenAPI fragments. v3 endpoints (named \`v3\` version header) are the source of truth; superseded v2 entries are retained for legacy/v2-mode visibility.
+2. Ad-publishing stays on the legacy \`2021-07-28\` version header for 94 of 95 endpoints (only the publishing-progress endpoint uses \`v3\`). The per-endpoint version router in \`src/clients/version-router.ts\` handles this automatically.
+3. Conversations remain on \`2021-04-15\` — unchanged in v3.
+4. \`GET /contacts/\` and \`GET /users/\` are removed in v3; callers must use \`POST /contacts/search\` and the users search endpoints instead. The hand-written contact/user tools route accordingly in v3 mode.
+5. OAuth migrated to camelCase (\`clientId\`, \`accessToken\`, ...) and new kebab-case paths (\`/oauth/installed-locations\`, \`/oauth/location-token\`). The old camelCase paths were removed without deprecation.
+6. New modules covered: top-level \`/notes/\`, opportunities pipelines CRUD, \`/saas/allow-attach-rebilling/{locationId}\`, brand-boards v3 brand-voices, and the full \`/emails/locations/{locationId}/...\` v3 email suite.
+7. Two new security schemes (\`Agency-Access-Only\`, \`Location-Access-Only\`) are captured per endpoint as \`securitySchemes\` and drive the access-level preflight in \`OfficialSpecTools\`.
+8. Email Campaign V2 supplemental endpoints are retained but marked deprecated (superseded by the v3 email suite).
 
 ## Full Machine-Readable Output
 

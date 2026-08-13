@@ -114,7 +114,7 @@ function getDoctorResult() {
     check('coverage report', Boolean(coverage), 'docs/ghl-api-coverage.json', 'Run npm run scan:ghl-api only if generated coverage artifacts are missing or intentionally refreshed.'),
     check('GHL_API_KEY', Boolean(process.env.GHL_API_KEY), mask(process.env.GHL_API_KEY), 'Add GHL_API_KEY to .env. Use a HighLevel private integration or OAuth access token.'),
     check('GHL_LOCATION_ID', Boolean(process.env.GHL_LOCATION_ID), process.env.GHL_LOCATION_ID || 'missing', 'Add GHL_LOCATION_ID to .env. In HighLevel this is the sub-account Location ID.'),
-    check('GHL_API_VERSION', Boolean(process.env.GHL_API_VERSION || '2023-02-21'), process.env.GHL_API_VERSION || '2023-02-21', 'Keep 2023-02-21 unless HighLevel publishes a new required Version header.'),
+    check('GHL_API_VERSION', Boolean(process.env.GHL_API_VERSION || 'v3'), process.env.GHL_API_VERSION || 'v3', 'v3 is the current HighLevel API version. Most modules use "v3"; ad-publishing and Conversations keep their own dated headers, routed automatically.'),
   ];
 
   if (coverage) {
@@ -135,7 +135,7 @@ function getDoctorResult() {
       needsHumanAction: checks.filter((item) => ['GHL_API_KEY', 'GHL_LOCATION_ID'].includes(item.name) && !item.ok).length,
     },
     checks,
-    apiVersionNote: 'GHL_API_VERSION=2023-02-21 is the HighLevel API Version header, not the project year. Do not change it to 2026 unless HighLevel publishes a new required API version.',
+    apiVersionNote: 'GHL_API_VERSION=v3 is the HighLevel API Version header (a named version released 2026-06-11, not a date). Most modules use "v3"; ad-publishing keeps 2021-07-28 and Conversations keep 2021-04-15, routed automatically per endpoint. Set GHL_API_GENERATION=v2 to opt into the legacy pre-v3 surface.',
   };
 }
 
@@ -315,7 +315,7 @@ async function authCheck() {
   const apiKey = requireEnv('GHL_API_KEY');
   const locationId = requireEnv('GHL_LOCATION_ID');
   const baseUrl = process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com';
-  const version = process.env.GHL_API_VERSION || '2023-02-21';
+  const version = process.env.GHL_API_VERSION || 'v3';
   const response = await fetch(`${baseUrl}/locations/${encodeURIComponent(locationId)}`, {
     method: 'GET',
     headers: {
@@ -382,7 +382,7 @@ function envTemplate() {
   console.log(`GHL_API_KEY=your_private_integration_api_key
 GHL_LOCATION_ID=your_location_id
 GHL_BASE_URL=https://services.leadconnectorhq.com
-GHL_API_VERSION=2023-02-21
+GHL_API_VERSION=v3
 MCP_SERVER_PORT=8000
 NODE_ENV=development`);
 }
@@ -509,7 +509,7 @@ async function getInventory() {
   const client = new EnhancedGHLClient({
     accessToken: process.env.GHL_API_KEY || 'tooling-token',
     baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-    version: process.env.GHL_API_VERSION || '2023-02-21',
+    version: process.env.GHL_API_VERSION || 'v3',
     locationId: process.env.GHL_LOCATION_ID || 'tooling-location',
   });
   return new ToolRegistry(client).getToolInventory();
@@ -530,7 +530,7 @@ function readGhlConfig() {
   return {
     accessToken: requireEnv('GHL_API_KEY'),
     baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-    version: process.env.GHL_API_VERSION || '2023-02-21',
+    version: process.env.GHL_API_VERSION || 'v3',
     locationId: requireEnv('GHL_LOCATION_ID'),
   };
 }
@@ -635,7 +635,7 @@ function cliPath() {
 }
 
 function apiVersionNote() {
-  return 'GHL_API_VERSION=2023-02-21 is the HighLevel API Version header, not the project year; do not change it to 2026 unless HighLevel publishes a new required API version.';
+  return 'GHL_API_VERSION=v3 is the HighLevel API Version header (a named version released 2026-06-11, not a date). Most modules use "v3"; ad-publishing keeps 2021-07-28 and Conversations keep 2021-04-15, routed automatically. Set GHL_API_GENERATION=v2 for the legacy pre-v3 surface.';
 }
 
 function buildConfig(client, profile, buildOptions = {}) {
@@ -650,7 +650,7 @@ function buildConfig(client, profile, buildOptions = {}) {
           GHL_API_KEY: '${GHL_API_KEY}',
           GHL_LOCATION_ID: buildOptions.inlineEnv ? (process.env.GHL_LOCATION_ID || '${GHL_LOCATION_ID}') : '${GHL_LOCATION_ID}',
           GHL_BASE_URL: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-          GHL_API_VERSION: process.env.GHL_API_VERSION || '2023-02-21',
+          GHL_API_VERSION: process.env.GHL_API_VERSION || 'v3',
           GHL_TOOL_PROFILE: profile,
         },
       },

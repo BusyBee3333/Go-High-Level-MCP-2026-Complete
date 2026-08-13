@@ -25,7 +25,7 @@ class GHLMCPServer {
 
   constructor() {
     this.server = new Server(
-      { name: 'ghl-mcp-server', version: '2.0.0' },
+      { name: 'ghl-mcp-server', version: '3.0.0' },
       { capabilities: { tools: {} } }
     );
     this.ghlClient = this.initializeGHLClient();
@@ -34,11 +34,16 @@ class GHLMCPServer {
   }
 
   private initializeGHLClient(): GHLApiClient {
+    const apiGeneration = (process.env.GHL_API_GENERATION === 'v2' ? 'v2' : 'v3') as 'v3' | 'v2';
     const config: GHLConfig = {
       accessToken: process.env.GHL_API_KEY || '',
       baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-      version: process.env.GHL_API_VERSION || '2023-02-21',
-      locationId: process.env.GHL_LOCATION_ID || ''
+      version: process.env.GHL_API_VERSION || 'v3',
+      locationId: process.env.GHL_LOCATION_ID || '',
+      apiGeneration,
+      userType: process.env.GHL_USER_TYPE === 'Company' || process.env.GHL_USER_TYPE === 'Location'
+        ? process.env.GHL_USER_TYPE
+        : undefined,
     };
 
     if (!config.accessToken) throw new Error('GHL_API_KEY environment variable is required');
@@ -46,7 +51,7 @@ class GHLMCPServer {
 
     process.stderr.write('[GHL MCP] Initializing GHL API client...\n');
     process.stderr.write(`[GHL MCP] Base URL: ${config.baseUrl}\n`);
-    process.stderr.write(`[GHL MCP] Version: ${config.version}\n`);
+    process.stderr.write(`[GHL MCP] Version: ${config.version} (generation: ${apiGeneration})\n`);
     process.stderr.write(`[GHL MCP] Location ID: ${config.locationId}\n`);
     return new GHLApiClient(config);
   }

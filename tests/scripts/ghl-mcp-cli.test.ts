@@ -53,7 +53,7 @@ describe('ghl-mcp onboarding CLI', () => {
     expect(payload.profile).toBe('curated');
     expect(server.args[0]).toBe(join(repoRoot, 'dist', 'server.js'));
     expect(server.env).toMatchObject({
-      GHL_API_VERSION: '2023-02-21',
+      GHL_API_VERSION: 'v3',
       GHL_TOOL_PROFILE: 'curated',
     });
   });

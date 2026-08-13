@@ -64,7 +64,8 @@ describe('ghl-live-smoke', () => {
 
       expect(result.status).toBe(1);
       expect(result.stdout).toContain('fail location [locations; GET] HTTP 401');
-      expect(result.stdout).toContain('Live smoke complete: 0/10 checks passed.');
+      // location + 8 read checks = 9 total
+      expect(result.stdout).toContain('Live smoke complete: 0/9 checks passed.');
       expect(result.stdout).toContain('By area:');
       expect(result.stdout).toContain('- locations: 0/1');
     } finally {

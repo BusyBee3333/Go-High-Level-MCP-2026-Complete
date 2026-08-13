@@ -28,10 +28,10 @@ Add your credentials to `.env`:
 GHL_API_KEY=your_private_integration_api_key
 GHL_LOCATION_ID=your_location_id
 GHL_BASE_URL=https://services.leadconnectorhq.com
-GHL_API_VERSION=2023-02-21
+GHL_API_VERSION=v3
 ```
 
-`GHL_API_VERSION=2023-02-21` is the current HighLevel API `Version` header used by official docs. It is not the project year, and it should not be changed to 2026 unless HighLevel publishes a new required API version.
+`GHL_API_VERSION=v3` is the current HighLevel API `Version` header — a named version released 2026-06-11, not a date. Most modules use `v3`; ad-publishing keeps `2021-07-28` and Conversations keep `2021-04-15`, routed automatically per endpoint. Set `GHL_API_GENERATION=v2` to opt into the legacy pre-v3 surface. See [docs/V3-MIGRATION.md](docs/V3-MIGRATION.md) for details.
 
 Then verify live auth:
 
@@ -162,13 +162,14 @@ Start agents with the curated profile and prefer these high-level tools before r
 
 ## API Coverage
 
-- Official GHL endpoints parsed: `590`
-- Official endpoint coverage: `590 / 590`
-- Generated official endpoint tools: `238`
-- MCP tools in registry: `848`
-- Local-only endpoint references tracked for review: `253`
+- Official GHL endpoints parsed: `1221` (v3: 627, v2: 576, live-docs: 18)
+- Unique official endpoints (v3 + non-superseded v2): `681`
+- Official endpoint coverage: `681 / 681` (100%)
+- Generated official endpoint tools: `545`
+- MCP tools in registry: `943`
+- Local-only / compatibility endpoints under review: `253`
 
-Generated coverage artifacts live in `docs/`. Run `npm run scan:ghl-api` only when intentionally refreshing API coverage.
+The scanner reads both the v2 (`apps/*.json`) and v3 (`apps/v3/*-v3.json`) OpenAPI fragments. v3 endpoints are the source of truth; superseded v2 entries are retained for `GHL_API_GENERATION=v2` legacy mode.
 
 ## Safety
 

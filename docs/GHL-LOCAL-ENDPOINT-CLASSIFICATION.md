@@ -6,13 +6,13 @@ Every local-only endpoint is classified into one of the implementation-plan cate
 
 ## Summary
 
-- Total local-only endpoint references: 253
+- Total local-only endpoint references: 251
 - Official but scanner-missed candidates: 24
 - Live-docs supplemental candidates: 0
 - Legacy but still useful: 141
-- Private/internal and unstable: 61
-- Deprecated or compatibility aliases: 17
-- Needs manual review: 10
+- Private/internal and unstable: 55
+- Deprecated or compatibility aliases: 18
+- Needs manual review: 13
 
 ## Official But Scanner-Missed Candidates
 
@@ -199,21 +199,15 @@ These should remain available for compatibility, but their descriptions should m
 
 These should remain opt-in or clearly labeled because they appear private, internal, marketplace-specific, or less stable than public REST APIs.
 
-- `DELETE /integrations/{param}` (src/tools/oauth-tools.ts)
-- `DELETE /oauth/api-keys/{param}` (src/tools/oauth-tools.ts)
 - `DELETE /phone-numbers/caller-id/{param}` (src/tools/phone-tools.ts)
 - `DELETE /phone-numbers/ivr/{param}` (src/tools/phone-tools.ts)
 - `DELETE /phone-numbers/voicemail/{param}` (src/tools/phone-tools.ts)
 - `DELETE /phone-numbers/{param}` (src/tools/phone-tools.ts)
 - `DELETE /phone-system/numbers/{param}` (src/tools/phone-system-tools.ts)
 - `GET /custom-menus/${qs ` (src/tools/custom-menus-tools.ts)
-- `GET /integrations/connected` (src/tools/oauth-tools.ts)
 - `GET /marketplace/app/{param}/installations${qs ` (src/tools/marketplace-tools.ts)
 - `GET /marketplace/billing/charges${qs ` (src/tools/marketplace-tools.ts)
-- `GET /oauth/api-keys` (src/tools/oauth-tools.ts)
-- `GET /oauth/apps` (src/tools/oauth-tools.ts)
-- `GET /oauth/apps/{param}` (src/tools/oauth-tools.ts)
-- `GET /oauth/locationToken` (src/tools/oauth-tools.ts)
+- `GET /oauth/installedLocations` (src/tools/official-spec-endpoints.json)
 - `GET /phone-numbers/` (src/tools/phone-tools.ts)
 - `GET /phone-numbers/available` (src/tools/phone-tools.ts)
 - `GET /phone-numbers/caller-id` (src/tools/phone-tools.ts)
@@ -241,7 +235,7 @@ These should remain opt-in or clearly labeled because they appear private, inter
 - `GET /snapshots/{param}/push/{param}` (src/tools/snapshots-tools.ts)
 - `PATCH /phone-system/numbers/{param}` (src/tools/phone-system-tools.ts)
 - `PATCH /phone-system/numbers/{param}/forwarding` (src/tools/phone-system-tools.ts)
-- `POST /oauth/api-keys` (src/tools/oauth-tools.ts)
+- `POST /oauth/locationToken` (src/tools/official-spec-endpoints.json)
 - `POST /phone-numbers/` (src/tools/phone-tools.ts)
 - `POST /phone-numbers/caller-id` (src/tools/phone-tools.ts)
 - `POST /phone-numbers/caller-id/{param}/verify` (src/tools/phone-tools.ts)
@@ -269,6 +263,7 @@ These should be preserved only as aliases/wrappers where useful, with newer offi
 - `DELETE /campaigns/scheduled-messages/{param}` (src/tools/campaigns-tools.ts)
 - `DELETE /campaigns/{param}` (src/tools/campaigns-tools.ts)
 - `DELETE /contacts/{param}/campaigns` (src/clients/ghl-api-client.ts)
+- `DELETE /contacts/{contactId}/campaigns/removeAll` (src/tools/official-spec-endpoints.json)
 - `GET /affiliates/campaigns` (src/tools/affiliates-tools.ts)
 - `GET /affiliates/campaigns/{param}` (src/tools/affiliates-tools.ts)
 - `GET /campaigns/scheduled-messages` (src/tools/campaigns-tools.ts)
@@ -286,8 +281,10 @@ These should be preserved only as aliases/wrappers where useful, with newer offi
 ## Needs Manual Review
 
 - `GET /calendars/groups/slug/validate` (src/clients/ghl-api-client.ts)
+- `GET /contacts/` (src/tools/official-spec-endpoints.json)
 - `GET /contacts/smart-lists` (src/tools/smartlists-tools.ts)
 - `GET /locations/` (src/clients/ghl-api-client.ts)
+- `GET /users/` (src/tools/official-spec-endpoints.json)
 - `PATCH /email-isv/providers/default` (src/tools/email-isv-tools.ts)
 - `POST /calendars/blocked-slots` (src/clients/ghl-api-client.ts)
 - `POST /contacts/business/bulk` (src/clients/ghl-api-client.ts)
@@ -295,3 +292,4 @@ These should be preserved only as aliases/wrappers where useful, with newer offi
 - `POST /contacts/tags/bulk` (src/clients/ghl-api-client.ts)
 - `POST /email-isv/domains` (src/tools/email-isv-tools.ts)
 - `POST /surveys/` (src/tools/survey-tools.ts)
+- `PUT /ad-publishing/facebook/ads-v2` (src/tools/official-spec-endpoints.json)

@@ -30,11 +30,16 @@ function log(level: LogLevel, msg: string, data?: Record<string, unknown>) {
 }
 
 function readConfig(): GHLConfig {
+  const apiGeneration = (process.env.GHL_API_GENERATION === 'v2' ? 'v2' : 'v3') as 'v3' | 'v2';
   const config: GHLConfig = {
     accessToken: process.env.GHL_API_KEY || '',
     baseUrl: process.env.GHL_BASE_URL || 'https://services.leadconnectorhq.com',
-    version: process.env.GHL_API_VERSION || '2023-02-21',
+    version: process.env.GHL_API_VERSION || 'v3',
     locationId: process.env.GHL_LOCATION_ID || '',
+    apiGeneration,
+    userType: process.env.GHL_USER_TYPE === 'Company' || process.env.GHL_USER_TYPE === 'Location'
+      ? process.env.GHL_USER_TYPE
+      : undefined,
   };
 
   if (!config.accessToken) throw new Error('GHL_API_KEY is required');
@@ -44,7 +49,7 @@ function readConfig(): GHLConfig {
 
 function createMcpServer(client: EnhancedGHLClient): McpServer {
   const server = new McpServer(
-    { name: 'ghl-mcp-server', version: '2.0.0' },
+    { name: 'ghl-mcp-server', version: '3.0.0' },
     { capabilities: { tools: {} } }
   );
   new ToolRegistry(client).registerAll(server);
@@ -134,7 +139,7 @@ async function main() {
   app.get('/', (_req, res) => {
     res.json({
       name: 'GoHighLevel MCP Server',
-      version: '2.0.0',
+      version: '3.0.0',
       status: 'running',
       uptime: Math.floor((Date.now() - startTime) / 1000),
       endpoints: {
@@ -155,7 +160,7 @@ async function main() {
     res.json({
       status: 'healthy',
       server: 'ghl-mcp-server',
-      version: '2.0.0',
+      version: '3.0.0',
       uptime: Math.floor((Date.now() - startTime) / 1000),
       timestamp: new Date().toISOString(),
       tools: toolCount,
@@ -171,7 +176,7 @@ async function main() {
   app.get('/capabilities', (_req, res) => {
     res.json({
       capabilities: { tools: {} },
-      server: { name: 'ghl-mcp-server', version: '2.0.0' },
+      server: { name: 'ghl-mcp-server', version: '3.0.0' },
       transport: ['streamable-http', 'sse'],
     });
   });

@@ -5,10 +5,16 @@ export interface GHLToolConfig {
   baseUrl?: string;
   version?: string;
   locationId: string;
+  /** API generation toggle (v3 default, v2 legacy). */
+  apiGeneration?: 'v3' | 'v2';
+  /** Token/user type for access-level preflight. */
+  userType?: 'Location' | 'Company';
 }
 
 export interface GHLToolRequestOptions {
   version?: string;
+  /** App/module name (informational; used for logging/cache scoping). */
+  app?: string;
 }
 
 export interface GHLToolResponse<T = any> {

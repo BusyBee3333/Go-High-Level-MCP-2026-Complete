@@ -1,52 +1,52 @@
 # GoHighLevel MCP API Dashboard
 
-Generated from official GHL docs commit: ae4d260
+Generated from official GHL docs commit: 0af86a4
 
 ## Coverage
 
 - Official GHL docs source: https://github.com/GoHighLevel/highlevel-api-docs.git
-- Official docs commit: ae4d260
-- Official endpoints parsed: 590
-- Official endpoints covered: 590
+- Official docs commit: 0af86a4
+- Official endpoints parsed: 675
+- Official endpoints covered: 675
 - Coverage: 100%
-- MCP tools in registry: 848
-- Read tools: 419
-- Write tools: 321
-- Delete/destructive tools: 108
-- Local-only endpoint references tracked: 253
+- MCP tools in registry: 937
+- Read tools: 448
+- Write tools: 371
+- Delete/destructive tools: 118
+- Local-only endpoint references tracked: 251
 
 ## Stability Tiers
 
-- Official OpenAPI tools: 237
-- Live-docs supplemental tools: 14
-- Legacy-compatible tools: 486
+- Official OpenAPI tools: 300
+- Live-docs supplemental tools: 11
+- Legacy-compatible tools: 497
 - Private/internal unstable tools: 87
-- Deprecated/compatibility tools: 24
+- Deprecated/compatibility tools: 42
 
 ## Largest Tool Categories
 
 | Category | Tools |
 | --- | ---: |
-| official-ad-manager | 94 |
+| official-ad-publishing | 95 |
+| agent-workspace | 43 |
 | calendar | 39 |
+| official-calendars | 33 |
 | courses | 32 |
-| agent-workspace | 32 |
 | contacts | 31 |
+| official-social-planner | 29 |
 | locations | 27 |
-| official-social-media-posting | 24 |
+| official-emails | 25 |
+| official-saas | 24 |
 | payments | 22 |
-| official-saas-api | 21 |
 | conversations | 20 |
 | phone-numbers | 20 |
+| official-social-media-posting | 20 |
 | social-media | 19 |
 | invoices | 18 |
 | templates | 18 |
 | stores | 17 |
 | affiliates | 17 |
 | reputation | 15 |
-| phone-system | 15 |
-| official-calendars | 15 |
-| workflows | 14 |
 
 ## Maintenance Commands
 

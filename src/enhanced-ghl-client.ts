@@ -160,9 +160,9 @@ export class EnhancedGHLClient extends GHLApiClient {
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     path: string,
     body?: Record<string, unknown>,
-    options?: { version?: string }
+    options?: { version?: string; app?: string }
   ): Promise<GHLApiResponse<T>> {
-    // Cache GET requests
+    // Cache GET requests (include version in key so v2/v3 responses never collide)
     if (method === 'GET') {
       const cacheKey = `${method}:${options?.version || this.getConfig().version}:${path}`;
       const cached = this.cache.get<GHLApiResponse<T>>(cacheKey);
@@ -189,7 +189,7 @@ export class EnhancedGHLClient extends GHLApiClient {
     method: string,
     path: string,
     body?: Record<string, unknown>,
-    options?: { version?: string },
+    options?: { version?: string; app?: string },
     attempt = 0
   ): Promise<GHLApiResponse<T>> {
     const MAX_RETRIES = 3;

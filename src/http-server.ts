@@ -68,7 +68,7 @@ class GHLMCPHttpServer {
 
   private createSSEServer(): Server {
     const server = new Server(
-      { name: 'ghl-mcp-server', version: '2.0.0' },
+      { name: 'ghl-mcp-server', version: '3.0.0' },
       { capabilities: { tools: {} } }
     );
     const allTools = this.registry.getAllToolDefinitions();
@@ -100,7 +100,7 @@ class GHLMCPHttpServer {
       res.json({
         status: 'healthy',
         server: 'ghl-mcp-server',
-        version: '2.0.0',
+        version: '3.0.0',
         transport: 'sse',
         timestamp: new Date().toISOString(),
         tools: this.registry.getToolCount()
@@ -110,7 +110,7 @@ class GHLMCPHttpServer {
     this.app.get('/capabilities', (_req, res) => {
       res.json({
         capabilities: { tools: {} },
-        server: { name: 'ghl-mcp-server', version: '2.0.0' }
+        server: { name: 'ghl-mcp-server', version: '3.0.0' }
       });
     });
 
@@ -158,7 +158,7 @@ class GHLMCPHttpServer {
     this.app.get('/', (_req, res) => {
       res.json({
         name: 'GoHighLevel MCP Server (Legacy SSE)',
-        version: '2.0.0',
+        version: '3.0.0',
         status: 'running',
         endpoints: {
           health: '/health',

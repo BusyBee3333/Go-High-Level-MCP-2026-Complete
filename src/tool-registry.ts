@@ -495,11 +495,45 @@ export class ToolRegistry {
     const source = ((tool as any)._meta?.labels?.source || '').toString();
     const isCurated = category === 'agent-workspace' || source === 'curated-agent-workspace';
     const stability = inferToolStability(tool);
+
+    // v3/v2 generation gating: hide endpoints that don't belong in the
+    // active generation. In v3 mode, deprecated v2 endpoints superseded by a
+    // v3 equivalent are hidden (they're still registered, just not exposed).
+    // In v2 mode, v3-only endpoints are hidden. This implements the
+    // "v3 default, v2 behind a flag" behavior.
+    const generation = (process.env.GHL_API_GENERATION === 'v2' ? 'v2' : 'v3');
+    const official = (tool as any)._meta?.official || {};
+    const specTier = official.specTier;
+    const superseded = official.supersededBy === 'v3';
+    if (generation === 'v3' && superseded) return false;
+    if (generation === 'v2' && specTier === 'v3' && !this.isV3EndpointAlsoInV2(name)) return false;
+
     if (this.profile === 'curated') return isCurated;
     if (this.profile === 'raw') return !isCurated;
     if (this.profile === 'official') return stability === 'official' || stability === 'live-docs-supplemental';
     if (this.profile === 'stable') return isCurated || stability === 'official' || stability === 'live-docs-supplemental' || stability === 'legacy-compatible';
     return true;
+  }
+
+  /**
+   * Whether a v3-spec-tier endpoint also has a v2 counterpart registered (i.e.
+   * it existed before v3 and is safe to call in v2 mode). v3-only endpoints
+   * (e.g. brand-boards brand-voices, the v3 email suite) have no v2 form and
+   * are hidden in v2/legacy mode.
+   */
+  private isV3EndpointAlsoInV2(name: string): boolean {
+    const tool = this.allToolDefs.find((item) => item.name === name);
+    if (!tool) return false;
+    const official = (tool as any)._meta?.official || {};
+    const path = String(official.path || '');
+    const method = String(official.method || '').toUpperCase();
+    // An endpoint is "also in v2" if any other registered tool shares its
+    // method+path AND has specTier v2 (i.e. the v2 spec also declared it).
+    return this.allToolDefs.some((other) => {
+      if (other.name === name) return false;
+      const o = (other as any)._meta?.official || {};
+      return o.specTier === 'v2' && o.path === path && String(o.method || '').toUpperCase() === method;
+    });
   }
 }
 

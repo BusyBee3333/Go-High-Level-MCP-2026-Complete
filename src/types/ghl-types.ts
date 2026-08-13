@@ -1,28 +1,110 @@
 /**
  * TypeScript interfaces for GoHighLevel API integration
- * Based on official OpenAPI specifications v2021-07-28 (Contacts) and v2021-04-15 (Conversations)
+ * Based on official OpenAPI specifications: v3 (named) for most modules,
+ * 2021-07-28 (ad-publishing) and 2021-04-15 (Conversations) legacy versions.
  */
+
+/**
+ * Which generation of the GHL API the client should target.
+ * - `v3` (default): prefers the named `v3` Version header for modules that
+ *   support it (contacts, opportunities, oauth, emails, brand-boards, saas,
+ *   email-isv), while still using legacy dates for modules that have not been
+ *   version-bumped (e.g. ad-publishing stays on 2021-07-28, Conversations on
+ *   2021-04-15).
+ * - `v2`: legacy behavior. Uses dated Version headers only and surfaces the
+ *   pre-v3 endpoint set (used as an opt-in compatibility mode).
+ */
+export type GHLApiGeneration = 'v3' | 'v2';
+
+/**
+ * The token/user type, as reported by the OAuth flow. Used by the
+ * access-level preflight (Agency-Access-Only / Location-Access-Only) to
+ * reject mismatched tokens before the API does.
+ */
+export type GHLUserType = 'Location' | 'Company';
 
 // Base GHL API Configuration
 export interface GHLConfig {
   accessToken: string;
   baseUrl: string;
+  /** Fallback Version header used when an endpoint does not specify its own. */
   version: string;
   locationId: string;
+  /** API generation toggle. Defaults to `v3` when unset. */
+  apiGeneration?: GHLApiGeneration;
+  /** Token/user type learned at OAuth time, for access-level preflight. */
+  userType?: GHLUserType;
 }
 
 // OAuth Token Response
+// NOTE: GHL v3 (2026-06-11) migrated the OAuth token exchange to camelCase
+// (accessToken, tokenType, expiresIn, refreshToken). The pre-v3 fields are
+// kept as optional aliases so v2/compat mode can still read them.
 export interface GHLTokenResponse {
-  access_token: string;
-  token_type: 'Bearer';
-  expires_in: number;
-  refresh_token: string;
+  // v3 (camelCase) fields — canonical
+  accessToken?: string;
+  tokenType?: 'Bearer';
+  expiresIn?: number;
+  refreshToken?: string;
   scope: string;
   userType: 'Location' | 'Company';
   locationId?: string;
   companyId: string;
   userId: string;
   planId?: string;
+  approvedLocations?: string[];
+  isBulkInstallation?: boolean;
+  installToFutureLocations?: boolean;
+  approveAllLocations?: boolean;
+  // v2 (snake_case) aliases — read when present, written only in v2 mode
+  access_token?: string;
+  token_type?: 'Bearer';
+  expires_in?: number;
+  refresh_token?: string;
+}
+
+/**
+ * OAuth token exchange request body.
+ * v3 requires camelCase (clientId, grantType, ...). v2 used snake_case.
+ * Both shapes are accepted; the client sends the right one based on generation.
+ */
+export interface GHLTokenRequest {
+  clientId?: string;
+  clientSecret?: string;
+  grantType?: string;
+  refreshToken?: string;
+  userType?: GHLUserType;
+  redirectUri?: string;
+  // v2 snake_case aliases
+  client_id?: string;
+  client_secret?: string;
+  grant_type?: string;
+  refresh_token?: string;
+  user_type?: string;
+  redirect_uri?: string;
+}
+
+/**
+ * Normalizes a token response into canonical v3 camelCase fields regardless
+ * of which casing the API returned. Useful for compatibility with v2 tokens.
+ */
+export function normalizeTokenResponse(raw: GHLTokenResponse): GHLTokenResponse {
+  return {
+    accessToken: raw.accessToken ?? raw.access_token,
+    tokenType: raw.tokenType ?? raw.token_type,
+    expiresIn: raw.expiresIn ?? raw.expires_in,
+    refreshToken: raw.refreshToken ?? raw.refresh_token,
+    scope: raw.scope,
+    userType: raw.userType,
+    locationId: raw.locationId,
+    companyId: raw.companyId,
+    userId: raw.userId,
+    planId: raw.planId,
+    approvedLocations: raw.approvedLocations,
+    isBulkInstallation: raw.isBulkInstallation,
+    installToFutureLocations: raw.installToFutureLocations,
+    approveAllLocations: raw.approveAllLocations,
+  };
 }
 
 // Contact Interfaces - Exact from OpenAPI
@@ -964,11 +1046,26 @@ export interface GHLGetPipelinesResponse {
 // Search Opportunities Request
 export interface GHLSearchOpportunitiesRequest {
   q?: string; // query string
-  location_id: string; // Note: underscore format as per API
+  /** v3 (camelCase). v2 used location_id. Either is accepted; locationId is required in v3. */
+  locationId?: string;
+  /** v2 (snake_case) alias. */
+  location_id?: string;
+  /** v3 (camelCase). */
+  pipelineId?: string;
+  /** v2 (snake_case) alias. */
   pipeline_id?: string;
+  /** v3 (camelCase). */
+  pipelineStageId?: string;
+  /** v2 (snake_case) alias. */
   pipeline_stage_id?: string;
+  /** v3 (camelCase). */
+  contactId?: string;
+  /** v2 (snake_case) alias. */
   contact_id?: string;
   status?: GHLOpportunityStatus;
+  /** v3 (camelCase). */
+  assignedTo?: string;
+  /** v2 (snake_case) alias. */
   assigned_to?: string;
   campaignId?: string;
   id?: string;

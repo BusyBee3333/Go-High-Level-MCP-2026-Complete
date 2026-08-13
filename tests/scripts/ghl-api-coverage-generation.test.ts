@@ -17,12 +17,14 @@ describe('GHL API coverage generation', () => {
     expect(source).toContain('live-docs:ghl/emails/get-campaign-stats-under-campaigns-v-2');
   });
 
-  it('reports exactly the June 10 2026 live-docs supplemental Email V2 endpoints', () => {
+  it('reports the live-docs supplemental endpoints (Email V2 legacy + v3 live-docs additions)', () => {
     const coverage = JSON.parse(readFileSync(join(repoRoot, 'docs', 'ghl-api-coverage.json'), 'utf8'));
     const supplemental = coverage.official.endpoints.filter((endpoint: any) => endpoint.sourceFile?.startsWith('live-docs:'));
 
-    expect(supplemental).toHaveLength(14);
-    expect(new Set(supplemental.map((endpoint: any) => `${endpoint.method} ${endpoint.path}`))).toEqual(new Set([
+    // The Email Campaign V2 supplemental endpoints (deprecated in v3) are retained.
+    const emailV2 = supplemental.filter((e: any) => e.path.startsWith('/emails/public/v2/'));
+    expect(emailV2).toHaveLength(14);
+    expect(new Set(emailV2.map((endpoint: any) => `${endpoint.method} ${endpoint.path}`))).toEqual(new Set([
       'POST /emails/public/v2/locations/{locationId}/campaigns/email-campaign',
       'GET /emails/public/v2/locations/{locationId}/campaigns/emails',
       'PATCH /emails/public/v2/locations/{locationId}/campaigns/{campaignId}',
@@ -38,6 +40,15 @@ describe('GHL API coverage generation', () => {
       'PATCH /emails/public/v2/locations/{locationId}/templates/{templateId}',
       'GET /emails/public/v2/locations/{locationId}/campaigns/stats/{source}/{sourceId}',
     ]));
+
+    // v3 live-docs additions (not yet in the OpenAPI spec files): opportunities
+    // pipelines CRUD (2026-06-26). /saas/allow-attach-rebilling is already in
+    // apps/v3/saas-v3.json so it is not a live-docs supplemental entry.
+    const v3LiveDocs = supplemental.filter((e: any) => e.versions?.includes('v3'));
+    expect(v3LiveDocs.length).toBeGreaterThanOrEqual(4);
+    const v3Paths = new Set(v3LiveDocs.map((e: any) => `${e.method} ${e.path}`));
+    expect(v3Paths.has('POST /opportunities/pipelines/')).toBe(true);
+    expect(v3Paths.has('DELETE /opportunities/pipelines/{pipelineId}')).toBe(true);
   });
 
   it('keeps the API source lock consistent with generated coverage', () => {
@@ -45,8 +56,10 @@ describe('GHL API coverage generation', () => {
     const lock = JSON.parse(readFileSync(join(repoRoot, 'docs', 'api-sources.lock.json'), 'utf8'));
     const supplemental = coverage.official.endpoints.filter((endpoint: any) => endpoint.sourceFile?.startsWith('live-docs:'));
 
-    expect(lock.verifiedDate).toBe('2026-06-10');
-    expect(lock.primaryApiVersion).toBe('2023-02-21');
+    // v3-aware lock: schemaVersion 2, primary version is the named "v3".
+    expect(lock.schemaVersion).toBe(2);
+    expect(lock.primaryApiVersion).toBe('v3');
+    expect(lock.apiGenerationDefault).toBe('v3');
     expect(lock.officialDocs.commit).toBe(coverage.official.commit);
     expect(lock.officialDocs.expectedEndpointReferences).toBe(coverage.official.endpoints.length);
     expect(lock.liveDocsSupplemental.expectedEndpointReferences).toBe(supplemental.length);
@@ -54,6 +67,23 @@ describe('GHL API coverage generation', () => {
       expectedMissingOfficialEndpoints: 0,
       expectedCoveragePercent: 100,
     });
+  });
+
+  it('captures v3 and v2 spec tiers alongside access levels from security schemes', () => {
+    const endpoints = JSON.parse(readFileSync(join(repoRoot, 'src', 'tools', 'official-spec-endpoints.json'), 'utf8'));
+
+    // v3 spec tier endpoints are present and carry the v3 version.
+    const v3Endpoints = endpoints.filter((e: any) => e.specTier === 'v3');
+    expect(v3Endpoints.length).toBeGreaterThan(0);
+
+    // Ad-publishing endpoints keep their legacy 2021-07-28 version even in the v3 spec tier.
+    const adReporting = endpoints.find((e: any) => e.name === 'official_ad_publishing_fb_get_reporting');
+    expect(adReporting).toBeDefined();
+    expect(adReporting.versions).toContain('2021-07-28');
+
+    // Access levels are derived from security schemes.
+    const accessLevels = new Set(endpoints.map((e: any) => e.accessLevel));
+    expect(accessLevels.has('any')).toBe(true);
   });
 
   it('generates official-spec tools for supplemental Templates V2 and Statistics V2 pages', () => {
@@ -81,7 +111,8 @@ describe('GHL API coverage generation', () => {
     const names = endpoints.map((endpoint: any) => endpoint.name);
 
     expect(names.every((name: string) => name.length <= 64)).toBe(true);
-    expect(names).toContain('official_ad_manager_fb_get_reporting');
+    // v3 spec uses the "ad-publishing" app name; the v2 "ad-manager" alias may also appear.
+    expect(names.some((n: string) => n.startsWith('official_ad_publishing_fb_get_reporting'))).toBe(true);
     expect(names).not.toContain('official_payments_custom_provider_marketplace_app_update_capabilities');
     expect(names).toContain('official_payments_custom_provider_marketplace_app_update_9a8c6e');
   });

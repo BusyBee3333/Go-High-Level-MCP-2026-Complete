@@ -124,8 +124,8 @@ describe('GHLApiClient', () => {
   describe('getConfig', () => {
     it('should return current configuration', () => {
       const config = ghlClient.getConfig();
-      
-      expect(config).toEqual({
+
+      expect(config).toMatchObject({
         accessToken: 'test_api_key_123',
         baseUrl: 'https://test.leadconnectorhq.com',
         locationId: 'test_location_123',
@@ -185,10 +185,11 @@ describe('GHLApiClient', () => {
 
         expect(result.success).toBe(true);
         expect(result.data.id).toBe('contact_123');
+        // v3 mode sends the named Version header alongside the payload.
         expect(mockAxiosInstance.post).toHaveBeenCalledWith('/contacts/', {
           ...contactData,
           locationId: 'test_location_123'
-        });
+        }, { headers: { Version: 'v3' } });
       });
 
       it('should handle create contact error', async () => {
@@ -213,7 +214,7 @@ describe('GHLApiClient', () => {
 
         expect(result.success).toBe(true);
         expect(result.data.id).toBe('contact_123');
-        expect(mockAxiosInstance.get).toHaveBeenCalledWith('/contacts/contact_123');
+        expect(mockAxiosInstance.get).toHaveBeenCalledWith('/contacts/contact_123', { headers: { Version: 'v3' } });
       });
     });
 

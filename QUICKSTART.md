@@ -29,10 +29,10 @@ Set these in `.env`:
 GHL_API_KEY=your_private_integration_api_key
 GHL_LOCATION_ID=your_location_id
 GHL_BASE_URL=https://services.leadconnectorhq.com
-GHL_API_VERSION=2023-02-21
+GHL_API_VERSION=v3
 ```
 
-`GHL_API_VERSION=2023-02-21` is the HighLevel API `Version` header, not the project year. Do not change it to 2026 unless HighLevel publishes a new required API version.
+`GHL_API_VERSION=v3` is the HighLevel API `Version` header — a named version released 2026-06-11, not a date. Most modules use `v3`; ad-publishing and Conversations keep their own dated headers, routed automatically. Set `GHL_API_GENERATION=v2` for the legacy pre-v3 surface.
 
 Where to find values:
 

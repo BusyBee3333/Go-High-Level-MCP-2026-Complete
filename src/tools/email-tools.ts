@@ -24,9 +24,14 @@ export class EmailTools {
 
   /**
    * Get all email tool definitions for MCP server
+   *
+   * The Email Campaign V2 tools (paths under /emails/public/v2/) are DEPRECATED
+   * in v3 (superseded by the /emails/locations/{locationId}/... suite). They
+   * are tagged `supersededBy: 'v3'` so the registry hides them in v3 mode;
+   * they remain available when GHL_API_GENERATION=v2.
    */
   getToolDefinitions(): Tool[] {
-    return [
+    const tools: Tool[] = [
       {
         name: 'get_email_campaigns',
         description: 'Get a list of email campaigns from GoHighLevel.',
@@ -347,6 +352,18 @@ export class EmailTools {
         }
       }
     ];
+
+    // Tag the deprecated v2 email campaign tools so the registry hides them
+    // in v3 generation mode (GHL_API_GENERATION defaults to v3).
+    for (const tool of tools) {
+      const path = String((tool as any)._meta?.official?.path || '');
+      if (path.startsWith('/emails/public/v2/')) {
+        ((tool as any)._meta ??= {}).official ??= {};
+        (tool as any)._meta.official.supersededBy = 'v3';
+        (tool as any)._meta.official.specTier = 'live-docs';
+      }
+    }
+    return tools;
   }
 
   /**
