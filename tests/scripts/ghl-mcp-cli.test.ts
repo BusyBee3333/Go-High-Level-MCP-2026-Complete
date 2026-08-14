@@ -11,6 +11,9 @@ function runCli(args: string[], env: NodeJS.ProcessEnv = {}) {
     cwd: repoRoot,
     env: {
       ...process.env,
+      // Keep the CLI from loading the developer's local .env; these tests
+      // must behave identically on machines with and without credentials.
+      GHL_SKIP_DOTENV: '1',
       GHL_API_KEY: '',
       GHL_LOCATION_ID: '',
       GHL_API_VERSION: '',

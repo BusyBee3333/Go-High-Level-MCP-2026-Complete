@@ -567,6 +567,10 @@ function readJson(path) {
 }
 
 function loadDotEnv() {
+  // GHL_SKIP_DOTENV lets callers (primarily tests) opt out of reading the
+  // repo .env, so a developer's real credentials cannot leak into a run that
+  // deliberately blanked its environment.
+  if (process.env.GHL_SKIP_DOTENV) return;
   const path = join(repoRoot, '.env');
   if (!existsSync(path)) return;
   for (const line of readFileSync(path, 'utf8').split(/\r?\n/)) {
