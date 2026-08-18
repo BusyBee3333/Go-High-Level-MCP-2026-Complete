@@ -239,8 +239,8 @@ const WORKSPACE_SPECS: WorkspaceToolSpec[] = [
     app: 'lead-intake',
     access: 'read',
     readPlan: [
-      { label: 'Recent form submissions', tool: 'get_form_submissions', method: 'GET', path: (_args, locationId) => `/forms/submissions?locationId=${enc(locationId)}` },
-      { label: 'Contact search', tool: 'search_contacts', method: 'GET', path: (_args, locationId) => `/contacts/search?locationId=${enc(locationId)}` },
+      { label: 'Recent form submissions', tool: 'get_form_submissions', method: 'GET', path: (_args, locationId) => `/forms/submissions?locationId=${enc(locationId)}&limit=20` },
+      { label: 'Contact search', tool: 'search_contacts', method: 'POST', path: () => '/contacts/search', body: (_args, locationId) => ({ locationId, pageLimit: 20 }) },
     ],
   },
   {
