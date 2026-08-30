@@ -1,6 +1,21 @@
 # CLI Commands
 
-Use these commands from the repository root. Keep command behavior MCP-focused: build and run the server, refresh tool coverage, and verify the exported tool surface.
+Use these commands from the repository root. The companion command manages the MCP server and the `ghl` command exposes the same registry as a direct, agent-friendly CLI.
+
+## Full Registry CLI
+
+| Command | Use |
+| --- | --- |
+| `ghl tools --profile full` | List every tool visible in the selected API generation. |
+| `ghl tools --search <text> --json` | Search names, descriptions, and categories with machine-readable output. |
+| `ghl describe <name> --json` | Return metadata plus the complete MCP input schema. |
+| `ghl call <name> --input '<json>'` | Execute any read-only tool. |
+| `ghl <name> --kebab-case-arg <value>` | Execute a tool directly with schema-aware flags. |
+| `ghl <name> ... --dry-run` | Resolve and validate arguments without contacting GHL. |
+| `ghl <name> ... --confirm` | Authorize one write/delete invocation. |
+| `ghl shell` | Start the interactive CLI shell. |
+
+Run `npm link` once to install `ghl` and `ghl-mcp` from the checkout. See [`docs/CLI.md`](../CLI.md) for input modes, credential profiles, safety behavior, and output contracts.
 
 ## Server Commands
 
@@ -31,7 +46,7 @@ Use these commands from the repository root. Keep command behavior MCP-focused: 
 | `npm run tools:explorer` | Prints the local static explorer path for browsing `docs/tool-inventory.json`. |
 | `npm run tools:configure` | Prints a Codex-compatible stdio MCP config snippet. |
 | `npm run tools:update-api` | Runs the official API refresh pipeline. |
-| `node scripts/ghl-mcp.mjs test-tool <name> '<json>'` | Executes one tool locally. Write/delete tools require `--confirm`. |
+| `node scripts/ghl-mcp.mjs test-tool <name> '<json>'` | Backward-compatible execution alias. Write/delete tools require `--confirm`. |
 
 The package also exposes `ghl-mcp` as a bin command after install or publish.
 

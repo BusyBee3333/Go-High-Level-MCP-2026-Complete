@@ -19,6 +19,7 @@ Run these from the repo root.
 | `npm run smoke:ghl-live` | Run read-only live GHL checks when credentials are present. |
 | `npm run tools:doctor` | Check local setup, build output, credentials, and API coverage state. |
 | `npm run tools:list` | List the registered MCP tools from the built registry. |
+| `npm run cli` | Start the full-registry CLI (interactive in a terminal). |
 | `npm run tools:report` | Generate `docs/API-DASHBOARD.md` and `docs/tool-inventory.json`. |
 | `npm run tools:explorer` | Print the local `docs/tool-explorer.html` path for browsing the inventory. |
 | `npm run tools:configure` | Print a stdio MCP client config snippet. |
@@ -46,6 +47,7 @@ GHL_TOOL_PROFILE=stable npm run start:stdio
 
 ## Tooling Map
 
+- [Full Registry CLI](CLI.md) covers installation, discovery, schemas, input modes, location profiles, safety, and agent usage.
 - [CLI Commands](tooling/cli-commands.md) covers server, scanner, generator, CI, and smoke commands.
 - [API Coverage Dashboard](tooling/api-coverage.md) explains `docs/GHL-API-COVERAGE-REPORT.md`, `docs/GHL-LOCAL-ENDPOINT-CLASSIFICATION.md`, `docs/api-sources.lock.json`, and `docs/ghl-api-coverage.json`.
 - [Client Config Generator](tooling/client-config-generator.md) defines the recommended generated config shapes for MCP clients.

@@ -24,4 +24,12 @@ describe('npm package release metadata', () => {
 
     expect(serverBin.startsWith('#!/usr/bin/env node\n')).toBe(true);
   });
+
+  it('publishes ghl as the full-registry CLI alias', () => {
+    const pkg = readJson('package.json');
+    const cliBin = readFileSync(join(repoRoot, pkg.bin.ghl), 'utf8');
+
+    expect(pkg.bin.ghl).toBe(pkg.bin['ghl-mcp']);
+    expect(cliBin.startsWith('#!/usr/bin/env node\n')).toBe(true);
+  });
 });

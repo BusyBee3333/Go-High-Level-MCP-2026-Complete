@@ -124,6 +124,22 @@ npm run tools:explorer
 
 The static explorer is `docs/tool-explorer.html`.
 
+## Full Registry CLI
+
+The package also exposes every visible MCP tool through the schema-driven `ghl` command. The CLI reads the live registry, so generated API refreshes do not require hand-written subcommands.
+
+```bash
+npm link
+ghl tools --search contacts --json
+ghl describe get_contact --json
+ghl get_contact --contact-id CONTACT_ID --dry-run
+ghl get_contact --contact-id CONTACT_ID
+```
+
+Tool calls accept schema-aware flags, JSON, files, or stdin and emit JSON by default. All write/delete tools require `--confirm`; `--dry-run` validates and resolves any call without contacting GHL. Use `--env-file` or `GHL_ENV_FILE` to keep location-specific credentials outside the repository.
+
+See [docs/CLI.md](docs/CLI.md) for installation, discovery, input formats, safety behavior, and agent usage.
+
 ## High-Level Agent Tools
 
 Start agents with the curated profile and prefer these high-level tools before raw endpoints:
@@ -159,6 +175,8 @@ Start agents with the curated profile and prefer these high-level tools before r
 
 | Date | Update # | Included |
 | --- | ---: | --- |
+| 2026-08-30 | 4 | Full-registry `ghl` CLI with dynamic discovery/schemas, JSON and schema-aware inputs, isolated env profiles, dry runs, write confirmation gates, and agent-friendly output. See [UPDATE_LOG.md](UPDATE_LOG.md) and [docs/CLI.md](docs/CLI.md). |
+| 2026-08-07 | 3 | v3 API migration with per-endpoint version routing, v2 compatibility mode, access-level preflight, and 100% declared current/legacy coverage. See [UPDATE_LOG.md](UPDATE_LOG.md). |
 | 2026-06-11 | 2 | Simplicity and power layer: easy setup commands, safe config writing, grouped live smoke checks, and high-level curated CRM agent tools. See [UPDATE_LOG.md](UPDATE_LOG.md) for the full permanent update description. |
 | 2026-06-11 | 1 | Onboarding and agent setup overhaul. See [UPDATE_LOG.md](UPDATE_LOG.md) for the full permanent update description. |
 

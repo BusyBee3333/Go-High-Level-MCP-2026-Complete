@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { spawnSync } from 'node:child_process';
-import { existsSync, rmSync } from 'node:fs';
+import { existsSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const repoRoot = join(__dirname, '..', '..');
@@ -19,6 +19,7 @@ function runCli(args: string[], env: NodeJS.ProcessEnv = {}) {
       GHL_API_VERSION: '',
       GHL_API_GENERATION: '',
       GHL_USER_TYPE: '',
+      GHL_TOOL_PROFILE: '',
       ...env,
     },
     encoding: 'utf8',
@@ -160,5 +161,152 @@ describe('ghl-mcp onboarding CLI', () => {
 
     rmSync(target);
     rmSync(backup);
+  });
+
+  it('discovers the complete registry and describes tool input schemas', () => {
+    const list = runCli(['tools', '--profile', 'full', '--json', '--compact']);
+    expect(list.status).toBe(0);
+    const inventory = JSON.parse(list.stdout);
+    expect(inventory.profile).toBe('full');
+    expect(inventory.count).toBeGreaterThan(900);
+    expect(inventory.tools).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: 'get_contact', access: 'read' }),
+        expect.objectContaining({ name: 'create_contact', access: 'write' }),
+      ])
+    );
+
+    const describe = runCli(['describe', 'get_contact', '--profile', 'full', '--json']);
+    expect(describe.status).toBe(0);
+    const tool = JSON.parse(describe.stdout);
+    expect(tool.inputSchema.required).toContain('contactId');
+    expect(tool.inputSchema.properties.contactId.type).toBe('string');
+    expect(tool.invocation.direct).toContain('--contact-id');
+  });
+
+  it('resolves schema-aware flags and repeated array values without making a network call', () => {
+    const read = runCli(['get_contact', '--contact-id', 'contact-123', '--dry-run', '--json', '--compact']);
+    expect(read.status).toBe(0);
+    expect(JSON.parse(read.stdout)).toMatchObject({
+      ok: true,
+      dryRun: true,
+      tool: 'get_contact',
+      arguments: { contactId: 'contact-123' },
+      wouldRequireConfirmation: false,
+    });
+
+    const write = runCli([
+      'create_contact',
+      '--email',
+      'cli-test@example.invalid',
+      '--tags',
+      'lead',
+      '--tags',
+      'website',
+      '--dry-run',
+      '--json',
+    ]);
+    expect(write.status).toBe(0);
+    expect(JSON.parse(write.stdout)).toMatchObject({
+      ok: true,
+      access: 'write',
+      arguments: {
+        email: 'cli-test@example.invalid',
+        tags: ['lead', 'website'],
+      },
+      wouldRequireConfirmation: true,
+    });
+
+    const filtered = runCli([
+      'search_conversations',
+      '--status',
+      'unread',
+      '--limit',
+      '25',
+      '--dry-run',
+      '--json',
+    ]);
+    expect(filtered.status).toBe(0);
+    expect(JSON.parse(filtered.stdout).arguments).toEqual({ status: 'unread', limit: 25 });
+  });
+
+  it('accepts JSON input and nested --set values in dry-run mode', () => {
+    const result = runCli([
+      'call',
+      'create_contact',
+      '--input',
+      '{"email":"cli-test@example.invalid"}',
+      '--set',
+      'custom.source="agent"',
+      '--dry-run',
+      '--json',
+    ]);
+
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout).arguments).toEqual({
+      email: 'cli-test@example.invalid',
+      custom: { source: 'agent' },
+    });
+  });
+
+  it('refuses write tools without confirmation before requiring credentials', () => {
+    const result = runCli(['call', 'create_contact', '--email', 'cli-test@example.invalid', '--json', '--compact']);
+
+    expect(result.status).toBe(1);
+    const payload = JSON.parse(result.stderr.split('\n').find((line) => line.startsWith('{')) || '{}');
+    expect(payload).toMatchObject({
+      ok: false,
+      tool: 'create_contact',
+      access: 'write',
+      error: { message: expect.stringContaining('--confirm') },
+    });
+  });
+
+  it('loads an explicit location profile and injects its locationId into tool input', () => {
+    const profilePath = join(repoRoot, 'tmp', 'test-ghl-cli.env');
+    writeFileSync(profilePath, [
+      'GHL_API_KEY=test-token-not-real',
+      'GHL_LOCATION_ID=location-from-profile',
+      'GHL_API_VERSION=v3',
+      'GHL_API_GENERATION=v3',
+      '',
+    ].join('\n'));
+
+    const result = runCli([
+      'get_location',
+      '--env-file',
+      profilePath,
+      '--dry-run',
+      '--json',
+      '--compact',
+    ]);
+
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout).arguments).toEqual({ locationId: 'location-from-profile' });
+    rmSync(profilePath);
+  });
+
+  it('validates enum and numeric constraints before contacting GHL', () => {
+    const enumResult = runCli([
+      'search_conversations',
+      '--status',
+      'not-a-real-status',
+      '--dry-run',
+      '--json',
+      '--compact',
+    ]);
+    expect(enumResult.status).toBe(1);
+    expect(enumResult.stderr).toContain('must be one of');
+
+    const numberResult = runCli([
+      'search_conversations',
+      '--limit',
+      '101',
+      '--dry-run',
+      '--json',
+      '--compact',
+    ]);
+    expect(numberResult.status).toBe(1);
+    expect(numberResult.stderr).toContain('must be at most 100');
   });
 });
