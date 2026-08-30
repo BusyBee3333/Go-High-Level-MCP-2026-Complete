@@ -73,6 +73,17 @@ curl http://localhost:8000/health
 curl http://localhost:8000/tools
 ```
 
+## Try The CLI
+
+```bash
+npm link
+ghl tools --search contacts --json
+ghl describe get_contact --json
+ghl get_contact --contact-id CONTACT_ID --dry-run
+```
+
+The CLI exposes the same registry as MCP. Reads can run directly; every write/delete invocation requires `--confirm`. See [`docs/CLI.md`](docs/CLI.md).
+
 ## Optional Apps Preview
 
 ```bash

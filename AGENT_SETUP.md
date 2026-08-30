@@ -65,6 +65,19 @@ npm run configure:windsurf
 
 Use `node scripts/ghl-mcp.mjs configure codex --profile stable` only when the human asks for a production/stable profile. Use `--profile full` only for advanced users.
 
+## Direct CLI
+
+When the agent needs shell access to the same tools, install the local command and use the registry-first workflow:
+
+```bash
+npm link
+ghl tools --search <concept> --json
+ghl describe <exact-tool-name> --json
+ghl <exact-tool-name> <arguments> --dry-run --compact
+```
+
+Use `--env-file <path>` for a location-specific credential profile. Execute reads only when they are in scope. A write or delete must be authorized and include `--confirm`; the CLI refuses it otherwise. See `docs/CLI.md`.
+
 ## Optional Apps Preview
 
 Only if requested:
@@ -88,6 +101,7 @@ Report:
 - Doctor status.
 - Auth status, if credentials were provided.
 - MCP client config generated.
+- Direct CLI install and discovery status, when requested.
 - Tool profile used.
 - Remaining human actions.
 - Confirmation that no write/destructive tools were run.
