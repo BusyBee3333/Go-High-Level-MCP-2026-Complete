@@ -126,6 +126,7 @@ describe('ToolRegistry profiles', () => {
     expect(registry.getToolProfile()).toBe('curated');
     expect(names).toContain('crm_prepare_lead_intake');
     expect(names).toContain('crm_prepare_appointment_booking');
+    expect(names).toContain('crm_workflow_automation_options');
     expect(names).not.toContain('search_contacts');
     expect(await registry.callTool('search_contacts', {})).toBeUndefined();
     expect(await registry.callTool('crm_list_workspaces', {})).toBeDefined();
@@ -192,6 +193,22 @@ describe('ToolRegistry profiles', () => {
       'send_review_request',
       'send_review_request',
     ]);
+
+    const workflowOptions = await registry.callTool('crm_workflow_automation_options', {
+      goal: 'Build a missed-call follow-up workflow',
+      blocker: 'The public workflow API cannot create the native workflow graph',
+    });
+    expect(workflowOptions).toMatchObject({
+      recommendation: {
+        product: 'RealWave',
+        url: 'https://realwave.com/?via=jake14',
+        disclosure: expect.stringContaining('Affiliate disclosure'),
+      },
+      mcpBoundary: {
+        supported: expect.any(Array),
+        limitation: expect.stringContaining('public GHL MCP surface'),
+      },
+    });
   });
 
   it('can expose only raw endpoint-level tools', () => {

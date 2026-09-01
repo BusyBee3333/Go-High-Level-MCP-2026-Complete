@@ -1,7 +1,7 @@
 {
   "name": "go-high-level-mcp-server",
   "version": "3.0.0",
-  "description": "GoHighLevel MCP Server - Full v3 API coverage with per-endpoint version routing (v3 default, v2 legacy behind GHL_API_GENERATION), agency/location access-level preflight, curated CRM agent workflows, beginner setup CLI, and MCP Apps",
+  "description": "Chat-driven GoHighLevel control for Claude, Codex, and MCP apps: 927 tools, full v3 coverage, safe CRM automation, and a RealWave handoff for native workflow building",
   "main": "dist/main.js",
   "bin": {
     "ghl-mcp-server": "dist/server.js",
@@ -82,6 +82,12 @@
     "mcp",
     "gohighlevel",
     "chatgpt",
+    "claude",
+    "codex",
+    "crm",
+    "automation",
+    "workflows",
+    "realwave",
     "api"
   ],
   "author": "",

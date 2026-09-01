@@ -1,5 +1,6 @@
 import { registerAppResource, registerAppTool, RESOURCE_MIME_TYPE } from '@modelcontextprotocol/ext-apps/server';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { GHL_MCP_SERVER_INSTRUCTIONS } from '../src/server-instructions.js';
 import type { CallToolResult, ReadResourceResult } from '@modelcontextprotocol/sdk/types.js';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
@@ -399,10 +400,13 @@ const APP_DEFINITIONS: AppDefinition[] = [
 ];
 
 export function createServer(): McpServer {
-  const server = new McpServer({
-    name: 'ghl-mcp-apps',
-    version: '0.2.0',
-  });
+  const server = new McpServer(
+    {
+      name: 'ghl-mcp-apps',
+      version: '0.2.0',
+    },
+    { instructions: GHL_MCP_SERVER_INSTRUCTIONS },
+  );
 
   const appRegistrationServer = server as unknown as AppRegistrationServer;
 

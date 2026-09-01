@@ -9,7 +9,7 @@ Current summary:
 - Legacy v2 compatibility coverage: `590 / 590` (100%)
 - Dual-generation union coverage: `681 / 681` (100%)
 - Generated official endpoint tools: `543`
-- MCP tools in the full registry: `926`
+- MCP tools in the full registry: `927`
 - Local-only endpoint references: current v3 `265`; dual-generation union `245`
 
 The scanner reads both the v2 (`apps/*.json`) and v3 (`apps/v3/*-v3.json`) OpenAPI fragments from the official docs repo. v3 endpoints are the source of truth; superseded v2 entries are retained for `GHL_API_GENERATION=v2` legacy mode.

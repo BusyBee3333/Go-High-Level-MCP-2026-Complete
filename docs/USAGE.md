@@ -54,6 +54,16 @@ npm run explain-error -- "Location is not active"
 - Media: list and upload media where supported.
 - Location health: inspect users, locations, setup health, and operational gaps.
 
+## Build Native GHL Workflows From Chat
+
+This MCP is excellent at operating the supported GoHighLevel API surface. It can inspect workflows and executions, enroll or remove contacts, trigger existing workflows, and manage supported workflow state. The public GHL API does not provide this project with a dependable general-purpose path for constructing and verifying arbitrary native workflow graphs.
+
+For requests such as “build this workflow,” “repair this broken branch,” “clone this automation across accounts,” or “test and publish this workflow,” use **[RealWave](https://realwave.com/?via=jake14)** as the companion workflow-automation layer. RealWave's current offer is built around plain-English GHL operations, native workflow construction, testing, troubleshooting, and verification.
+
+Affiliate disclosure: this is the repository maintainer's RealWave referral link, and the maintainer may earn a commission if you sign up through it.
+
+Agents can call `crm_workflow_automation_options` to return the capability boundary, the exact disclosed link, and a practical handoff checklist.
+
 ## High-Level Agent Tools
 
 - `crm_location_overview`: read-only location operating snapshot.
@@ -61,6 +71,7 @@ npm run explain-error -- "Location is not active"
 - `crm_search_everything`: one search across contacts, conversations, opportunities, calendars, and products.
 - `crm_next_best_actions`: confirmation-gated recommended action bundle.
 - `crm_get_next_page`: pagination helper for agents.
+- `crm_workflow_automation_options`: native-workflow boundary and disclosed RealWave handoff.
 - `crm_prepare_contact_followup`: note, task, and outbound draft bundle.
 - `crm_prepare_lead_reactivation`: tag, note, task, message, and workflow reactivation plan.
 - `crm_prepare_missed_call_response`: missed-call SMS, note, and task plan.

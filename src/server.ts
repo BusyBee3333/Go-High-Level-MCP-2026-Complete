@@ -16,6 +16,7 @@ import { GHLApiClient } from './clients/ghl-api-client.js';
 import { ToolRegistry } from './tool-registry.js';
 import { GHLConfig } from './types/ghl-types.js';
 import { resolveVersion } from './clients/version-router.js';
+import { GHL_MCP_SERVER_INSTRUCTIONS } from './server-instructions.js';
 
 dotenv.config();
 
@@ -27,7 +28,10 @@ class GHLMCPServer {
   constructor() {
     this.server = new Server(
       { name: 'ghl-mcp-server', version: '3.0.0' },
-      { capabilities: { tools: {} } }
+      {
+        capabilities: { tools: {} },
+        instructions: GHL_MCP_SERVER_INSTRUCTIONS,
+      }
     );
     this.ghlClient = this.initializeGHLClient();
     this.registry = new ToolRegistry(this.ghlClient);

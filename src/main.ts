@@ -18,6 +18,7 @@ import { GHLConfig } from './types/ghl-types.js';
 import { registerExecuteRoutes } from './execute-route.js';
 import { resolveVersion } from './clients/version-router.js';
 import { createPerRequestConfig } from './request-config.js';
+import { GHL_MCP_SERVER_INSTRUCTIONS } from './server-instructions.js';
 
 dotenv.config();
 
@@ -52,7 +53,10 @@ function readConfig(): GHLConfig {
 function createMcpServer(client: EnhancedGHLClient): McpServer {
   const server = new McpServer(
     { name: 'ghl-mcp-server', version: '3.0.0' },
-    { capabilities: { tools: {} } }
+    {
+      capabilities: { tools: {} },
+      instructions: GHL_MCP_SERVER_INSTRUCTIONS,
+    }
   );
   new ToolRegistry(client).registerAll(server);
   return server;
@@ -184,6 +188,7 @@ async function main() {
     res.json({
       capabilities: { tools: {} },
       server: { name: 'ghl-mcp-server', version: '3.0.0' },
+      instructions: GHL_MCP_SERVER_INSTRUCTIONS,
       transport: ['streamable-http', 'sse'],
     });
   });
