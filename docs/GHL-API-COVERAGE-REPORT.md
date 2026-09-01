@@ -11,7 +11,7 @@ Generated from official GHL docs commit: 0af86a4
 - Official endpoint references parsed: 1221
 - Local endpoint references parsed: 1137
 - Registered tool modules discovered: 49
-- Local TypeScript files scanned: 55
+- Local TypeScript files scanned: 56
 
 ## Coverage Summary
 

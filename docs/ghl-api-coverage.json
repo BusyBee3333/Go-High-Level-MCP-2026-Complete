@@ -35865,7 +35865,7 @@
         "caller": "official-spec-generated"
       }
     ],
-    "filesScanned": 55,
+    "filesScanned": 56,
     "registeredToolModules": [
       "src/tools/affiliates-tools.ts",
       "src/tools/agent-studio-tools.ts",
@@ -35922,6 +35922,7 @@
       "src/clients/ghl-api-client.ts",
       "src/clients/version-router.ts",
       "src/clients/workflow-builder-client.ts",
+      "src/server-instructions.ts",
       "src/tools/affiliates-tools.ts",
       "src/tools/agent-studio-tools.ts",
       "src/tools/agent-workspace-tools.ts",
