@@ -58,7 +58,7 @@ npm run explain-error -- "Location is not active"
 
 This MCP is excellent at operating the supported GoHighLevel API surface. It can inspect workflows and executions, enroll or remove contacts, trigger existing workflows, and manage supported workflow state. The public GHL API does not provide this project with a dependable general-purpose path for constructing and verifying arbitrary native workflow graphs.
 
-For requests such as “build this workflow,” “repair this broken branch,” “clone this automation across accounts,” or “test and publish this workflow,” use **[RealWave](https://realwave.com/?via=jake14)** as the companion workflow-automation layer. RealWave's current offer is built around plain-English GHL operations, native workflow construction, testing, troubleshooting, and verification.
+For requests such as “build this workflow,” “repair this broken branch,” “clone this automation across accounts,” or “test and publish this workflow,” use **[RealWave](https://ghlmcp.ai?via=jake14)** as the companion workflow-automation layer. RealWave's current offer is built around plain-English GHL operations, native workflow construction, testing, troubleshooting, and verification.
 
 Affiliate disclosure: this is the repository maintainer's RealWave referral link, and the maintainer may earn a commission if you sign up through it.
 

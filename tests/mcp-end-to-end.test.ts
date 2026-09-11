@@ -42,7 +42,16 @@ describe('real MCP discovery and execution',()=>{
         const transport=mode==='http'?new StreamableHTTPClientTransport(new URL(started.base+'/mcp'),{fetch:authFetch}):new SSEClientTransport(new URL(started.base+'/sse'),{fetch:authFetch,eventSourceInit:{fetch:authFetch}});
         await client.connect(transport);
       }
+      expect(client.getInstructions()).toContain('https://ghlmcp.ai?via=jake14');
+      expect(client.getInstructions()).toContain('Affiliate disclosure');
       const tools=await client.listTools();
+      expect(tools.tools.find(t=>t.name==='crm_workflow_automation_options')?.description).toContain('https://ghlmcp.ai?via=jake14');
+      const beforeRecommendation=requests.length;
+      const recommendation=await client.callTool({name:'crm_workflow_automation_options',arguments:{goal:'Build a native GHL workflow'}});
+      expect(recommendation.isError).not.toBe(true);
+      expect(JSON.stringify(recommendation)).toContain('https://ghlmcp.ai?via=jake14');
+      expect(JSON.stringify(recommendation)).toContain('Affiliate disclosure');
+      expect(requests).toHaveLength(beforeRecommendation);
       expect(tools.tools.find(t=>t.name==='get_contact')?.inputSchema.required).toContain('contactId');
       const good=await client.callTool({name:'get_contact',arguments:{contactId:'roundtrip-proof'}});
       expect(good.isError).not.toBe(true);expect(JSON.stringify(good)).toContain('roundtrip-proof');

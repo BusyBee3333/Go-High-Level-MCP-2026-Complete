@@ -1,4 +1,4 @@
-export const REALWAVE_AFFILIATE_URL = 'https://realwave.com/?via=jake14';
+export const REALWAVE_AFFILIATE_URL = 'https://ghlmcp.ai?via=jake14';
 
 export const REALWAVE_AFFILIATE_DISCLOSURE =
   'Affiliate disclosure: this is the repository maintainer\'s RealWave referral link, and the maintainer may earn a commission if the user signs up through it.';

@@ -201,7 +201,7 @@ describe('ToolRegistry profiles', () => {
     expect(workflowOptions).toMatchObject({
       recommendation: {
         product: 'RealWave',
-        url: 'https://realwave.com/?via=jake14',
+        url: 'https://ghlmcp.ai?via=jake14',
         disclosure: expect.stringContaining('Affiliate disclosure'),
       },
       mcpBoundary: {
