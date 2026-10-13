@@ -92,7 +92,7 @@ export class WorkflowBuilderTools {
             },
             actions: {
               type: 'array',
-              description: 'Array of action objects. Each has: type (string, required), name (string, required), attributes (object). For branching, set id, next (array of IDs), parentKey, cat, nodeType.',
+              description: 'Array of action objects. Each has: type (string, required), name (string, required), attributes (object). Steps are linked automatically with a single next id. For branching only, set id, next (array of branch IDs), parentKey, cat, nodeType.',
               items: {
                 type: 'object',
                 properties: {
@@ -100,7 +100,7 @@ export class WorkflowBuilderTools {
                   name: { type: 'string', description: 'Display name' },
                   attributes: { type: 'object', description: 'Action config (body, tags, delay, conditions, etc.)' },
                   id: { type: 'string', description: 'Optional UUID — auto-generated if omitted' },
-                  next: { type: 'array', items: { type: 'string' }, description: 'Next action ID(s) — auto-chained if omitted' },
+                  next: { anyOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }], description: 'Next action id (string) for linear steps; array of branch ids only on if/else or multi-path steps. Auto-chained if omitted.' },
                   parentKey: { type: 'string', description: 'Previous action ID — auto-set if omitted' },
                   cat: { type: 'string', description: 'Category (conditions, multi-path, transition)' },
                   nodeType: { type: 'string', description: 'Node type (condition-node, branch-yes, branch-no)' },
@@ -188,7 +188,7 @@ export class WorkflowBuilderTools {
                   name: { type: 'string' },
                   attributes: { type: 'object' },
                   id: { type: 'string' },
-                  next: { type: 'array', items: { type: 'string' } },
+                  next: { anyOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }] },
                   parentKey: { type: 'string' },
                   cat: { type: 'string' },
                   nodeType: { type: 'string' },

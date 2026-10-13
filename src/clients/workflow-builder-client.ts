@@ -20,7 +20,11 @@ export interface WorkflowAction {
   name: string;
   type: string;
   attributes?: Record<string, unknown>;
-  next?: string[];
+  /**
+   * Linear steps store a single next id (string). Only branch points
+   * (if/else, multi-path) store an array of branch ids.
+   */
+  next?: string | string[];
   parentKey?: string;
   parent?: string;
   cat?: string;
@@ -452,17 +456,19 @@ export class WorkflowBuilderClient {
     const clonedActions: WorkflowAction[] = sourceTemplates.map(a => {
       const remapId = (id: string) => idMap.get(id) || id;
 
-      let nextArr: string[] | undefined;
+      let next: string | string[] | undefined;
       if (Array.isArray(a.next)) {
-        nextArr = a.next.map(remapId);
+        next = a.next.map(remapId);
+      } else if (typeof a.next === 'string' && a.next) {
+        next = remapId(a.next);
       } else {
-        nextArr = undefined;
+        next = undefined;
       }
 
       return {
         ...a,
         id: a.id ? idMap.get(a.id) || randomUUID() : randomUUID(),
-        next: nextArr,
+        next,
         parentKey: a.parentKey ? remapId(a.parentKey) : undefined,
         parent: a.parent ? remapId(a.parent) : undefined,
         sibling: Array.isArray(a.sibling)
@@ -497,6 +503,23 @@ export class WorkflowBuilderClient {
    * Chain raw actions with next/parentKey linkages.
    * If actions already have next/parentKey set, preserves them (for branching).
    */
+  /** True when a step is a branch point whose `next` lists branch ids. */
+  private static isBranchPoint(a: WorkflowAction): boolean {
+    return a.type === 'if_else' || a.cat === 'conditions' || a.cat === 'multi-path';
+  }
+
+  /**
+   * Collapse a non-branch `next` to the single string id GHL expects.
+   * A single-element array becomes its element; an empty array becomes undefined.
+   * A multi-element array on a non-branch step is left as provided (caller error).
+   */
+  private static normalizeLinearNext(next: string | string[] | undefined): string | string[] | undefined {
+    if (!Array.isArray(next)) return next || undefined;
+    if (next.length === 0) return undefined;
+    if (next.length === 1) return next[0];
+    return next;
+  }
+
   private buildActionChain(rawActions: WorkflowAction[]): WorkflowAction[] {
     // First pass: assign IDs and basic structure
     const withIds = rawActions.map((a, i) => ({
@@ -512,16 +535,21 @@ export class WorkflowBuilderClient {
       const hasExplicitNext = original.next !== undefined;
       const hasExplicitParent = original.parentKey !== undefined;
 
-      let nextArr: string[] | undefined;
+      // GHL's builder accepts an array `next` only on branch points; linear
+      // steps must carry a single string id or the canvas reports
+      // "Node has \"next\" as an array but its targets are not if/else branches".
+      let next: string | string[] | undefined;
       if (hasExplicitNext) {
-        nextArr = Array.isArray(original.next) ? original.next : undefined;
+        next = WorkflowBuilderClient.isBranchPoint(original)
+          ? original.next
+          : WorkflowBuilderClient.normalizeLinearNext(original.next);
       } else if (i < arr.length - 1) {
-        nextArr = [arr[i + 1].id!];
+        next = arr[i + 1].id!;
       }
 
       return {
         ...a,
-        next: nextArr,
+        next,
         parentKey: hasExplicitParent
           ? a.parentKey
           : (i > 0 ? arr[i - 1].id : undefined),
