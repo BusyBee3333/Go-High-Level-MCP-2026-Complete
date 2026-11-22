@@ -100,7 +100,7 @@ describe('mixed-generation handwritten and composed routing', () => {
         path: '/calendars/?locationId=location-123',
         options: { version: calendarVersion },
       }));
-      expect(calls.some((call) => call.path === `/opportunities/search?${opportunityLocationKey}=location-123&status=open`)).toBe(true);
+      expect(calls.some((call) => call.path === `/opportunities/search?${opportunityLocationKey}=location-123&status=open&limit=20`)).toBe(true);
       if (generation === 'v3') {
         expect(calls.some((call) => call.path.includes('/emails/public/v2'))).toBe(false);
         expect(calls.some((call) => call.path.includes('/emails/schedule'))).toBe(false);

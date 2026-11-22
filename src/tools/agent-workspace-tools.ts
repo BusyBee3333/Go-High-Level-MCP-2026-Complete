@@ -36,6 +36,9 @@ type WorkspaceToolSpec = {
   }>;
 };
 
+const DEFAULT_OPPORTUNITY_PAGE_SIZE = 20;
+const MAX_PAGE_SIZE = 100;
+
 const CONTACT_FIELDS = {
   contactId: { type: 'string', description: 'GHL contact ID.' },
   firstName: { type: 'string' },
@@ -74,11 +77,18 @@ const WORKSPACE_SPECS: WorkspaceToolSpec[] = [
     inputProperties: {
       contactId: CONTACT_FIELDS.contactId,
       query: { type: 'string', description: 'Name, email, or phone search.' },
+      limit: { type: 'number', description: 'Page size for the contact search (default 20, max 100).' },
       includeActivity: { type: 'boolean', default: true },
     },
     readPlan: [
       { label: 'Contact profile', tool: 'get_contact', method: 'GET', path: (args) => stringArg(args.contactId) ? `/contacts/${stringArg(args.contactId)}` : undefined },
-      { label: 'Contact search', tool: 'search_contacts', method: 'GET', path: (args, locationId) => stringArg(args.query) ? `/contacts/search?locationId=${enc(locationId)}&query=${enc(stringArg(args.query))}` : undefined },
+      {
+        label: 'Contact search',
+        tool: 'search_contacts',
+        method: 'POST',
+        path: (args) => stringArg(args.query) ? '/contacts/search' : undefined,
+        body: (args, locationId) => ({ locationId, pageLimit: numberArg(args.limit) || 20, query: stringArg(args.query) }),
+      },
       { label: 'Contact tasks', tool: 'get_contact_tasks', method: 'GET', path: (args) => stringArg(args.contactId) ? `/contacts/${stringArg(args.contactId)}/tasks` : undefined },
       { label: 'Contact notes', tool: 'get_contact_notes', method: 'GET', path: (args) => stringArg(args.contactId) ? `/contacts/${stringArg(args.contactId)}/notes` : undefined },
     ],
@@ -731,6 +741,7 @@ export class AgentWorkspaceTools {
       locationId,
       confirmationRequired: proposedActions.some((item) => item.requiresConfirmation),
       readResults,
+      readWarnings: readWarnings(readResults),
       resultSummary: resultSummary(readResults, proposedActions),
       proposedActions,
       executeToolCalls: proposedActions
@@ -811,6 +822,7 @@ export class AgentWorkspaceTools {
           path,
           success: response.success,
           data: response.success ? summarizeData(response.data) : undefined,
+          pagination: response.success ? describePagination(response.data) : undefined,
           error: response.success ? undefined : response.error,
         };
       } catch (error) {
@@ -853,13 +865,95 @@ function workspaceToolName(tool: WorkspaceReadTool, generation: ApiGeneration): 
 function opportunitySearchPath(
   locationId: string,
   generation: ApiGeneration,
-  filters: { pipelineId?: string; status?: string } = {},
+  filters: { pipelineId?: string; status?: string; limit?: number; page?: number; startAfter?: string; startAfterId?: string } = {},
 ): string {
   const params = new URLSearchParams();
   params.set(generation === 'v3' ? 'locationId' : 'location_id', locationId);
   if (filters.pipelineId) params.set(generation === 'v3' ? 'pipelineId' : 'pipeline_id', filters.pipelineId);
   if (filters.status) params.set('status', filters.status);
+  // Without an explicit limit the opportunities endpoint answers with a single
+  // default-sized page, so callers could not tell a short page from a short result set.
+  params.set('limit', String(clampPageSize(filters.limit) ?? DEFAULT_OPPORTUNITY_PAGE_SIZE));
+  if (filters.page) params.set('page', String(filters.page));
+  if (filters.startAfter) params.set('startAfter', filters.startAfter);
+  if (filters.startAfterId) params.set('startAfterId', filters.startAfterId);
   return `/opportunities/search?${params.toString()}`;
+}
+
+function clampPageSize(value: unknown): number | undefined {
+  const parsed = numberArg(value);
+  if (parsed === undefined || parsed < 1) return undefined;
+  return Math.min(Math.floor(parsed), MAX_PAGE_SIZE);
+}
+
+function firstFinite(...values: unknown[]): number | undefined {
+  for (const value of values) {
+    const parsed = numberArg(value);
+    if (parsed !== undefined) return parsed;
+  }
+  return undefined;
+}
+
+type PaginationInfo = {
+  returned?: number;
+  total?: number;
+  hasMore: boolean;
+  nextPage?: number;
+  nextPageUrl?: string;
+};
+
+/**
+ * Describe how much of a paged collection a read actually received.
+ * Returns undefined for unpaged responses so callers can skip pagination noise.
+ */
+function describePagination(data: unknown): PaginationInfo | undefined {
+  if (!isRecord(data)) return undefined;
+  const meta = isRecord(data.meta) ? data.meta : undefined;
+  const nested = meta && isRecord(meta.meta) ? meta.meta : undefined;
+  const returned = Array.isArray(data.contacts) ? data.contacts.length
+    : Array.isArray(data.opportunities) ? data.opportunities.length
+    : Array.isArray(data.items) ? data.items.length
+    : undefined;
+  const total = firstFinite(nested?.total, meta?.total, data.total);
+  const nextPageUrl = stringArg(nested?.nextPageUrl) || stringArg(meta?.nextPageUrl) || stringArg(data.nextPageUrl);
+  const nextPage = firstFinite(nested?.nextPage, meta?.nextPage, data.nextPage);
+  if (total === undefined && !nextPageUrl) return undefined;
+  return {
+    returned,
+    total,
+    hasMore: Boolean(nextPageUrl) || (total !== undefined && returned !== undefined && returned < total),
+    nextPage,
+    nextPageUrl: nextPageUrl || undefined,
+  };
+}
+
+/**
+ * Turn failed and partial reads into explicit warnings so an agent cannot read a
+ * swallowed error or page one as a complete result set.
+ */
+function readWarnings(readResults: unknown[]): string[] {
+  const warnings: string[] = [];
+  for (const item of readResults) {
+    if (!isRecord(item)) continue;
+    const label = stringArg(item.label) || 'read';
+    if (item.success === false) {
+      warnings.push(`${label} failed: ${stringArg(item.error) || 'unknown error'}. This is an error, not an empty result.`);
+      continue;
+    }
+    const pagination = isRecord(item.pagination) ? item.pagination : undefined;
+    if (!pagination || pagination.hasMore !== true) continue;
+    const returned = numberArg(pagination.returned);
+    const total = numberArg(pagination.total);
+    const scope = returned !== undefined && total !== undefined
+      ? `${returned} of ${total} records`
+      : returned !== undefined ? `${returned} records` : 'an unknown subset';
+    const nextPage = numberArg(pagination.nextPage);
+    const hint = pagination.nextPageUrl
+      ? 'request the returned nextPageUrl for the next page'
+      : nextPage !== undefined ? `request page ${nextPage} for the next page` : 'request a higher page for the next page';
+    warnings.push(`${label} returned ${scope} and more pages exist; do not report this page as the complete set — ${hint}.`);
+  }
+  return warnings;
 }
 
 function compactActions(actions: WorkflowAction[]): WorkflowAction[] {
@@ -878,6 +972,7 @@ function resultSummary(readResults: unknown[], actions: WorkflowAction[]): JsonR
     readResults: readResults.length,
     successfulReads: resultRecords.filter((item) => item.success === true).length,
     failedReads: resultRecords.filter((item) => item.success === false).length,
+    truncatedReads: resultRecords.filter((item) => isRecord(item.pagination) && item.pagination.hasMore === true).length,
     readActions: actions.filter((item) => item.risk === 'read').length,
     writeActions: actions.filter((item) => item.requiresConfirmation).length,
     destructiveActions: actions.filter((item) => item.risk === 'destructive').length,
